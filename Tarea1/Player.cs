@@ -31,9 +31,8 @@ public class Player
         Deck.ShuffleCards();
     }
 
-    public void DrowCards()
+    public void DrowCards(int drow)
     {
-        int drow = Deck.SuperStar.HandSize;
         Console.WriteLine($"Player number {Number + 1} drows {drow} Cards");
         for (int i = 0; i < drow; i++)
         {
@@ -53,11 +52,26 @@ public class Player
 
     public void GetHandCards()
     {
+        int counter = 0;
         foreach (var c in _hand)
         {
-            Console.WriteLine(c.Title);
+            Console.WriteLine($"({counter}) {c.Title}. Types: {string.Join(", ", c.Types)}. Subtypes: {string.Join(", ", c.Subtypes)}. Fortitude: {c.Fortitude}. Damage: {c.Damage}. StunValue: {c.StunValue}. CardEffect: {c.CardEffect} ");
+            counter += 1;
         }
     }
+
+    public int GetHandLength()
+    {
+        return _hand.Count;
+    }
+
+    public List<Card> GetHand()
+    {
+        return _hand;
+    }
+
+
+    
     
     // Se asume que la carta de mas arriba es la PRIMERA. Asi al sacar la primera es la de mas arriba
     // Roban mano inicial

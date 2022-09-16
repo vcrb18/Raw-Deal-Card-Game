@@ -25,11 +25,13 @@ public class Controller
         Console.WriteLine("It's time to.... PLAY!!!");
         Console.WriteLine(("\nPlayers put their deck downside in the desk"));
         
-        playerOne.DrowCards();
-        playerTwo.DrowCards();
+        playerOne.DrowCards(playerOne.Deck.SuperStar.HandSize);
+        playerTwo.DrowCards(playerTwo.Deck.SuperStar.HandSize);
 
         Player starter = WhoStarts(playerOne, playerTwo);
         Console.WriteLine($"Player {starter.Number + 1} starts");
+
+        Turn(starter);
     }
 
     private static Card[] ReadCardInfos()
@@ -242,6 +244,37 @@ public class Controller
                 return PlayerTwo;
             }
         }
+    }
+
+    private static void Turn(Player player)
+    {
+        // Puede uysar superstar. IGNORAR
+        // Draw Segment. LISTO
+        // Main Segment
+            // Usar SuperStar ability. IGNORAR
+            // Jugar maneuver
+            // Jugar Action. IGNORAR
+        // TUrn ends
+            // Decide terminar
+            // Oponente revierte alguna carta jugada en el Main. IGNORAR
+        
+        player.DrowCards(1);
+        Console.WriteLine("The cards in your hand are the following:");
+        player.GetHandCards();
+        Console.WriteLine("Select the card you want to play");
+        int cardNumber = AskForNumber(0, player.GetHandLength());
+        List<Card> handList = player.GetHand();
+        List<string> cardTypes = handList[cardNumber].Types;
+        
+        // Checkear si dentro de los cardTypes seleccionados es un maneuver
+        // Si no es un maneuver, volver a preguntar numero. Hacer un ciclo. PREGUNTAR POR TERMINAR TURNO
+        // Si es un maneuver.
+        //      checkear su fortitude value y compararlo con el jugador,
+        //      para ver si puede jugarla.
+        //      Si no puede jugarlo. Volver a pregiuntar numero
+        //      Si puede jugarlo, hacer el daño al oponente y bajarlo al Ring Area
+        //      Volver al ciclo, mencionar que puede jugar otra carta o terminar el turno
+    
     }
     
     
