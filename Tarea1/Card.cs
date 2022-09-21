@@ -20,5 +20,6 @@ public class Card
         Damage = damage;
         StunValue = stunValue;
         CardEffect = cardEffect;
+        
     }
 }

@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vicru\\RiderProjects\\Tarea1JSON\\Tarea1\\Tarea1.csproj",
+      "projectUniqueName": "C:\\Users\\vicru\\RiderProjects\\Tarea1JSON\\Raw-Deal-Card-Game\\Tarea1\\Tarea1.csproj",
       "projectName": "Tarea1",
-      "projectPath": "C:\\Users\\vicru\\RiderProjects\\Tarea1JSON\\Tarea1\\Tarea1.csproj",
+      "projectPath": "C:\\Users\\vicru\\RiderProjects\\Tarea1JSON\\Raw-Deal-Card-Game\\Tarea1\\Tarea1.csproj",
       "packagesPath": "C:\\Users\\vicru\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vicru\\RiderProjects\\Tarea1JSON\\Tarea1\\obj\\",
+      "outputPath": "C:\\Users\\vicru\\RiderProjects\\Tarea1JSON\\Raw-Deal-Card-Game\\Tarea1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\vicru\\AppData\\Roaming\\NuGet\\NuGet.Config"

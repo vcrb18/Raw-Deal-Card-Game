@@ -28,10 +28,12 @@ public class Controller
         playerOne.DrowCards(playerOne.Deck.SuperStar.HandSize);
         playerTwo.DrowCards(playerTwo.Deck.SuperStar.HandSize);
 
-        Player starter = WhoStarts(playerOne, playerTwo);
+        List<Player> starterPlayers = WhoStarts(playerOne, playerTwo);
+        Player starter = starterPlayers[0];
+        Player notStarter = starterPlayers[1];
         Console.WriteLine($"Player {starter.Number + 1} starts");
 
-        Turn(starter);
+        Turn(starter, notStarter);
     }
 
     private static Card[] ReadCardInfos()
@@ -68,7 +70,7 @@ public class Controller
                 {
                     List<object> cardAttributes = SearchCardName(cardName);
                     Card cardsJson = new Card((string)cardAttributes[0], (List<string>)cardAttributes[1], (List<string>)cardAttributes[2],
-                        (string)cardAttributes[3], (string)cardAttributes[4], (string)cardAttributes[5], (string)cardAttributes[6]);
+                        ((string)cardAttributes[3]), (string)cardAttributes[4], (string)cardAttributes[5], (string)cardAttributes[6]);
                     arr[counter - 1] = cardsJson;
                     counter += 1;
                 }
@@ -189,25 +191,42 @@ public class Controller
         return number;
     }
 
-    private static Player WhoStarts(Player firstPlayer, Player secondPlayer)
+    private static List<Player> WhoStarts(Player firstPlayer, Player secondPlayer)
     {
+        List<Player> startersArray = new List<Player>();
         int starValuePlayerOne = firstPlayer.Deck.SuperStar.StarValue;
         int starValuePlayerTwo = secondPlayer.Deck.SuperStar.StarValue;
         Console.WriteLine($"The Star Value for the first player is {starValuePlayerOne}.");
         Console.WriteLine($"The Star Value for the second player is {starValuePlayerTwo}.");
         if (starValuePlayerOne > starValuePlayerTwo)
         {
-            return firstPlayer;
+            startersArray.Add(firstPlayer);
+            startersArray.Add(secondPlayer);
+            return startersArray;
         }
         else if (starValuePlayerOne < starValuePlayerTwo)
         {
-            return secondPlayer;
+            startersArray.Add(secondPlayer);
+            startersArray.Add(firstPlayer);
+            return startersArray;
         }
         else
         {
             Console.WriteLine("Star Value for both players is the same. A coin will be thrown.");
             Player starter = Coin(firstPlayer, secondPlayer);
-            return starter;
+            if (starter.Number == 0)
+            {
+                startersArray.Add(starter);
+                startersArray.Add(secondPlayer);
+                return startersArray;
+            }
+            else
+            {
+                startersArray.Add(starter);
+                startersArray.Add(firstPlayer);
+                return startersArray;
+            }
+            
         }
     }
 
@@ -246,9 +265,9 @@ public class Controller
         }
     }
 
-    private static void Turn(Player player)
+    private static void Turn(Player player, Player opponent)
     {
-        // Puede uysar superstar. IGNORAR
+        // Puede usar superstar. IGNORAR
         // Draw Segment. LISTO
         // Main Segment
             // Usar SuperStar ability. IGNORAR
@@ -259,22 +278,50 @@ public class Controller
             // Oponente revierte alguna carta jugada en el Main. IGNORAR
         
         player.DrowCards(1);
-        Console.WriteLine("The cards in your hand are the following:");
-        player.GetHandCards();
-        Console.WriteLine("Select the card you want to play");
-        int cardNumber = AskForNumber(0, player.GetHandLength());
-        List<Card> handList = player.GetHand();
-        List<string> cardTypes = handList[cardNumber].Types;
-        
-        // Checkear si dentro de los cardTypes seleccionados es un maneuver
-        // Si no es un maneuver, volver a preguntar numero. Hacer un ciclo. PREGUNTAR POR TERMINAR TURNO
-        // Si es un maneuver.
-        //      checkear su fortitude value y compararlo con el jugador,
-        //      para ver si puede jugarla.
-        //      Si no puede jugarlo. Volver a pregiuntar numero
-        //      Si puede jugarlo, hacer el daño al oponente y bajarlo al Ring Area
-        //      Volver al ciclo, mencionar que puede jugar otra carta o terminar el turno
-    
+        bool play = true;
+        // Aca tengo q volver en el ciclo
+        do
+        {
+            Console.WriteLine("The cards in your hand are the following:");
+            player.GetHandCards();
+            Console.WriteLine("Select the card you want to play");
+            int cardNumber = AskForNumber(0, player.GetHandLength());  // CAMBIO DOS
+            List<Card> handList = player.GetHand();
+            Card selectedCard = handList[cardNumber];  // CAMBIO UNO
+            List<string> cardTypes = selectedCard.Types;
+            // Checkear si dentro de los cardTypes seleccionados es un maneuver
+            bool maneuverPresent = cardTypes.Contains("Maneuver");
+            // Si no es un maneuver, volver a preguntar numero. Hacer un ciclo. PREGUNTAR POR TERMINAR TURNO
+            // Si es un maneuver.
+            //      checkear su fortitude value y compararlo con el jugador,
+            //      para ver si puede jugarla.
+            if (maneuverPresent == true)
+            {
+                //      Si no puede jugarlo. Volver a pregiuntar numero
+                //      Si puede jugarlo, hacer el daño al oponente y bajarlo al Ring Area
+                //          IMPORTANTE: actualizar fortitude del jugador al jugar una carta
+                int cardFortitude = Convert.ToInt32(selectedCard.Fortitude);
+                int playerFortitude = player.Fortitude;
+                if (cardFortitude <= playerFortitude)
+                {
+                    opponent.ReceiveDamage(selectedCard);
+                    player.PlayManeuver(selectedCard);
+                    
+                }
+                else
+                {
+                    Console.WriteLine("You dont have enough Fortitude level to play that card. Please select one that you can play.");
+                    play = false;
+                }
+            }
+            else
+            {
+                Console.WriteLine("The selected card is not a maneuver. Please select one that is.");
+                play = false;
+            }
+            //      Volver al ciclo, mencionar que puede jugar otra carta o terminar el turno
+        } while (play == false);
+
     }
     
     

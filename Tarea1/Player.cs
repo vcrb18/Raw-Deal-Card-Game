@@ -70,6 +70,49 @@ public class Player
         return _hand;
     }
 
+    public void PlayManeuver(Card maneuver)
+    {
+        // Bajar la carta su Ring Area
+        // Esto implica:
+        //      actualizar su Fortitude
+        //      Actualizar las cartas del Ring area
+        //      Sacar la carta de su mano
+        UpdateFortitude(Convert.ToInt32(maneuver.Damage));
+        RingArea.AddCard(maneuver);
+        DiscardCard(maneuver);
+    }
+
+    public void UpdateFortitude(int fortitudeNumber)
+    {
+        Fortitude += fortitudeNumber;
+        Console.WriteLine($"$Your new fortitude is of {Fortitude}");
+    }
+
+    public void ReceiveDamage(Card card)
+    {
+        Console.WriteLine($"Player number {Number + 1} receives {card.Damage} damage");
+        // Descartar el dano respectivo de cartas del Arsenal
+        for (int i = 0; i < Convert.ToInt32(card.Damage); i++)
+        {
+            Card droppedCard = Arsenal.DropUpperCard();
+            // Actualizar su Ringside con cada carta que se va botando
+            Ringside.AddCard(droppedCard);
+        }
+        
+    }
+
+    public void DiscardCard(Card card)
+    {
+        foreach (var c in _hand)
+        {
+            if (card.Title == c.Title)
+            {
+                _hand.Remove(c);
+                break;
+            }
+        }
+    }
+
 
     
     
