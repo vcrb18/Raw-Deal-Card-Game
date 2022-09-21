@@ -53,6 +53,8 @@ public class Player
     public void GetHandCards()
     {
         int counter = 0;
+        Console.WriteLine($"({counter}): to end your turn.");
+        counter += 1;
         foreach (var c in _hand)
         {
             Console.WriteLine($"({counter}) {c.Title}. Types: {string.Join(", ", c.Types)}. Subtypes: {string.Join(", ", c.Subtypes)}. Fortitude: {c.Fortitude}. Damage: {c.Damage}. StunValue: {c.StunValue}. CardEffect: {c.CardEffect} ");

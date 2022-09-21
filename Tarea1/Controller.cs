@@ -283,44 +283,52 @@ public class Controller
         do
         {
             Console.WriteLine("The cards in your hand are the following:");
-            player.GetHandCards();
+            player.GetHandCards();  // CAMBIO TRES
             Console.WriteLine("Select the card you want to play");
-            int cardNumber = AskForNumber(0, player.GetHandLength());  // CAMBIO DOS
-            List<Card> handList = player.GetHand();
-            Card selectedCard = handList[cardNumber];  // CAMBIO UNO
-            List<string> cardTypes = selectedCard.Types;
-            // Checkear si dentro de los cardTypes seleccionados es un maneuver
-            bool maneuverPresent = cardTypes.Contains("Maneuver");
-            // Si no es un maneuver, volver a preguntar numero. Hacer un ciclo. PREGUNTAR POR TERMINAR TURNO
-            // Si es un maneuver.
-            //      checkear su fortitude value y compararlo con el jugador,
-            //      para ver si puede jugarla.
-            if (maneuverPresent == true)
+            int cardNumber = AskForNumber(0, player.GetHandLength() + 1);  // CAMBIO DOS
+            if (cardNumber == 0)
             {
-                //      Si no puede jugarlo. Volver a pregiuntar numero
-                //      Si puede jugarlo, hacer el daño al oponente y bajarlo al Ring Area
-                //          IMPORTANTE: actualizar fortitude del jugador al jugar una carta
-                int cardFortitude = Convert.ToInt32(selectedCard.Fortitude);
-                int playerFortitude = player.Fortitude;
-                if (cardFortitude <= playerFortitude)
-                {
-                    opponent.ReceiveDamage(selectedCard);
-                    player.PlayManeuver(selectedCard);
-                    
-                }
-                else
-                {
-                    Console.WriteLine("You dont have enough Fortitude level to play that card. Please select one that you can play.");
-                    play = false;
-                }
+                Console.WriteLine($"Turn for player number {player.Number + 1} ends");
             }
             else
             {
-                Console.WriteLine("The selected card is not a maneuver. Please select one that is.");
-                play = false;
+                List<Card> handList = player.GetHand();
+                Card selectedCard = handList[cardNumber - 1];  // CAMBIO UNO
+                List<string> cardTypes = selectedCard.Types;
+                // Checkear si dentro de los cardTypes seleccionados es un maneuver
+                bool maneuverPresent = cardTypes.Contains("Maneuver");
+                // Si no es un maneuver, volver a preguntar numero. Hacer un ciclo. PREGUNTAR POR TERMINAR TURNO
+                // Si es un maneuver.
+                //      checkear su fortitude value y compararlo con el jugador,
+                //      para ver si puede jugarla.
+                if (maneuverPresent == true)
+                {
+                    //      Si no puede jugarlo. Volver a pregiuntar numero
+                    //      Si puede jugarlo, hacer el daño al oponente y bajarlo al Ring Area
+                    //          IMPORTANTE: actualizar fortitude del jugador al jugar una carta
+                    int cardFortitude = Convert.ToInt32(selectedCard.Fortitude);
+                    int playerFortitude = player.Fortitude;
+                    if (cardFortitude <= playerFortitude)
+                    {
+                        opponent.ReceiveDamage(selectedCard);
+                        player.PlayManeuver(selectedCard);
+                        
+                    }
+                    else
+                    {
+                        Console.WriteLine("You dont have enough Fortitude level to play that card. Please select one that you can play.");
+                        play = false;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("The selected card is not a maneuver. Please select one that is.");
+                    play = false;
+                }
+                //      Volver al ciclo, mencionar que puede jugar otra carta o terminar el turno
+                
             }
-            //      Volver al ciclo, mencionar que puede jugar otra carta o terminar el turno
-        } while (play == false);
+       } while (play == false);
 
     }
     
