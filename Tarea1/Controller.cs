@@ -32,8 +32,21 @@ public class Controller
         Player starter = starterPlayers[0];
         Player notStarter = starterPlayers[1];
         Console.WriteLine($"Player {starter.Number + 1} starts");
-
-        Turn(starter, notStarter);
+        bool end = false;
+        bool caseOne = true;
+        do
+        {
+            if (caseOne == true)
+            {
+                Turn(starter, notStarter);
+                caseOne = false;
+            }
+            else
+            {
+                Turn(notStarter, starter);
+                caseOne = true;
+            }
+        } while (end == false);
     }
 
     private static Card[] ReadCardInfos()
@@ -282,6 +295,7 @@ public class Controller
         // Aca tengo q volver en el ciclo
         do
         {
+            // VUELVE A ENTRAR AQUI NO SE PQ
             Console.WriteLine("The cards in your hand are the following:");
             player.GetHandCards();  // CAMBIO TRES
             Console.WriteLine("Select the card you want to play");
