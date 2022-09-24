@@ -38,13 +38,35 @@ public class Controller
         {
             if (caseOne == true)
             {
-                Turn(starter, notStarter);
+                bool gameOn = Turn(starter, notStarter);
+                if (gameOn == false)
+                {
+                    Console.WriteLine("A player died. GAME OVER");
+                    break;
+                }
                 caseOne = false;
+                bool sarterCardsLeft = starter.Arsenal.HaveCards();
+                bool notStarterCardsLeft = notStarter.Arsenal.HaveCards();
+                if (sarterCardsLeft == false || notStarterCardsLeft == false)
+                {
+                    end = true;
+                }
             }
             else
             {
-                Turn(notStarter, starter);
+                bool gameOn = Turn(notStarter, starter);
+                if (gameOn == false)
+                {
+                    Console.WriteLine("A player died. GAME OVER");
+                    break;
+                }
                 caseOne = true;
+                bool sarterCardsLeft = starter.Arsenal.HaveCards();
+                bool notStarterCardsLeft = notStarter.Arsenal.HaveCards();
+                if (sarterCardsLeft == false || notStarterCardsLeft == false)
+                {
+                    end = true;
+                }
             }
         } while (end == false);
     }
@@ -278,7 +300,7 @@ public class Controller
         }
     }
 
-    private static void Turn(Player player, Player opponent)
+    private static bool Turn(Player player, Player opponent)
     {
         // Puede usar superstar. IGNORAR
         // Draw Segment. LISTO
@@ -289,7 +311,7 @@ public class Controller
         // TUrn ends
             // Decide terminar
             // Oponente revierte alguna carta jugada en el Main. IGNORAR
-        
+        bool gameOn = true;
         player.DrowCards(1);
         bool play = true;
         // Aca tengo q volver en el ciclo
@@ -303,6 +325,8 @@ public class Controller
             if (cardNumber == 0)
             {
                 Console.WriteLine($"Turn for player number {player.Number + 1} ends");
+                Console.WriteLine($"El booleano play es: {play}");
+                play = true;
             }
             else
             {
@@ -324,9 +348,14 @@ public class Controller
                     int playerFortitude = player.Fortitude;
                     if (cardFortitude <= playerFortitude)
                     {
-                        opponent.ReceiveDamage(selectedCard);
+                        bool endGame = opponent.ReceiveDamage(selectedCard);
+                        if (endGame == true)
+                        {
+                            gameOn = false;
+                            break;
+                        }
                         player.PlayManeuver(selectedCard);
-                        
+                        play = false;
                     }
                     else
                     {
@@ -344,6 +373,12 @@ public class Controller
             }
        } while (play == false);
 
+        return gameOn;
+    }
+
+    private static void StartGame()
+    {
+        
     }
     
     

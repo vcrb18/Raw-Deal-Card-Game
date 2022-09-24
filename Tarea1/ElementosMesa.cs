@@ -38,6 +38,18 @@ public class Arsenal : DeckElement
         Cards.RemoveAt((0));
         return droppedCard;
     }
+
+    public bool HaveCards()
+    {
+        if (Cards.Count == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }
 
 // Cartas boca arriba

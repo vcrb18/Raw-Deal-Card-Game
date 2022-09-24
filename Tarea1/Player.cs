@@ -90,17 +90,29 @@ public class Player
         Console.WriteLine($"$Your new fortitude is of {Fortitude}");
     }
 
-    public void ReceiveDamage(Card card)
+    public bool ReceiveDamage(Card card)
     {
+        bool endGame = false;
         Console.WriteLine($"Player number {Number + 1} receives {card.Damage} damage");
         // Descartar el dano respectivo de cartas del Arsenal
         for (int i = 0; i < Convert.ToInt32(card.Damage); i++)
         {
             Card droppedCard = Arsenal.DropUpperCard();
+            Console.WriteLine($"Arsenal cards: ${Arsenal.Cards.Count}");
+            // Chequear si quedan cartas. Si no quedan, se acaba el juego.
+            bool arsenalCards = Arsenal.HaveCards();
+            if (arsenalCards == false)
+            {
+                endGame = true;
+                Ringside.AddCard(droppedCard);  // Agregi la carta al Ringside pq voy a salir del for.
+                break;
+            }
+            
             // Actualizar su Ringside con cada carta que se va botando
             Ringside.AddCard(droppedCard);
         }
-        
+
+        return endGame;
     }
 
     public void DiscardCard(Card card)
