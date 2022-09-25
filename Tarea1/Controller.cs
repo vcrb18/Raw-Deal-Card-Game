@@ -32,43 +32,7 @@ public class Controller
         Player starter = starterPlayers[0];
         Player notStarter = starterPlayers[1];
         Console.WriteLine($"Player {starter.Number + 1} starts");
-        bool end = false;
-        bool caseOne = true;
-        do
-        {
-            if (caseOne == true)
-            {
-                bool gameOn = Turn(starter, notStarter);
-                if (gameOn == false)
-                {
-                    Console.WriteLine("A player died. GAME OVER");
-                    break;
-                }
-                caseOne = false;
-                bool sarterCardsLeft = starter.Arsenal.HaveCards();
-                bool notStarterCardsLeft = notStarter.Arsenal.HaveCards();
-                if (sarterCardsLeft == false || notStarterCardsLeft == false)
-                {
-                    end = true;
-                }
-            }
-            else
-            {
-                bool gameOn = Turn(notStarter, starter);
-                if (gameOn == false)
-                {
-                    Console.WriteLine("A player died. GAME OVER");
-                    break;
-                }
-                caseOne = true;
-                bool sarterCardsLeft = starter.Arsenal.HaveCards();
-                bool notStarterCardsLeft = notStarter.Arsenal.HaveCards();
-                if (sarterCardsLeft == false || notStarterCardsLeft == false)
-                {
-                    end = true;
-                }
-            }
-        } while (end == false);
+        StartGame(starter, notStarter);
     }
 
     private static Card[] ReadCardInfos()
@@ -376,10 +340,44 @@ public class Controller
         return gameOn;
     }
 
-    private static void StartGame()
+    private static void StartGame(Player starter, Player notStarter)
     {
-        
+        bool end = false;
+        bool caseOne = true;
+        do
+        {
+            if (caseOne == true)
+            {
+                bool gameOn = Turn(starter, notStarter);
+                if (gameOn == false)
+                {
+                    Console.WriteLine("A player died. GAME OVER");
+                    break;
+                }
+                caseOne = false;
+                bool sarterCardsLeft = starter.Arsenal.HaveCards();
+                bool notStarterCardsLeft = notStarter.Arsenal.HaveCards();
+                if (sarterCardsLeft == false || notStarterCardsLeft == false)
+                {
+                    end = true;
+                }
+            }
+            else
+            {
+                bool gameOn = Turn(notStarter, starter);
+                if (gameOn == false)
+                {
+                    Console.WriteLine("A player died. GAME OVER");
+                    break;
+                }
+                caseOne = true;
+                bool sarterCardsLeft = starter.Arsenal.HaveCards();
+                bool notStarterCardsLeft = notStarter.Arsenal.HaveCards();
+                if (sarterCardsLeft == false || notStarterCardsLeft == false)
+                {
+                    end = true;
+                }
+            }
+        } while (end == false);
     }
-    
-    
 }
