@@ -266,16 +266,18 @@ public class Controller
 
     private static bool Turn(Player player, Player opponent)
     {
-        // Puede usar superstar. IGNORAR
+        // Puede usar superstar. EN PROCESO.
         // Draw Segment. LISTO
         // Main Segment
-            // Usar SuperStar ability. IGNORAR
-            // Jugar maneuver
+            // Usar SuperStar ability. EN PROCESO.
+            // Jugar maneuver. LISTO
             // Jugar Action. IGNORAR
         // TUrn ends
-            // Decide terminar
+            // Decide terminar. LISTO
             // Oponente revierte alguna carta jugada en el Main. IGNORAR
         bool gameOn = true;
+        // Si superstarSkill es de tipo before, tirar habilidad.
+        
         player.DrowCards(1);
         bool play = true;
         // Aca tengo q volver en el ciclo
