@@ -25,7 +25,7 @@ public class MoveSkill : Skill
 // Habilidades de draw o discard
 public abstract class MoveSuperstarSkill : MoveSkill
 {
-    abstract public void Move();
+    abstract public void UseAbility(Player p);
     public String When;
 
     public MoveSuperstarSkill(DeckElement moveTo, DeckElement moveFrom, Int32 howManyCards, String when)
@@ -44,7 +44,7 @@ public class MoveSuperstarSkllOnce : MoveSuperstarSkill
         
     }
 
-    public override void Move()
+    public override void UseAbility(Player p)
     {
         throw new NotImplementedException();
     }
@@ -64,8 +64,27 @@ public class MoveSuperstarSkillTwice : MoveSuperstarSkill
         MoveToSecondTime = moveToSecondTime;
     }
 
-    public override void Move()
+    public override void UseAbility(Player p)
     {
-        throw new NotImplementedException();
+        // Programemos el draw a card
+        //---------------------------//
+        
+        // Selecciono la carta a mover
+        Card cardToMove = MoveFrom.Cards[0];
+        // Se la tengo que sacar al MoveFrom
+        MoveFrom.Cards.RemoveAt(0);
+        // Se la tengo que agregar al Move to
+        MoveTo.Cards.Add(cardToMove);
+        // Listo, ya robe la carta
+        
+        // DILEMAS: Los ignoraremos x ahora, veamos si funciona priemero.
+            // (1): Es al BOTTOM del arsenla'
+            // (2): Tengo que preguntarle al usaurio que carta desea botar.
+        // Segunda accion
+        Card cardToMoveNumberTwo = MoveFrom.Cards[0];  // Supuesto 2 IGNORADO. CREAR FUNCION VISTA.
+        // Se la saco al MoveFrom
+        MoveFromSecondTime.Cards.Remove(cardToMoveNumberTwo);
+        // Se la agrego al MoveTo
+        MoveToSecondTime.Cards.Add(cardToMoveNumberTwo);  // Se la agrego al final
     }
 }

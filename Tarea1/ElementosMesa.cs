@@ -68,3 +68,20 @@ public class Ringside : DeckElement
         Cards.Add(card);
     }
 }
+
+public class Hand : DeckElement
+{
+    public Hand(List<Card> cards)
+        : base(cards)
+    {
+        
+    }
+
+    public void AddCardToHand(Card card)
+    {
+        Console.WriteLine("Soy Hand y me estan llamando!!!!!!");
+        Cards.Add(card);
+    }
+
+
+}

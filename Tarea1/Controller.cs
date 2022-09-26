@@ -25,9 +25,24 @@ public class Controller
         Console.WriteLine("It's time to.... PLAY!!!");
         Console.WriteLine(("\nPlayers put their deck downside in the desk"));
         
-        playerOne.DrowCards(playerOne.Deck.SuperStar.HandSize);
-        playerTwo.DrowCards(playerTwo.Deck.SuperStar.HandSize);
-
+        // ------------------------------------------
+        Console.WriteLine($"La mano del jugador 1 antes de robar tiene: {playerOne.GetHandLength()}");
+        Console.WriteLine($"La mano del jugador 2 antes de robar tiene: {playerTwo.GetHandLength()}");
+        // ------------------------------------------
+        
+        playerOne.DrawCards(playerOne.Deck.SuperStar.HandSize);
+        // ------------------------------------------
+        Console.WriteLine("Jugador 1 ya robo las cartas iniciales, el jugador 2 no.");
+        Console.WriteLine($"Cartas jugador 1: {playerOne.GetHandLength()}");
+        Console.WriteLine($"Cartas jugador 2: {playerTwo.GetHandLength()}");
+        // ------------------------------------------
+        playerTwo.DrawCards(playerTwo.Deck.SuperStar.HandSize);
+        
+        // ------------------------------------------
+        Console.WriteLine($"La mano del jugador 1 despues de robar tiene: {playerOne.GetHandLength()}");
+        Console.WriteLine($"La mano del jugador 2 despues de robar tiene: {playerTwo.GetHandLength()}");
+        // ------------------------------------------
+        
         List<Player> starterPlayers = WhoStarts(playerOne, playerTwo);
         Player starter = starterPlayers[0];
         Player notStarter = starterPlayers[1];
@@ -141,8 +156,10 @@ public class Controller
         Console.WriteLine($"    (1) {DeckTwo.SuperStar.Type} Deck");
 
         List<Card> emptyList = new List<Card>();
-        Player PlayerOne = new Player(0, null, null, new Ringside(emptyList), new RingArea(emptyList));
-        Player PlayerTwo = new Player(1, null, null,new Ringside(emptyList), new RingArea(emptyList));
+        Hand hand1 = new Hand(emptyList);
+        Hand hand2 = new Hand(emptyList);
+        Player PlayerOne = new Player(0, null, null, new Ringside(emptyList), new RingArea(emptyList), hand1);
+        Player PlayerTwo = new Player(1, null, null,new Ringside(emptyList), new RingArea(emptyList), hand2);
         int answer = AskForNumber(0, 1);
         if (answer == 0)
         {
@@ -278,7 +295,7 @@ public class Controller
         bool gameOn = true;
         // Si superstarSkill es de tipo before, tirar habilidad.
         
-        player.DrowCards(1);
+        player.DrawCards(1);
         bool play = true;
         // Aca tengo q volver en el ciclo
         do

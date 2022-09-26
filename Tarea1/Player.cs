@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace Tarea1;
 
 public class Player
@@ -8,15 +10,15 @@ public class Player
     public Arsenal Arsenal;
     public RingArea RingArea;
     public int Fortitude = 0;
-    private List<Card> _hand;
-    public Player(int number, Deck deck, Arsenal arsenal, Ringside ringside, RingArea ringArea)
+    public Hand MyHand;
+    public Player(int number, Deck deck, Arsenal arsenal, Ringside ringside, RingArea ringArea, Hand myHand)
     {
         Number = number;
         Deck = deck;
         Arsenal = arsenal;
         Ringside = ringside;
         RingArea = ringArea;
-        _hand = new List<Card>();
+        MyHand = myHand;
     }
 
     public void Describe()
@@ -31,16 +33,20 @@ public class Player
         Deck.ShuffleCards();
     }
 
-    public void DrowCards(int drow)
+    public void DrawCards(int draw)
     {
-        Console.WriteLine($"Player number {Number + 1} drows {drow} Cards");
-        for (int i = 0; i < drow; i++)
+        Console.WriteLine($"Player number {Number + 1} draws {draw} Cards");
+        int counter = 0;
+        for (int i = 0; i < draw; i++)
         {
+            counter++;
+            Console.WriteLine($"Es la vez numero {counter} que entro al for");
             List<Card> arsenalCards = Arsenal.Cards;
             
             // Meter la carta del Arsenal a mi mano
             Card newCard = arsenalCards[i];
-            _hand.Add(newCard);
+            MyHand.AddCardToHand(newCard);
+            Console.WriteLine($"Cartas en la mano ahora del jugador {Number} = {GetHandLength()}");
             
             // Eliminar la carta del Arsenal
             Arsenal.Cards.RemoveAt(i);
@@ -55,7 +61,7 @@ public class Player
         int counter = 0;
         Console.WriteLine($"({counter}): to end your turn.");
         counter += 1;
-        foreach (var c in _hand)
+        foreach (var c in MyHand.Cards)
         {
             Console.WriteLine($"({counter}) {c.Title}. Types: {string.Join(", ", c.Types)}. Subtypes: {string.Join(", ", c.Subtypes)}. Fortitude: {c.Fortitude}. Damage: {c.Damage}. StunValue: {c.StunValue}. CardEffect: {c.CardEffect} ");
             counter += 1;
@@ -64,12 +70,12 @@ public class Player
 
     public int GetHandLength()
     {
-        return _hand.Count;
+        return MyHand.Cards.Count;
     }
 
     public List<Card> GetHand()
     {
-        return _hand;
+        return MyHand.Cards;
     }
 
     public void PlayManeuver(Card maneuver)
@@ -117,12 +123,29 @@ public class Player
 
     public void DiscardCard(Card card)
     {
-        foreach (var c in _hand)
+        foreach (var c in MyHand.Cards)
         {
             if (card.Title == c.Title)
             {
-                _hand.Remove(c);
+                MyHand.Cards.Remove(c);
                 break;
+            }
+        }
+    }
+
+    
+    // Lo que queirto ahcer es retornar el objecto respectivo del jugador
+    // asi puedo trabajar y mover las cartas de un lado a otro
+    public DeckElement GetDeckElement(DeckElement element)
+    {
+        // Va a recibir un Deck Element
+        // Va a retornar el respectivo DeckElement del player
+        foreach (PropertyInfo prop in this.GetType().GetProperties())
+        {
+            var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+            if (type == typeof(element))
+            {
+                return 
             }
         }
     }
