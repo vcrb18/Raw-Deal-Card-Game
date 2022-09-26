@@ -142,11 +142,15 @@ public class Player
         // Va a retornar el respectivo DeckElement del player
         foreach (PropertyInfo prop in this.GetType().GetProperties())
         {
-            var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
-            if (type == typeof(element))
+            if (prop == element.GetType().GetProperties())
             {
-                return 
+                return prop;
             }
+            // var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+            // if (type == typeof(element))
+            // {
+            //     return 
+            // }
         }
     }
 

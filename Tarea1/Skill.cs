@@ -68,6 +68,10 @@ public class MoveSuperstarSkillTwice : MoveSuperstarSkill
     {
         // Programemos el draw a card
         //---------------------------//
+        p.GetDeckElement(MoveTo);
+        p.GetDeckElement(MoveFrom);
+        p.GetDeckElement(MoveToSecondTime);
+        p.GetDeckElement(MoveFromSecondTime);
         
         // Selecciono la carta a mover
         Card cardToMove = MoveFrom.Cards[0];
@@ -81,7 +85,8 @@ public class MoveSuperstarSkillTwice : MoveSuperstarSkill
             // (1): Es al BOTTOM del arsenla'
             // (2): Tengo que preguntarle al usaurio que carta desea botar.
         // Segunda accion
-        Card cardToMoveNumberTwo = MoveFrom.Cards[0];  // Supuesto 2 IGNORADO. CREAR FUNCION VISTA.
+        Card cardToMoveNumberTwo = Vista.elegirCarta(p.GetHand());
+        // Card cardToMoveNumberTwo = MoveFrom.Cards[0];  // Supuesto 2 IGNORADO. CREAR FUNCION VISTA.
         // Se la saco al MoveFrom
         MoveFromSecondTime.Cards.Remove(cardToMoveNumberTwo);
         // Se la agrego al MoveTo

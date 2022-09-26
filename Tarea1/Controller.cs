@@ -5,6 +5,7 @@ public class Controller
 {
     public static void Run()
     {
+        
         Console.WriteLine("Welcome!");
         
         List<object> StoneColdCards = ChargeDecks("STONE_COLD");
@@ -137,6 +138,7 @@ public class Controller
                 r.Add(super.Type);
                 r.Add(super.HandSize);
                 r.Add(super.StarValue);
+                // Aca instanciar SuperStarAbility
                 r.Add(super.SuperStarAbility);
             }
         }

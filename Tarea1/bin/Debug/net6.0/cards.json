@@ -601,8 +601,8 @@
         ],
         "Fortitude": "13",
         "Damage": "10",
-        "StunValue": "0",
-        "CardEffect": "When successfully played, opponent must discard 1 card. SV: 1"
+        "StunValue": "1",
+        "CardEffect": "When successfully played, opponent must discard 1 card."
     },
     {
         "Title": "Powerbomb",
@@ -1459,7 +1459,7 @@
         "Fortitude": "30",
         "Damage": "25",
         "StunValue": "3",
-        "CardEffect": "As an action, you may discard this card to draw 1 card. Doing this will not cause any damage to opponent."
+        "CardEffect": "As an action, this card is -30F and -25D, discard this card and draw 1 card."
     },
     {
         "Title": "Power of Darkness",
