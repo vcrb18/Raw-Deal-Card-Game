@@ -8,6 +8,11 @@ public class DeckElement
     {
         Cards = cards;
     }
+
+    public void AddCardAtTheEnd(Card card)
+    {
+        Cards.Add(card);
+    }
 }
 
 public class RingArea : DeckElement
@@ -79,7 +84,6 @@ public class Hand : DeckElement
 
     public void AddCardToHand(Card card)
     {
-        Console.WriteLine("Soy Hand y me estan llamando!!!!!!");
         Cards.Add(card);
     }
 

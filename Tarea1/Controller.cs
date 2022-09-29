@@ -1,17 +1,18 @@
 namespace Tarea1;
 using System.Text.Json;
+using System.Reflection;
 using System.Text.Json.Serialization;
 public class Controller
 {
     public static void Run()
     {
-        
         Console.WriteLine("Welcome!");
         
         List<object> StoneColdCards = ChargeDecks("STONE_COLD");
         Card[] DeckCardsSC = (Card[])StoneColdCards[1];
         SuperStar superStarSC = (SuperStar)StoneColdCards[0];
         Deck StoneColdDeck = new Deck(DeckCardsSC, superStarSC);
+        Console.WriteLine($"Tipo mazo: {StoneColdDeck.GetType()}");
         
         List<object> TheRockCards = ChargeDecks("THE_ROCK");
         Card[] DeckCardsTR = (Card[])TheRockCards[1];
@@ -85,7 +86,7 @@ public class Controller
                 {
                     List<object> cardAttributes = SearchCardName(cardName);
                     Card cardsJson = new Card((string)cardAttributes[0], (List<string>)cardAttributes[1], (List<string>)cardAttributes[2],
-                        ((string)cardAttributes[3]), (string)cardAttributes[4], (string)cardAttributes[5], (string)cardAttributes[6]);
+                        ((string)cardAttributes[3]), (string)cardAttributes[4], (string)cardAttributes[5], (string)cardAttributes[6], (CardInfo)cardAttributes[7], (Skill)cardAttributes[8]);  //Aca debo ponerle (Skills)cardAttributes[6]
                     arr[counter - 1] = cardsJson;
                     counter += 1;
                 }
@@ -108,7 +109,7 @@ public class Controller
         return cardsSuperstarList;
     }
     
-    // Este metodo tendra que retornar los atributos que recibe la clase carta
+    // Retorna la lista de atributos de la carta.
     private static List<object> SearchCardName(string cardName)
     {
         List<object> r = new List<object>();
@@ -116,6 +117,8 @@ public class Controller
         {
             if (card.Title == cardName)
             {
+                Skill poder = card.CardInfo.createEffect();
+                
                 r.Add(card.Title);
                 r.Add(card.Types);
                 r.Add(card.Subtypes);
@@ -123,6 +126,15 @@ public class Controller
                 r.Add(card.Damage);
                 r.Add(card.StunValue);
                 r.Add(card.CardEffect);
+                r.Add(card.CardInfo);
+                r.Add(poder);
+
+                
+                // ReadEffect probandoClase = new ReadEffect();
+                // Object claseCreada = probandoClase.GiveEffect("ReverseSpecificCard");
+                // Instanciar efecto
+                // efecto = metodoInsatanciaEfecto(card.EffectClass)
+                // r.Add(efecto) en vez de r.Add(card.CardEffect
             }
         }
         return r;
@@ -333,6 +345,44 @@ public class Controller
                     int playerFortitude = player.Fortitude;
                     if (cardFortitude <= playerFortitude)
                     {
+                        // Player va a jugar carta
+                        bool opponentHasReversal = opponent.HaveReversalInHand();
+                        Vista.letPlayerKnowReversal(opponentHasReversal);
+                        if (opponentHasReversal == true)
+                        {
+                            bool opponentHasReversalToPlay = opponent.PlayerHasAvailableReversals(selectedCard);
+                            if (opponentHasReversalToPlay)
+                            {
+                                List<Card> availableReversals = opponent.GetAvailableReversals(selectedCard);
+                                // Avisar y mostrarle cuales
+                            }
+                            else
+                            {
+                                // Avisar que los reversal que tiene no los puede jugar.
+                            }
+                            // bool notSpecialReversal = opponent.HaveAnyNotSpecialReversal();
+                            
+                            
+                            
+                            
+                            // --------------------------------------------
+                            // if (notSpecialReversal == false)
+                            // {
+                            //     // Es un Reversal Special o ReversalGrappleSpecial o ReversalStikeSpecial
+                            //     Vista.ReversalSpecialNotImplemented();
+                            // }
+                            // else
+                            // {
+                            //     string typeToReverse = selectedCard.Subtypes[0].Substring(8);
+                            //     
+                            //     // Check condition 1. Vista
+                            //     
+                            //         // Check if fortitude is enoguh. Vista
+                            //         // Mostrar reversals disponibles. Si no hay avisar
+                            // }
+                            // --------------------------------------------
+                        }
+                        
                         bool endGame = opponent.ReceiveDamage(selectedCard);
                         if (endGame == true)
                         {

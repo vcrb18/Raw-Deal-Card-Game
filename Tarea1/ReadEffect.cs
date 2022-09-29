@@ -1,24 +1,22 @@
 namespace Tarea1;
 
-public abstract class ReadSKill
+public class ReadEffect
 {
-    // CreateObjectSkill() tiene que devolver un Skill. Cambiar dp
-    public abstract void CreateObjectSKill();
-    public String Skill;
 
-    public ReadSKill(String skill)
+    public string GetThisNamespace()
     {
-        Skill = skill;
+        return GetType().Namespace;
     }
-    
+    public Skill ReturnEffectClass(string effectClass)
+    {
+        string namespaceDotClass = "Tarea1." + effectClass;
+        var myObj = Activator.CreateInstance(Type.GetType(namespaceDotClass));
+        Console.WriteLine(myObj.GetType().GetProperties());
+        return (Skill)myObj;
+    }
+
 }
 
-public class ReadSuperstarSkill : ReadSKill
-{
-    public ReadSuperstarSkill(String skill)
-        : base(skill)
-    {
-    }
 
     // IDEAS:
     // arr = line.Split(',')
@@ -44,35 +42,3 @@ public class ReadSuperstarSkill : ReadSKill
                 //      El segundo que aparezca es MoveTo
                 //      if (aparece Arsenal): 
                 //          Ver si es top o bottom.
-                
-        
-        public override void CreateObjectSKill()
-    {
-        // Codigo que instancia una clase segun el string
-        // enum Tipo
-        // {
-        //     "Once",
-        //     "None",
-        //     "You",
-        //     "At"
-        // }
-        String during = Skill.Substring(0, 4);  // Also works for "None"
-        String start = Skill.Substring(0, 2);
-        String always = Skill.Substring(0, 3);
-        if (during == "once")
-        {
-            
-        }
-        else if (during == "None")
-        {
-            
-        }
-        else if (start == "At")
-        {
-            
-        }
-        else if (always == "You")
-        
-        throw new NotImplementedException();
-    }
-}

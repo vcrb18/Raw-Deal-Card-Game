@@ -29,4 +29,24 @@ public class Vista
         Card choosenCard = cardsToChoose[choosenNumber - 1];
         return choosenCard;
     }
+
+    public static void letPlayerKnowReversal(bool reversalExistence)
+    {
+        if (reversalExistence == true)
+        {
+            Console.WriteLine("Opponent of this turn does note have Reversal in his hand");
+        }
+        else
+        {
+            Console.WriteLine("Opponent does have a reversal");
+        }
+        
+    }
+
+    public static void ReversalSpecialNotImplemented()
+    {
+        Console.WriteLine("Special Reversals have not been implemented yet.");
+    }
+    
+    
 }

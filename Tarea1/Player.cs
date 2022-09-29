@@ -133,30 +133,116 @@ public class Player
         }
     }
 
-    
-    // Lo que queirto ahcer es retornar el objecto respectivo del jugador
-    // asi puedo trabajar y mover las cartas de un lado a otro
     public DeckElement GetDeckElement(DeckElement element)
     {
-        // Va a recibir un Deck Element
-        // Va a retornar el respectivo DeckElement del player
-        foreach (PropertyInfo prop in this.GetType().GetProperties())
+        DeckElement r = null;
+        Type tipo = element.GetType();
+        //Ringside, Arsenal, RingArea, Hand
+        DeckElement[] propertiesArray = { this.Ringside, this.Arsenal, this.RingArea, this.MyHand };
+        for (int i = 0; i < propertiesArray.Length; i++)
         {
-            if (prop == element.GetType().GetProperties())
+            DeckElement playerElement = propertiesArray[i];
+            if (playerElement.GetType() == element.GetType())
             {
-                return prop;
+                r = playerElement;
             }
-            // var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
-            // if (type == typeof(element))
-            // {
-            //     return 
-            // }
+        }
+
+        return r;
+    }
+
+    public bool HaveReversalInHand()
+    {
+        bool reversalExists = false;
+        foreach (var c in GetHand())
+        {
+            if (c.Types.Contains("Reversal"))
+            {
+                reversalExists = true;
+            }
+        }
+
+        return reversalExists;
+    }
+
+    public List<Card> PlayerReversals()
+    {
+        List<Card> listOfReversals = new List<Card>();
+        foreach (var c in GetHand())
+        {
+            if (c.Types.Contains("Reversal"))
+            {
+                listOfReversals.Add(c);
+            }
+        }
+        return listOfReversals;
+    }
+
+    public List<Card> GetAvailableReversals(Card cardToReverse)
+    {
+        List<Card> availableReversals = new List<Card>();
+        List<Card> myReversals = PlayerReversals();
+        foreach (Card reversalCard in myReversals)
+        {
+            ReverseSKill reversalCardSkill = reversalCard.CardSkill as ReverseSKill;
+            if (reversalCardSkill.fullfillConditionOne(cardToReverse) == true)
+            {
+                if (Convert.ToInt32(reversalCard.Fortitude) <= Fortitude)
+                {
+                    availableReversals.Add(reversalCard);
+                }
+            }
+        }
+
+        return availableReversals;
+    }
+    public bool PlayerHasAvailableReversals(Card cardToReverse)
+    {
+        bool available = false;
+        if (GetAvailableReversals(cardToReverse).Count > 0)
+        {
+            available = true;
+        }
+        return available;
+    }
+
+    public void PlayerReversalsNotSpecial()
+    {
+        List<Card> listOfNotSpecialReversals = new List<Card>();
+        foreach (var reversal in PlayerReversals())
+        {
+            
+        }
+    }
+
+    public bool HaveAnyNotSpecialReversal()
+    {
+        bool exists = false;
+        foreach (var reversalCard in PlayerReversals())
+        {
+            if (!( reversalCard.Subtypes.Contains("ReversalSpecial") || reversalCard.Subtypes.Contains("ReversalGrappleSpecial") || reversalCard.Subtypes.Contains("ReversalStrikeSpecial")))
+            {
+                exists = true;
+            }
+        }
+
+        return exists;
+    }
+
+    public void ConditionOneReversal()
+    {
+        List<Card> playerReversals = PlayerReversals();
+        foreach (var reversalCard in playerReversals)
+        {
+            if (reversalCard.Subtypes.Contains("ReversalSpecial"))
+            {
+                
+            }
         }
     }
 
 
-    
-    
+
     // Se asume que la carta de mas arriba es la PRIMERA. Asi al sacar la primera es la de mas arriba
     // Roban mano inicial
 }
