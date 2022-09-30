@@ -109,6 +109,19 @@ public class Player
         for (int i = 0; i < Convert.ToInt32(card.Damage); i++)
         {
             Card droppedCard = Arsenal.DropUpperCard();
+            /////////////////////////////
+            // Chequear si la carta droppeada es un Reversal
+                // Revisar si fullfillConditionOne es True. 
+                // Revisar si tiene suficiente fortitude para jugarla
+                    // Se detiene el dano. BREAK
+                    // Avisar que se termino el turno. NO ES LO MISMO QUE GAMEON
+                    // el oponente si baja la carta jugada al ring area y aactualiza fortitude.
+                    // No se aplica dano del reversal.
+                    // No se aplica efecto del reversal
+                    
+                    // Revisar si no se alcanzo a hacer todo el dano
+                    // El player roba cartas igual al stun val;ue de la carta que fue revertida.
+            /////////////////////////////
             Console.WriteLine($"Arsenal cards: ${Arsenal.Cards.Count}");
             // Chequear si quedan cartas. Si no quedan, se acaba el juego.
             bool arsenalCards = Arsenal.HaveCards();
