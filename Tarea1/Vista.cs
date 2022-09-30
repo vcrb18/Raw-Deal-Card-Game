@@ -4,7 +4,7 @@ public class Vista
 {
     // Tengoque hacer un metodo que sea elegirCarta()
     
-    private static int AskForNumber(int minValue, int maxValue)
+    public static int AskForNumber(int minValue, int maxValue)
     {
         int number;
         bool wasParseSuccessfull;
@@ -16,10 +16,10 @@ public class Vista
 
         return number;
     }
-    public static Card elegirCarta(List<Card> cardsToChoose)
+    public static Card chooseCard(List<Card> cardsToChoose)
     {
         int counter = 1;
-        Console.WriteLine("Escoge una de las siguientes cartas");
+        Console.WriteLine("Please choose one of the following cards:");
         foreach (var c in cardsToChoose)
         { 
             Console.WriteLine($"({counter}) {c.Title}. Types: {string.Join(", ", c.Types)}. Subtypes: {string.Join(", ", c.Subtypes)}. Fortitude: {c.Fortitude}. Damage: {c.Damage}. StunValue: {c.StunValue}. CardEffect: {c.CardEffect} ");            
@@ -30,22 +30,29 @@ public class Vista
         return choosenCard;
     }
 
-    public static void letPlayerKnowReversal(bool reversalExistence)
+    public static void InformNoReversalInHand()
     {
-        if (reversalExistence == true)
-        {
-            Console.WriteLine("Opponent of this turn does note have Reversal in his hand");
-        }
-        else
-        {
-            Console.WriteLine("Opponent does have a reversal");
-        }
-        
+        Console.WriteLine("Opponent of this turn does note have Reversal in his hand");
     }
 
-    public static void ReversalSpecialNotImplemented()
+    public static void HasReversalButNotAvailable()
     {
-        Console.WriteLine("Special Reversals have not been implemented yet.");
+        Console.WriteLine("The opponent has one or more Reversal/s in his hand but he is not available to play any.");
+    }
+
+    public static void HasAvailableReversalToPlay()
+    {
+        Console.WriteLine("The player has one or more Reversals to play.");
+    }
+
+    public static void AskToPlayReversalOrNot()
+    {
+        Console.WriteLine("Please enter 0 if you don't want to play a Reversal Card or 1 if you do.");
+    }
+
+    public static void ThisCardHasNoExtraEffect()
+    {
+        Console.WriteLine("The card played has no extra effect.");
     }
     
     

@@ -90,6 +90,11 @@ public class Player
         DiscardCard(maneuver);
     }
 
+    public void PutDownReversalToRingArea(Card reversalCard)
+    {
+        RingArea.AddCardAtTheEnd(reversalCard);
+    }
+
     public void UpdateFortitude(int fortitudeNumber)
     {
         Fortitude += fortitudeNumber;
@@ -202,8 +207,17 @@ public class Player
         if (GetAvailableReversals(cardToReverse).Count > 0)
         {
             available = true;
+            
         }
         return available;
+    }
+
+    public void MoveCardToRingside(Card cartToMove)
+    {
+        // Quitarla de la mano
+        DiscardCard(cartToMove);
+        // Agregarla al Ringside
+        Ringside.AddCardAtTheEnd(cartToMove);
     }
 
     public void PlayerReversalsNotSpecial()

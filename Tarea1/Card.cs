@@ -40,6 +40,7 @@ public class Card
     
     // Me falta el skill!
     public Skill CardSkill;
+    // Esta generando problemas.
 
     public Card(string title, List<string> types, List<string> subtypes, string fortitude, string damage,
         string stunValue, string cardEffect, CardInfo cardInfo, Skill cardSkill)

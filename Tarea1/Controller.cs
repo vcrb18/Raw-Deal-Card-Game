@@ -347,7 +347,6 @@ public class Controller
                     {
                         // Player va a jugar carta
                         bool opponentHasReversal = opponent.HaveReversalInHand();
-                        Vista.letPlayerKnowReversal(opponentHasReversal);
                         if (opponentHasReversal == true)
                         {
                             bool opponentHasReversalToPlay = opponent.PlayerHasAvailableReversals(selectedCard);
@@ -355,42 +354,85 @@ public class Controller
                             {
                                 List<Card> availableReversals = opponent.GetAvailableReversals(selectedCard);
                                 // Avisar y mostrarle cuales
+                                Vista.HasAvailableReversalToPlay();
+                                //
+                                // Does the player want to play the reversal?
+                                Vista.AskToPlayReversalOrNot();
+                                Int32 doesPlayerWantToPlayReversal = Vista.AskForNumber(0, 1);
+                                if (doesPlayerWantToPlayReversal == 1)
+                                {
+                                    Card choosenReversalToPlay = Vista.chooseCard(availableReversals);
+                                    ReverseSKill reversalSkill = choosenReversalToPlay.CardSkill as ReverseSKill;
+                                    // JUGAR EL REVERSAL. Esto implica:
+                                        // La carta jugada NO tiene ningun efecto.
+                                        // No se alcanzo a jugar la carta asiq ok.
+                                        
+                                        // La carta jugada NO causa ningun dano
+                                        // No se alcanzo a jugar la carta asiq ok
+                                        
+                                        // La carta jugada es puesta en su Rinside
+                                        // MOVER selectedCard a Ringside
+                                        player.MoveCardToRingside(selectedCard);
+                                        
+                                        // LUEGO:
+                                        // Se aplica el efecto del REVERSAL
+                                        reversalSkill.UseAbility();
+                                        
+                                        // Se efectua el dano del reversal
+                                        player.ReceiveDamage(choosenReversalToPlay);
+
+                                        // El reversal queda puesto en el ring area
+                                        opponent.PutDownReversalToRingArea(choosenReversalToPlay);
+
+                                        // Se actualiza el fortitude rating del jugador que jugo el reversal.
+                                        opponent.UpdateFortitude(Convert.ToInt32(choosenReversalToPlay.Fortitude));
+                                }
+                                else
+                                {
+                                    ///////////////////////////////////////////
+                                    bool endGame = opponent.ReceiveDamage(selectedCard);
+                                    if (endGame == true)
+                                    {
+                                        gameOn = false;
+                                        break;
+                                    }
+                                    player.PlayManeuver(selectedCard);
+                                    play = false;
+                                    ///////////////////////////////////////////
+                                    play = true;
+                                }
                             }
                             else
                             {
                                 // Avisar que los reversal que tiene no los puede jugar.
+                                Vista.HasReversalButNotAvailable();
+                                ///////////////////////////////////////////
+                                bool endGame = opponent.ReceiveDamage(selectedCard);
+                                if (endGame == true)
+                                {
+                                    gameOn = false;
+                                    break;
+                                }
+                                player.PlayManeuver(selectedCard);
+                                play = false;
+                                ///////////////////////////////////////////
                             }
-                            // bool notSpecialReversal = opponent.HaveAnyNotSpecialReversal();
-                            
-                            
-                            
-                            
-                            // --------------------------------------------
-                            // if (notSpecialReversal == false)
-                            // {
-                            //     // Es un Reversal Special o ReversalGrappleSpecial o ReversalStikeSpecial
-                            //     Vista.ReversalSpecialNotImplemented();
-                            // }
-                            // else
-                            // {
-                            //     string typeToReverse = selectedCard.Subtypes[0].Substring(8);
-                            //     
-                            //     // Check condition 1. Vista
-                            //     
-                            //         // Check if fortitude is enoguh. Vista
-                            //         // Mostrar reversals disponibles. Si no hay avisar
-                            // }
-                            // --------------------------------------------
+                        }
+                        else
+                        {
+                            Vista.InformNoReversalInHand();
+                            ///////////////////////////////////////////
+                            bool endGame = opponent.ReceiveDamage(selectedCard);
+                            if (endGame == true)
+                            {
+                                gameOn = false;
+                                break;
+                            }
+                            player.PlayManeuver(selectedCard);
+                            play = false;
+                            ///////////////////////////////////////////
                         }
                         
-                        bool endGame = opponent.ReceiveDamage(selectedCard);
-                        if (endGame == true)
-                        {
-                            gameOn = false;
-                            break;
-                        }
-                        player.PlayManeuver(selectedCard);
-                        play = false;
                     }
                     else
                     {
@@ -410,6 +452,7 @@ public class Controller
 
         return gameOn;
     }
+
 
     private static void StartGame(Player starter, Player notStarter)
     {

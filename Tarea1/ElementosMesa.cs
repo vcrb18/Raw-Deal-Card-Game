@@ -13,8 +13,17 @@ public class DeckElement
     {
         Cards.Add(card);
     }
+
+    public void AddCardAtTheBeginning(Card card)
+    {
+        
+    }
 }
 
+// El orden aqui en realidad da lo mismo
+// Estan puestos en la mesa nomas.
+// Los del final de la lista seran los ultimos en bajarse.
+// Por lo tanto los primeros de la lista son los que primero se bajaron.
 public class RingArea : DeckElement
 {
     public RingArea(List<Card> cards)
