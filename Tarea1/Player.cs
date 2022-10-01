@@ -33,21 +33,49 @@ public class Player
         Deck.ShuffleCards();
     }
 
-    public void DrawCards(int draw)
+    static void PrintEquals(object obj1, object obj2){
+            if(obj1.Equals(obj2)){
+                Console.WriteLine("Both of the values are equal");
+            }else{
+                Console.WriteLine("Both of the values are not equal");
+            }
+        }
+    
+    public void DrawCards(int draw, Player opponentPlayer)
     {
         Console.WriteLine($"Player number {Number + 1} draws {draw} Cards");
         int counter = 0;
         for (int i = 0; i < draw; i++)
         {
             counter++;
-            Console.WriteLine($"Es la vez numero {counter} que entro al for");
+            // Console.WriteLine($"Es la vez numero {counter} que entro al for");
             List<Card> arsenalCards = Arsenal.Cards;
+            
+            // Console.WriteLine($"Esta es la primera carta del arsenal del player: {arsenalCards[i].Title}");
+            // Console.WriteLine($"{arsenalCards[i].CardSkill}");
+            // Console.WriteLine($"Esta es la primera carta del arsenal del opponent: {opponentPlayer.Arsenal.Cards[i].Title}");
+            // Console.WriteLine($"{opponentPlayer.Arsenal.Cards[i].CardSkill}");
             
             // Meter la carta del Arsenal a mi mano
             Card newCard = arsenalCards[i];
-            MyHand.AddCardToHand(newCard);
-            Console.WriteLine($"Cartas en la mano ahora del jugador {Number} = {GetHandLength()}");
             
+            // Console.WriteLine($"Cartas en la mano justo antes de robar del jugador {Number} = {GetHandLength()}");
+            // Console.WriteLine($"Cartas en la mano justo antes de robar del jugador {opponentPlayer.Number} = {GetHandLength()}");
+            
+            ///////////////////////////////
+            // MyHand.AddCardToHand(newCard); // Accede a ambas manos por alguna razon
+            MyHand.Cards.Add(newCard);
+            // opponentPlayer.MyHand.RemoveCardFromHand(newCard);
+            // Console.WriteLine($"PrintEquals(MyHand, opponentPlayer.MyHand)");
+            // PrintEquals(MyHand, opponentPlayer.MyHand);
+            
+            ///////////////////////////////
+
+            // Console.WriteLine($"Cartas en la mano justo despeus de robar del jugador {Number} = {GetHandLength()}");
+            // Console.WriteLine($"Cartas en la mano justo despeus de robar del jugador {opponentPlayer.Number} = {GetHandLength()}");
+            
+            // Console.WriteLine($"Player {Number} last hand card: {MyHand.Cards[MyHand.Cards.Count - 1].Title}");
+
             // Eliminar la carta del Arsenal
             Arsenal.Cards.RemoveAt(i);
         }
@@ -199,19 +227,29 @@ public class Player
     public List<Card> GetAvailableReversals(Card cardToReverse)
     {
         List<Card> availableReversals = new List<Card>();
-        List<Card> myReversals = PlayerReversals();
-        foreach (Card reversalCard in myReversals)
+        List<Card> myReversals = PlayerReversals();  // puede ser vacio
+        // Console.WriteLine($"myReversals: {myReversals.Count}");
+        if (myReversals.Count > 0)
         {
-            ReverseSKill reversalCardSkill = reversalCard.CardSkill as ReverseSKill;
-            if (reversalCardSkill.fullfillConditionOne(cardToReverse) == true)
+            foreach (var reversalCard in myReversals)
             {
-                if (Convert.ToInt32(reversalCard.Fortitude) <= Fortitude)
+                if (reversalCard == null)
                 {
-                    availableReversals.Add(reversalCard);
+                }
+                else
+                {
+                    // ReverseSKill reversalCardSkill = reversalCard.CardSkill as ReverseSKill;
+                    ReverseSkill reversalCardSkill = (ReverseSkill)reversalCard.CardSkill;
+                    if (reversalCardSkill.fullfillConditionOne(cardToReverse) == true)
+                    {
+                        if (Convert.ToInt32(reversalCard.Fortitude) <= Fortitude)
+                        {
+                            availableReversals.Add(reversalCard);
+                        }
+                    }
                 }
             }
         }
-
         return availableReversals;
     }
     public bool PlayerHasAvailableReversals(Card cardToReverse)

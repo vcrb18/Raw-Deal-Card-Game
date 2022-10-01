@@ -20,7 +20,7 @@ public class Ignore : Skill
         throw new NotImplementedException();
     }
 }
-public abstract class ReverseSKill : Skill
+public abstract class ReverseSkill : Skill
 {
     abstract public bool fullfillConditionOne(Card opponentCard);
     public override void UseAbility()
@@ -29,7 +29,14 @@ public abstract class ReverseSKill : Skill
     }
 }
 
-public class ReverseSpecificCard : ReverseSKill
+public class ReverseNotImplemented : ReverseSkill
+{
+    public override bool fullfillConditionOne(Card opponentCard)
+    {
+        return false;
+    }
+}
+public class ReverseSpecificCard : ReverseSkill
 {
     public string CardTitle { get; set; }
 

@@ -96,5 +96,10 @@ public class Hand : DeckElement
         Cards.Add(card);
     }
 
+    public void RemoveCardFromHand(Card cardToRemove)
+    {
+        Cards.Remove(cardToRemove);
+    }
+
 
 }

@@ -67,7 +67,7 @@ public class Card
 
     public void setSkill()
     {
-        Skill cardSKillToSet = CardInfo.createEffect();
-        CardSkill = cardSKillToSet;
+        Skill cardSkillToSet = CardInfo.createEffect();
+        CardSkill = cardSkillToSet;
     }
 }

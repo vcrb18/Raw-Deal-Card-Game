@@ -4,6 +4,13 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 public class Controller
 {
+    static void PrintEquals(object obj1, object obj2){
+        if(obj1.Equals(obj2)){
+            Console.WriteLine("Both of the values are equal");
+        }else{
+            Console.WriteLine("Both of the values are not equal");
+        }
+    }
     public static void Run()
     {
         Console.WriteLine("Welcome!");
@@ -26,22 +33,30 @@ public class Controller
         Console.WriteLine("It's time to.... PLAY!!!");
         Console.WriteLine(("\nPlayers put their deck downside in the desk"));
         
-        // ------------------------------------------
-        Console.WriteLine($"La mano del jugador 1 antes de robar tiene: {playerOne.GetHandLength()}");
-        Console.WriteLine($"La mano del jugador 2 antes de robar tiene: {playerTwo.GetHandLength()}");
-        // ------------------------------------------
-        
-        playerOne.DrawCards(playerOne.Deck.SuperStar.HandSize);
-        // ------------------------------------------
-        Console.WriteLine("Jugador 1 ya robo las cartas iniciales, el jugador 2 no.");
-        Console.WriteLine($"Cartas jugador 1: {playerOne.GetHandLength()}");
-        Console.WriteLine($"Cartas jugador 2: {playerTwo.GetHandLength()}");
-        // ------------------------------------------
-        playerTwo.DrawCards(playerTwo.Deck.SuperStar.HandSize);
         
         // ------------------------------------------
-        Console.WriteLine($"La mano del jugador 1 despues de robar tiene: {playerOne.GetHandLength()}");
-        Console.WriteLine($"La mano del jugador 2 despues de robar tiene: {playerTwo.GetHandLength()}");
+        // Console.WriteLine($"Esta es la mano del jugador 1: {playerOne.MyHand}");
+        // Console.WriteLine($"Esta es la mano del jugador 1: {playerTwo.MyHand}");
+        // PrintEquals(playerOne.MyHand, playerTwo.MyHand);
+        // PrintEquals(playerOne, playerTwo);
+        
+        // Console.WriteLine($"Estos objetos son iguales?: {}");
+        
+        // Console.WriteLine($"La mano del jugador 1 antes de robar tiene: {playerOne.GetHandLength()}");
+        // Console.WriteLine($"La mano del jugador 2 antes de robar tiene: {playerTwo.GetHandLength()}");
+        // ------------------------------------------
+        
+        playerOne.DrawCards(playerOne.Deck.SuperStar.HandSize, playerTwo);
+        // ------------------------------------------
+        // Console.WriteLine("Jugador 1 ya robo las cartas iniciales, el jugador 2 no.");
+        // Console.WriteLine($"Cartas jugador 1: {playerOne.GetHandLength()}");
+        // Console.WriteLine($"Cartas jugador 2: {playerTwo.GetHandLength()}");
+        // ------------------------------------------
+        playerTwo.DrawCards(playerTwo.Deck.SuperStar.HandSize, playerOne);
+        
+        // ------------------------------------------
+        // Console.WriteLine($"La mano del jugador 1 despues de robar tiene: {playerOne.GetHandLength()}");
+        // Console.WriteLine($"La mano del jugador 2 despues de robar tiene: {playerTwo.GetHandLength()}");
         // ------------------------------------------
         
         List<Player> starterPlayers = WhoStarts(playerOne, playerTwo);
@@ -169,11 +184,17 @@ public class Controller
         Console.WriteLine($"    (0) {DeckOne.SuperStar.Type} Deck");
         Console.WriteLine($"    (1) {DeckTwo.SuperStar.Type} Deck");
 
-        List<Card> emptyList = new List<Card>();
-        Hand hand1 = new Hand(emptyList);
-        Hand hand2 = new Hand(emptyList);
-        Player PlayerOne = new Player(0, null, null, new Ringside(emptyList), new RingArea(emptyList), hand1);
-        Player PlayerTwo = new Player(1, null, null,new Ringside(emptyList), new RingArea(emptyList), hand2);
+        List<Card> emptyListRingsidePlayer1 = new List<Card>();
+        List<Card> emptyListRingAreaPlayer1 = new List<Card>();
+        List<Card> emptyListHandPlayer1 = new List<Card>();
+        List<Card> emptyListRingsidePlayer2 = new List<Card>();
+        List<Card> emptyListRingAreaPlayer2 = new List<Card>();
+        List<Card> emptyListHandPlayer2 = new List<Card>();
+
+        Hand hand1 = new Hand(emptyListHandPlayer1);
+        Hand hand2 = new Hand(emptyListHandPlayer2);
+        Player PlayerOne = new Player(0, null, null, new Ringside(emptyListRingsidePlayer1), new RingArea(emptyListRingAreaPlayer1), hand1);
+        Player PlayerTwo = new Player(1, null, null,new Ringside(emptyListRingsidePlayer2), new RingArea(emptyListRingAreaPlayer2), hand2);
         int answer = AskForNumber(0, 1);
         if (answer == 0)
         {
@@ -309,7 +330,7 @@ public class Controller
         bool gameOn = true;
         // Si superstarSkill es de tipo before, tirar habilidad.
         
-        player.DrawCards(1);
+        player.DrawCards(1, opponent);
         bool play = true;
         // Aca tengo q volver en el ciclo
         do
@@ -350,7 +371,7 @@ public class Controller
                         if (opponentHasReversal == true)
                         {
                             bool opponentHasReversalToPlay = opponent.PlayerHasAvailableReversals(selectedCard);
-                            if (opponentHasReversalToPlay)
+                            if (opponentHasReversalToPlay == true)
                             {
                                 List<Card> availableReversals = opponent.GetAvailableReversals(selectedCard);
                                 // Avisar y mostrarle cuales
@@ -362,7 +383,7 @@ public class Controller
                                 if (doesPlayerWantToPlayReversal == 1)
                                 {
                                     Card choosenReversalToPlay = Vista.chooseCard(availableReversals);
-                                    ReverseSKill reversalSkill = choosenReversalToPlay.CardSkill as ReverseSKill;
+                                    ReverseSkill reversalSkill = choosenReversalToPlay.CardSkill as ReverseSkill;
                                     // JUGAR EL REVERSAL. Esto implica:
                                         // La carta jugada NO tiene ningun efecto.
                                         // No se alcanzo a jugar la carta asiq ok.

@@ -148,7 +148,7 @@
       "StunValue":"0",
       "CardEffect":"May only reverse a maneuver played after the card titled Irish Whip.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -188,7 +188,7 @@
       "StunValue":"0",
       "CardEffect":"The card titled Irish Whip must be played before playing this card. May only reverse a maneuver played after the card titled Irish Whip.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -268,7 +268,7 @@
       "StunValue":"0",
       "CardEffect":"Reversals to this maneuver are +2D.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -327,7 +327,7 @@
       "StunValue":"0",
       "CardEffect":"May only reverse a maneuver played after the card titled Irish Whip.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -1307,7 +1307,7 @@
       "StunValue":"0",
       "CardEffect":"Reverse any Strike maneuver and end your opponent's turn.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -1326,7 +1326,7 @@
       "StunValue":"0",
       "CardEffect":"Reverse any Grapple maneuver and end your opponent's turn.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -1345,7 +1345,7 @@
       "StunValue":"0",
       "CardEffect":"Reverse any Submission maneuver and end your opponent's turn.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -1364,7 +1364,7 @@
       "StunValue":"0",
       "CardEffect":"Can only reverse a Grapple that does 7D or less. End your opponent's turn. # = D of maneuver card being reversed. Read as 0 when in your Ring area.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -1383,7 +1383,7 @@
       "StunValue":"0",
       "CardEffect":"Can only reverse a Strike that does 7D or less. End your opponent's turn. # = D of maneuver card being reversed. Read as 0 when in your Ring area.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -1402,7 +1402,7 @@
       "StunValue":"0",
       "CardEffect":"May reverse any maneuver that does 7D or less. End your opponent's turn.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -1422,7 +1422,7 @@
       "StunValue":"0",
       "CardEffect":"If played from your hand, may reverse the card titled Jockeying for Position. Opponent must discard 4 cards. End your opponent's turn. Draw 1 card.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -1442,7 +1442,7 @@
       "StunValue":"0",
       "CardEffect":"Reverse any maneuver and end your opponent's turn. If played from your hand draw 1 card.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -1462,7 +1462,7 @@
       "StunValue":"0",
       "CardEffect":"Reverse any HEEL maneuver or reversal card if that opponent has 5 or more HEEL cards in his Ring area. Opponent is Disqualified and you win the game. This effect happens even if the card titled Disqualification is placed into your Ringside pile while applying damage from a HEEL maneuver or reversal card.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -1481,7 +1481,7 @@
       "StunValue":"0",
       "CardEffect":"Reverse any ACTION card being played by your opponent from his hand. It is unsuccessful, goes to his Ringside pile, has no effect and ends his turn.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -1578,7 +1578,7 @@
       "StunValue":"0",
       "CardEffect":"As an action, if your next card played is a Grapple maneuver, declare whether it will be +4D or your opponent's reversal to it will be +8F. As a reversal, may only reverse the card titled Jockeying for Position. If so, you end opponent's turn; and if your next card played on your turn is a Grapple maneuver, declare whether it will be +4D or your opponent's reversal to it will be +8F.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -1599,7 +1599,7 @@
       "StunValue":"0",
       "CardEffect":"As an action, if your next card played is a Strike maneuver it is +5D. As a reversal, may only reverse the card titled Irish Whip. If so, you end opponent's turn; and if your next card played on your turn is a Strike maneuver it is +5D.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -2002,7 +2002,7 @@
       "StunValue":"0",
       "CardEffect":"If played from your hand, may reverse a maneuver played after the card titled Irish Whip. End your opponent's turn. You may draw 1 card.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -2023,7 +2023,7 @@
       "StunValue":"0",
       "CardEffect":"Reverse any Strike, Grapple or Submission maneuver. End your opponent's turn. If played from your hand, opponent must discard 2 cards, then take the top 2 cards from his Arsenal and put them into his Ringside pile.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -2127,7 +2127,7 @@
       "StunValue":"0",
       "CardEffect":"Reverse any maneuver and end your opponent's turn. If played from your hand, take the top 4 cards from your Arsenal and put them in your Ringside pile. Opponent must discard 1 card; next turn, all your maneuvers are +2D, and all opponent's reversals are +25F.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -2190,7 +2190,7 @@
       "StunValue":"0",
       "CardEffect":"Reverse any Strike, Grapple or Submission maneuver. End your opponent's turn. If played from your hand, opponent discards all cards in his hand.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -2317,7 +2317,7 @@
       "StunValue":"0",
       "CardEffect":"If played from your hand, may reverse a maneuver played after the card titled Irish Whip. End your opponent's turn. You may draw 2 cards.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -2360,7 +2360,7 @@
       "StunValue":"3",
       "CardEffect":"When successfully played, +2D if played after a Strike maneuver. May only reverse the maneuver titled Back Body Drop.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -2381,7 +2381,7 @@
       "StunValue":"0",
       "CardEffect":"Reverses any maneuver and ends your opponent's turn. If played from your hand, draw 2 cards.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -2422,7 +2422,7 @@
       "StunValue":"0",
       "CardEffect":"Reverse any Strike, Grapple or Submission maneuver. End your opponent's turn. If played from your hand, shuffle up to 5 cards from your Ringside pile into your Arsenal.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -2445,7 +2445,7 @@
       "StunValue":"2",
       "CardEffect":"When successfully played, look through your Ringside pile and Arsenal for the card titled The People's Elbow and place that card in your hand, then shuffle your Arsenal. May only reverse a Grapple maneuver, but you must first discard 1 card.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -2550,7 +2550,7 @@
       "StunValue":"0",
       "CardEffect":"Reverse any maneuver and end your opponent's turn. If played from your hand, take the top 4 cards from your Arsenal and put them in your Ringside pile; next turn, all your maneuvers are +2D, and all opponents reversals are +15F.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
@@ -2653,7 +2653,7 @@
       "StunValue":"0",
       "CardEffect":"Reverse any Strike, Grapple or Submission maneuver. End your opponent's turn. If played from your hand, opponent must discard 2 cards and all your maneuvers next turn are +2D.",
       "CardInfo":{
-         "ClassName":"Ignore",
+         "ClassName":"ReverseNotImplemented",
          "Attributes":[
             
          ]
