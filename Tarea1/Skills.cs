@@ -31,12 +31,12 @@ public abstract class ReverseSKill : Skill
 
 public class ReverseSpecificCard : ReverseSKill
 {
-    public string CardTitle;
+    public string CardTitle { get; set; }
 
-    public ReverseSpecificCard(string cardTitle)
-    {
-        CardTitle = cardTitle;
-    }
+    // public ReverseSpecificCard(string cardTitle)
+    // {
+    //     CardTitle = cardTitle;
+    // }
 
     public override bool fullfillConditionOne(Card cardToReverse)
     {

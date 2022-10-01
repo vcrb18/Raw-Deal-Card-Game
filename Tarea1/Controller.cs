@@ -12,7 +12,6 @@ public class Controller
         Card[] DeckCardsSC = (Card[])StoneColdCards[1];
         SuperStar superStarSC = (SuperStar)StoneColdCards[0];
         Deck StoneColdDeck = new Deck(DeckCardsSC, superStarSC);
-        Console.WriteLine($"Tipo mazo: {StoneColdDeck.GetType()}");
         
         List<object> TheRockCards = ChargeDecks("THE_ROCK");
         Card[] DeckCardsTR = (Card[])TheRockCards[1];
@@ -86,7 +85,8 @@ public class Controller
                 {
                     List<object> cardAttributes = SearchCardName(cardName);
                     Card cardsJson = new Card((string)cardAttributes[0], (List<string>)cardAttributes[1], (List<string>)cardAttributes[2],
-                        ((string)cardAttributes[3]), (string)cardAttributes[4], (string)cardAttributes[5], (string)cardAttributes[6], (CardInfo)cardAttributes[7], (Skill)cardAttributes[8]);  //Aca debo ponerle (Skills)cardAttributes[6]
+                        ((string)cardAttributes[3]), (string)cardAttributes[4], (string)cardAttributes[5], (string)cardAttributes[6], (CardInfo)cardAttributes[7]);  //Aca debo ponerle (Skills)cardAttributes[6]
+                    cardsJson.setSkill();
                     arr[counter - 1] = cardsJson;
                     counter += 1;
                 }
@@ -117,7 +117,7 @@ public class Controller
         {
             if (card.Title == cardName)
             {
-                Skill poder = card.CardInfo.createEffect();
+                // Skill poder = card.CardInfo.createEffect();
                 
                 r.Add(card.Title);
                 r.Add(card.Types);
@@ -127,7 +127,7 @@ public class Controller
                 r.Add(card.StunValue);
                 r.Add(card.CardEffect);
                 r.Add(card.CardInfo);
-                r.Add(poder);
+                // r.Add(poder);
 
                 
                 // ReadEffect probandoClase = new ReadEffect();

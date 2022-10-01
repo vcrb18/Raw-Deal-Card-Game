@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.Json;
 
 namespace Tarea1;
 
@@ -9,19 +10,28 @@ public class CardInfo
     
     // Atributos siempre en orden de la respectiva Clase
     public List<object> Attributes { get; set; }
+    
 
     public Skill createEffect()
     {
+        // JsonSerializer.Deserialize<Object[]>(Attributes);
         int counter = 0;
         ReadEffect leeEfecto = new ReadEffect();
         Skill claseCreada = leeEfecto.ReturnEffectClass(ClassName);
         PropertyInfo[] attributesList = claseCreada.GetType().GetProperties();
+        List<string> attributesInStrings = setAttributesToString();
         foreach (PropertyInfo property in attributesList)
         {
-            property.SetValue(claseCreada, Attributes[counter]);
+            property.SetValue(claseCreada, attributesInStrings[counter]);
         }
 
         return claseCreada;
+    }
+
+    public List<string> setAttributesToString()
+    {
+        List<string> attributesInStrings = Attributes.Select(s => s.ToString()).ToList();
+        return attributesInStrings;
     }
 }
 
@@ -39,11 +49,11 @@ public class Card
     public CardInfo CardInfo { get; set; }
     
     // Me falta el skill!
-    public Skill CardSkill;
+    public Skill CardSkill = new Ignore();
     // Esta generando problemas.
 
     public Card(string title, List<string> types, List<string> subtypes, string fortitude, string damage,
-        string stunValue, string cardEffect, CardInfo cardInfo, Skill cardSkill)
+        string stunValue, string cardEffect, CardInfo cardInfo)
     {
         Title = title;
         Types = types;
@@ -53,6 +63,11 @@ public class Card
         StunValue = stunValue;
         CardEffect = cardEffect;
         CardInfo = cardInfo;
-        CardSkill = cardSkill;
+    }
+
+    public void setSkill()
+    {
+        Skill cardSKillToSet = CardInfo.createEffect();
+        CardSkill = cardSKillToSet;
     }
 }

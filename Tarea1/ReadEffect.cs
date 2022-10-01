@@ -11,7 +11,8 @@ public class ReadEffect
     {
         string namespaceDotClass = "Tarea1." + effectClass;
         var myObj = Activator.CreateInstance(Type.GetType(namespaceDotClass));
-        Console.WriteLine(myObj.GetType().GetProperties());
+        // Console.WriteLine(myObj.GetType().GetProperties());
+        
         return (Skill)myObj;
     }
 
