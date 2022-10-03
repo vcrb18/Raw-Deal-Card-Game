@@ -1,24 +1,24 @@
 [
   {
-    "Type": "STONE COLD STEVE AUSTIN",
+    "Type": "STONE_COLD",
     "HandSize": 7,
     "StarValue": 5,
     "SuperStarAbility": "Once during your turn, you may draw a card, but you must then take a card from your hand and place it on the bottom of your Arsenal."
   },
   {
-    "Type": "THEUNDERTAKER",
+    "Type": "UNDERTAKER",
     "HandSize": 6,
     "StarValue": 4,
     "SuperStarAbility": "Once during your turn, you may discard 2 cards to the Ringside pile and take 1 card from the Ringside pile and place it into your hand."
   },
   {
-    "Type": "CHRISJERICHO",
+    "Type": "JERICHO",
     "HandSize": 7,
     "StarValue": 3,
     "SuperStarAb,ility": "Once during your turn, you may discard a card from your hand to force your opponent to discard a card from his hand."
   },
   {
-    "Type": "MANKING",
+    "Type": "MANKIND",
     "HandSize": 2,
     "StarValue": 4,
     "SuperStarAbility": "You must always draw 2 cards, if possible, during your draw segment. All damage from opponent is at -1D."
@@ -30,7 +30,7 @@
     "SuperStarAbility": "None"
   },
   {
-    "Type": "THE ROCK",
+    "Type": "THE_ROCK",
     "HandSize": 5,
     "StarValue": 5,
     "SuperStarAbility": "At the start of your turn, before your draw segment, you may take 1 card from your Ringside pile and place it on the bottom of your Arsenal."

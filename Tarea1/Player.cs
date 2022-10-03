@@ -43,7 +43,6 @@ public class Player
     
     public void DrawCards(int draw, Player opponentPlayer)
     {
-        Console.WriteLine($"Player number {Number + 1} draws {draw} Cards");
         int counter = 0;
         for (int i = 0; i < draw; i++)
         {

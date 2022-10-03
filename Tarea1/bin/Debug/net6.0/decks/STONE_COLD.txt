@@ -1,4 +1,4 @@
-﻿STONE COLD STEVE AUSTIN (Superstar Card)
+﻿STONE_COLD (Superstar Card)
 1 Austin Elbow Smash
 1 Double Digits
 1 Lou Thesz Press

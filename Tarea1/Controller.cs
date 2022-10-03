@@ -4,34 +4,42 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 public class Controller
 {
-    static void PrintEquals(object obj1, object obj2){
-        if(obj1.Equals(obj2)){
-            Console.WriteLine("Both of the values are equal");
-        }else{
-            Console.WriteLine("Both of the values are not equal");
-        }
-    }
     public static void Run()
     {
-        Console.WriteLine("Welcome!");
-        
-        List<object> StoneColdCards = ChargeDecks("STONE_COLD");
-        Card[] DeckCardsSC = (Card[])StoneColdCards[1];
-        SuperStar superStarSC = (SuperStar)StoneColdCards[0];
-        Deck StoneColdDeck = new Deck(DeckCardsSC, superStarSC);
-        
-        List<object> TheRockCards = ChargeDecks("THE_ROCK");
-        Card[] DeckCardsTR = (Card[])TheRockCards[1];
-        SuperStar superStarTR = (SuperStar)TheRockCards[0];
-        Deck TheRockDeck = new Deck(DeckCardsTR, superStarTR);
+        Console.WriteLine("-------------------------");
+        string nameDeckOne = Vista.ChooseAnyAvailableDeck();
+        string nameDeckTwo = Vista.ChooseAnyAvailableDeck();
+        List<object> deckOneToCreate = ChargeDecks(nameDeckOne);
+        List<object> deckTwoToCreate = ChargeDecks(nameDeckTwo);
+        Card[] deckCardsOne = (Card[])deckOneToCreate[1];
+        SuperStar superStarDeckOne = (SuperStar)deckOneToCreate[0];
+        Deck firstDeckToChoose = new Deck(deckCardsOne, superStarDeckOne);
+        Card[] deckCardsTwo = (Card[])deckTwoToCreate[1];
+        SuperStar superStarDeckTwo = (SuperStar)deckTwoToCreate[0];
+        Deck secondDeckToChoose = new Deck(deckCardsTwo, superStarDeckTwo);
+        List<Player> players = ChooseDeck(firstDeckToChoose, secondDeckToChoose);
 
-        List<Player> players = ChooseDeck(StoneColdDeck, TheRockDeck);
+
+
+        // Luego a ChargeDecks se le entrega el nombre del mazo
+        // Entonces: ChargeDecks(mazo_1), ChargeDecks(mazo_2)
+        
+        
+        // List<object> StoneColdCards = ChargeDecks("STONE_COLD");
+        // Card[] DeckCardsSC = (Card[])StoneColdCards[1];
+        // SuperStar superStarSC = (SuperStar)StoneColdCards[0];
+        // Deck StoneColdDeck = new Deck(DeckCardsSC, superStarSC);
+        //
+        // List<object> TheRockCards = ChargeDecks("THE_ROCK");
+        // Card[] DeckCardsTR = (Card[])TheRockCards[1];
+        // SuperStar superStarTR = (SuperStar)TheRockCards[0];
+        // Deck TheRockDeck = new Deck(DeckCardsTR, superStarTR);
+        // List<Player> players = ChooseDeck(StoneColdDeck, TheRockDeck);
+
         Player playerOne = players[0];
         Player playerTwo = players[1];
-        playerOne.ShuffleDeck();
-        playerTwo.ShuffleDeck();
-        Console.WriteLine("It's time to.... PLAY!!!");
-        Console.WriteLine(("\nPlayers put their deck downside in the desk"));
+        // playerOne.ShuffleDeck();
+        // playerTwo.ShuffleDeck();
         
         
         // ------------------------------------------
@@ -58,6 +66,7 @@ public class Controller
         // Console.WriteLine($"La mano del jugador 1 despues de robar tiene: {playerOne.GetHandLength()}");
         // Console.WriteLine($"La mano del jugador 2 despues de robar tiene: {playerTwo.GetHandLength()}");
         // ------------------------------------------
+        Vista.superStarsFaceEachOther(playerOne, playerTwo);
         
         List<Player> starterPlayers = WhoStarts(playerOne, playerTwo);
         Player starter = starterPlayers[0];
@@ -110,7 +119,14 @@ public class Controller
             {
                 string[] words = line.Split(" (Superstar Card)");
                 string superStarName = words[0];
+                // Console.WriteLine(superStarName);
                 List<object> superStarAttributes = SearchSuperStar(superStarName);
+                // Console.WriteLine(superStarAttributes);
+                // Console.WriteLine($"{superStarAttributes[0]}: Type");
+                // Console.WriteLine($"{superStarAttributes[1]}: handSize");
+                // Console.WriteLine($"{superStarAttributes[2]}: starValue");
+                // Console.WriteLine($"{superStarAttributes[3]}: superStarAbility");
+
                 SuperStar super = new SuperStar((string)superStarAttributes[0], (int)superStarAttributes[1],
                     (int)superStarAttributes[2], (string)superStarAttributes[3]);
                 cardsSuperstarList.Add(super);                
@@ -165,7 +181,6 @@ public class Controller
                 r.Add(super.Type);
                 r.Add(super.HandSize);
                 r.Add(super.StarValue);
-                // Aca instanciar SuperStarAbility
                 r.Add(super.SuperStarAbility);
             }
         }
@@ -174,15 +189,15 @@ public class Controller
     
     private static List<Player> ChooseDeck(Deck DeckOne, Deck DeckTwo)
     {
-        Console.WriteLine($"There are two Decks available. The first one is:");
-        DeckOne.Describe();
-        
-        Console.WriteLine("The second one available is:");
-        DeckTwo.Describe();
-        
-        Console.WriteLine("\n Player 1 please choose your deck:");
-        Console.WriteLine($"    (0) {DeckOne.SuperStar.Type} Deck");
-        Console.WriteLine($"    (1) {DeckTwo.SuperStar.Type} Deck");
+        // Console.WriteLine($"There are two Decks available. The first one is:");
+        // DeckOne.Describe();
+        //
+        // Console.WriteLine("The second one available is:");
+        // DeckTwo.Describe();
+        //
+        // Console.WriteLine("\n Player 1 please choose your deck:");
+        // Console.WriteLine($"    (0) {DeckOne.SuperStar.Type} Deck");
+        // Console.WriteLine($"    (1) {DeckTwo.SuperStar.Type} Deck");
 
         List<Card> emptyListRingsidePlayer1 = new List<Card>();
         List<Card> emptyListRingAreaPlayer1 = new List<Card>();
@@ -195,34 +210,32 @@ public class Controller
         Hand hand2 = new Hand(emptyListHandPlayer2);
         Player PlayerOne = new Player(0, null, null, new Ringside(emptyListRingsidePlayer1), new RingArea(emptyListRingAreaPlayer1), hand1);
         Player PlayerTwo = new Player(1, null, null,new Ringside(emptyListRingsidePlayer2), new RingArea(emptyListRingAreaPlayer2), hand2);
-        int answer = AskForNumber(0, 1);
-        if (answer == 0)
-        {
-            PlayerOne.Deck = DeckOne;
-            List<Card> deckCardsPlayerOne = DeckOne.GetCards().ToList();
-            PlayerOne.Arsenal = new Arsenal(deckCardsPlayerOne);
-            
-            PlayerTwo.Deck = DeckTwo;
-            List<Card> deckCardsPlayerTwo = DeckTwo.GetCards().ToList();
-            PlayerTwo.Arsenal = new Arsenal(deckCardsPlayerTwo);
-            
-            Console.WriteLine("Player 1 chooses Deck One. Deck Two is assigned automatically to Player 2");
-            // Player PlayerOne = new Player(0, DeckOne);
-            // Player PlayerTwo = new Player(1, DeckTwo);
-        }
-        else
-        {
-            PlayerOne.Deck = DeckTwo;
-            List<Card> deckCardsPlayerOne = DeckTwo.GetCards().ToList();
-            PlayerOne.Arsenal = new Arsenal(deckCardsPlayerOne);
-            
-            PlayerTwo.Deck = DeckOne;
-            List<Card> deckCardsPlayerTwo = DeckOne.GetCards().ToList();
-            PlayerTwo.Arsenal = new Arsenal(deckCardsPlayerTwo);
-            Console.WriteLine("Player 1 chooses Deck Two. Deck One is assigned automatically to Player 2");
-            // Player PlayerOne = new Player(0, DeckTwo);
-            // Player PlayerTwo = new Player(1, DeckOne);
-        }
+        // int answer = AskForNumber(0, 1);
+        
+        PlayerOne.Deck = DeckOne;
+        List<Card> deckCardsPlayerOne = DeckOne.GetCards().ToList();
+        PlayerOne.Arsenal = new Arsenal(deckCardsPlayerOne);
+        
+        PlayerTwo.Deck = DeckTwo;
+        List<Card> deckCardsPlayerTwo = DeckTwo.GetCards().ToList();
+        PlayerTwo.Arsenal = new Arsenal(deckCardsPlayerTwo);
+        
+        // Console.WriteLine("Player 1 chooses Deck One. Deck Two is assigned automatically to Player 2");
+        // Player PlayerOne = new Player(0, DeckOne);
+        // Player PlayerTwo = new Player(1, DeckTwo);
+        // else
+        // {
+        //     PlayerOne.Deck = DeckTwo;
+        //     List<Card> deckCardsPlayerOne = DeckTwo.GetCards().ToList();
+        //     PlayerOne.Arsenal = new Arsenal(deckCardsPlayerOne);
+        //     
+        //     PlayerTwo.Deck = DeckOne;
+        //     List<Card> deckCardsPlayerTwo = DeckOne.GetCards().ToList();
+        //     PlayerTwo.Arsenal = new Arsenal(deckCardsPlayerTwo);
+        //     Console.WriteLine("Player 1 chooses Deck Two. Deck One is assigned automatically to Player 2");
+        //     // Player PlayerOne = new Player(0, DeckTwo);
+        //     // Player PlayerTwo = new Player(1, DeckOne);
+        // }
         var PlayersList = new List<Player>();
         PlayersList.Add(PlayerOne);
         PlayersList.Add(PlayerTwo);
@@ -318,6 +331,7 @@ public class Controller
 
     private static bool Turn(Player player, Player opponent)
     {
+        
         // Puede usar superstar. EN PROCESO.
         // Draw Segment. LISTO
         // Main Segment
@@ -343,7 +357,7 @@ public class Controller
             if (cardNumber == 0)
             {
                 Console.WriteLine($"Turn for player number {player.Number + 1} ends");
-                Console.WriteLine($"El booleano play es: {play}");
+                // Console.WriteLine($"El booleano play es: {play}");
                 play = true;
             }
             else
