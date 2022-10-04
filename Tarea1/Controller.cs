@@ -349,16 +349,58 @@ public class Controller
         // Aca tengo q volver en el ciclo
         do
         {
-            // VUELVE A ENTRAR AQUI NO SE PQ
+            int initialPlayerChoice = Vista.BeginingTurnOptions(player, opponent);
+            if (initialPlayerChoice == 2)
+            {
+                List<Card> avaialableManeuvers = player.AvailableCardsToPlayInTurn();
+                 int idCardToPlay = Vista.ChooseCardIDToPlay(avaialableManeuvers);
+                 if (idCardToPlay == -1)
+                 {
+                     play = false;
+                 }
+                 else
+                 {
+                     Card choosenCardToPlay = avaialableManeuvers[idCardToPlay];
+                     Vista.PlayerTriesToPlayCard(player, choosenCardToPlay);
+                     Vista.HasOptionToReverseCard(opponent);
+                     if (player.PlayerHasAvailableReversals(choosenCardToPlay) != true)
+                     {
+                         Vista.NoAvailableReversalToPlay();
+                     }
+                     else
+                     {
+                         List<Card> availableReversals = opponent.GetAvailableReversals(choosenCardToPlay);
+                         Vista.HasAvailableReversalToPlay();
+                         // VA A SALIR QUE LIO JUEGA COMO MANEUVER, CAMBIAR!
+                         int idReversalToPlay = Vista.ChooseCardIDToPlay(availableReversals);
+                         if (idCardToPlay == -1)
+                         {
+                             play = false;
+                         }
+                         else
+                         {
+                             Card choosenReversalToPlay = availableReversals[idReversalToPlay];
+                             // AQUI QUEDAMOS!!!
+                         }
+                     }
+                 }
+                
+            }
+            else // va a ser 3
+            {
+                play = true;
+            }
+            
+            
             Console.WriteLine("The cards in your hand are the following:");
             player.GetHandCards();  // CAMBIO TRES
             Console.WriteLine("Select the card you want to play");
             int cardNumber = AskForNumber(0, player.GetHandLength() + 1);  // CAMBIO DOS
             if (cardNumber == 0)
             {
-                Console.WriteLine($"Turn for player number {player.Number + 1} ends");
+                // Console.WriteLine($"Turn for player number {player.Number + 1} ends");
                 // Console.WriteLine($"El booleano play es: {play}");
-                play = true;
+                // play = true;
             }
             else
             {

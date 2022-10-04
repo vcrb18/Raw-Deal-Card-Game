@@ -178,6 +178,22 @@ public class Player
         }
     }
 
+    // Actualmente solo para maneuvers.
+    public List<Card> AvailableCardsToPlayInTurn()
+    {
+        List<Card> availableCards = new List<Card>(); 
+        foreach (var handCard in MyHand.Cards)
+        {
+            if (Convert.ToInt32(handCard.Fortitude) <= Fortitude && handCard.Types.Contains("Maneuver"))
+            {
+                availableCards.Add(handCard);
+            }
+        }
+
+        return availableCards;
+    }
+    
+
     public DeckElement GetDeckElement(DeckElement element)
     {
         DeckElement r = null;
@@ -254,10 +270,12 @@ public class Player
     public bool PlayerHasAvailableReversals(Card cardToReverse)
     {
         bool available = false;
-        if (GetAvailableReversals(cardToReverse).Count > 0)
+        if (HaveReversalInHand() == true)
         {
-            available = true;
-            
+            if (GetAvailableReversals(cardToReverse).Count > 0)
+            {
+                available = true;
+            }
         }
         return available;
     }
