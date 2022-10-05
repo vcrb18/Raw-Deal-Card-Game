@@ -128,14 +128,17 @@ public class Player
         Console.WriteLine($"$Your new fortitude is of {Fortitude}");
     }
 
-    public bool ReceiveDamage(Card card)
+    public bool ReceiveDamage(Player opponent, Card card)
     {
         bool endGame = false;
-        Console.WriteLine($"Player number {Number + 1} receives {card.Damage} damage");
+        int totalDamage = Convert.ToInt32(card.Damage);
+        Vista.HowMuchDamageIsReceived(opponent, card);
         // Descartar el dano respectivo de cartas del Arsenal
-        for (int i = 0; i < Convert.ToInt32(card.Damage); i++)
+        for (int i = 1; i < totalDamage + 1; i++)
         {
+            
             Card droppedCard = Arsenal.DropUpperCard();
+            Vista.ReceivingDamage(droppedCard, i, totalDamage);
             /////////////////////////////
             // Chequear si la carta droppeada es un Reversal
                 // Revisar si fullfillConditionOne es True. 
@@ -149,7 +152,7 @@ public class Player
                     // Revisar si no se alcanzo a hacer todo el dano
                     // El player roba cartas igual al stun val;ue de la carta que fue revertida.
             /////////////////////////////
-            Console.WriteLine($"Arsenal cards: ${Arsenal.Cards.Count}");
+            // Console.WriteLine($"Arsenal cards: ${Arsenal.Cards.Count}");
             // Chequear si quedan cartas. Si no quedan, se acaba el juego.
             bool arsenalCards = Arsenal.HaveCards();
             if (arsenalCards == false)

@@ -83,15 +83,16 @@ public class Vista
         Dictionary<int, string> decksDict = createDecksDictionary();
         
         Console.WriteLine("Choose any of the following decks");
-        for (int i = 1; i < 8; i++)
+        for (int i = 1; i < 25; i++)
         {
             Console.WriteLine($"{i}- decks/{i}.txt");
         }
-        Console.WriteLine("(Enter a number between 1 and 7)");
-        int choosenDeck = AskForNumber(1, 7);
-        string deckStringName = decksDict[choosenDeck];
+        Console.WriteLine("(Enter a number between 1 and 24)");
+        int choosenDeck = AskForNumber(1, 20);
+        // string deckStringName = decksDict[choosenDeck];
         // Otro modulo que se encargue de buscar el mazo.
-        return deckStringName;
+        // return deckStringName;
+        return choosenDeck.ToString();
     }
 
     public static void superStarsFaceEachOther(Player playerOne, Player playerTwo)
@@ -109,6 +110,7 @@ public class Vista
         bool incorrectOption = true;
         do
         {
+            superStarsFaceEachOther(player, opponent);
             Console.WriteLine($"{player.Deck.SuperStar.Type} plays. What do you want to do?");
             Console.WriteLine("     0. Use your super ability");
             Console.WriteLine("     1. See your cards or the cards from the opponent");
@@ -252,6 +254,34 @@ public class Vista
     public static void NoAvailableReversalToPlay()
     {
         Console.WriteLine("I am sorry, but there is notghing you can play");
+    }
+    
+
+    public static void cardFromPlayerPlayedSuccessfully(Player player, Player opponent, Card playedCard)
+    {
+        Console.WriteLine("------------------------------------");
+        Console.WriteLine($"{opponent.Deck.SuperStar.Type} does not reverse the card from {player.Deck.SuperStar.Type}. The card {playedCard.Title} [MANEUVER] is succesfully played.");
+        Console.WriteLine($"Title: {playedCard.Title}");
+        Console.WriteLine($"Stats: [{playedCard.Fortitude}F/{playedCard.Damage}D/{playedCard.StunValue}SV");
+        Console.WriteLine($"Types: {playedCard.Types}");
+        Console.WriteLine($"Subtypes: {playedCard.Subtypes}");
+        Console.WriteLine($"Effect: {playedCard.CardEffect}");
+    }
+
+    public static void HowMuchDamageIsReceived(Player opponent, Card succesfullyPlayedCard)
+    {
+        Console.WriteLine("------------------------------------");
+        Console.WriteLine($"{opponent.Deck.SuperStar.Type} receives {succesfullyPlayedCard.Damage} of damage\n.");
+    }
+
+    public static void ReceivingDamage(Card droppedCard, int actualDamage, int totalDamage)
+    {
+        Console.WriteLine($"------------------------------------ {actualDamage}/{totalDamage} damage");
+        Console.WriteLine($"Title: {droppedCard.Title}");
+        Console.WriteLine($"Stats: [{droppedCard.Fortitude}F/{droppedCard.Damage}D/{droppedCard.StunValue}SV");
+        Console.WriteLine($"Types: {droppedCard.Types}");
+        Console.WriteLine($"Subtypes: {droppedCard.Subtypes}");
+        Console.WriteLine($"Effect: {droppedCard.CardEffect}");
     }
 
 
