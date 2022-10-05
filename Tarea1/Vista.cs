@@ -137,7 +137,7 @@ public class Vista
                 TurnForPlayerEnds(player);
                 incorrectOption = false;
             }
-        } while (incorrectOption = true);
+        } while (incorrectOption == true);
         return choosenOption;
     }
 

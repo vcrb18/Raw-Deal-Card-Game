@@ -5,12 +5,12 @@ namespace Tarea1;
 
 public class Deck
 {
-    private Card[] _cards;
+    public Card[] Cards;
     public SuperStar SuperStar;
 
     public Deck(Card[] cards, SuperStar superstar)
     {
-        _cards = cards;
+        Cards = cards;
         SuperStar = superstar;
     }
 
@@ -22,19 +22,19 @@ public class Deck
 
     public Card[] GetCards()
     {
-        return _cards;
+        return Cards;
     }
     
     // No Funciona xD    
     public void ShuffleCards()
     {
         Random rnd = new Random();
-        for (int i = 0; i < _cards.Count(); i++)
+        for (int i = 0; i < Cards.Count(); i++)
         {
-            int j = rnd.Next(0, _cards.Count());
-            Card temp = _cards[i];
-            _cards[i] = _cards[j];
-            _cards[j] = temp;
+            int j = rnd.Next(0, Cards.Count());
+            Card temp = Cards[i];
+            Cards[i] = Cards[j];
+            Cards[j] = temp;
         }
     }
 }

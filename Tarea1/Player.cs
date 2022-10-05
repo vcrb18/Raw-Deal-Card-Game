@@ -41,8 +41,9 @@ public class Player
             }
         }
     
-    public void DrawCards(int draw, Player opponentPlayer)
+    public void DrawCards(int draw)
     {
+        Console.WriteLine($"Soy el player {Deck.SuperStar.Type}");
         int counter = 0;
         for (int i = 0; i < draw; i++)
         {
@@ -56,7 +57,8 @@ public class Player
             // Console.WriteLine($"{opponentPlayer.Arsenal.Cards[i].CardSkill}");
             
             // Meter la carta del Arsenal a mi mano
-            Card newCard = arsenalCards[i];
+            Card newCard = arsenalCards[0];
+            Console.WriteLine($"La carta a robar numero {i} es {newCard.Title}");
             
             // Console.WriteLine($"Cartas en la mano justo antes de robar del jugador {Number} = {GetHandLength()}");
             // Console.WriteLine($"Cartas en la mano justo antes de robar del jugador {opponentPlayer.Number} = {GetHandLength()}");
@@ -76,7 +78,7 @@ public class Player
             // Console.WriteLine($"Player {Number} last hand card: {MyHand.Cards[MyHand.Cards.Count - 1].Title}");
 
             // Eliminar la carta del Arsenal
-            Arsenal.Cards.RemoveAt(i);
+            Arsenal.Cards.RemoveAt(0);
         }
         // Console.WriteLine("The cards now in the hand are the following:");
         // GetHandCards();
@@ -187,7 +189,7 @@ public class Player
         List<Card> availableCards = new List<Card>(); 
         foreach (var handCard in MyHand.Cards)
         {
-            if (Convert.ToInt32(handCard.Fortitude) <= Fortitude && handCard.Types.Contains("Maneuver"))
+            if (Convert.ToInt32(handCard.Fortitude) <= Fortitude)
             {
                 availableCards.Add(handCard);
             }

@@ -54,13 +54,13 @@ public class Controller
         // Console.WriteLine($"La mano del jugador 2 antes de robar tiene: {playerTwo.GetHandLength()}");
         // ------------------------------------------
         
-        playerOne.DrawCards(playerOne.Deck.SuperStar.HandSize, playerTwo);
+        playerOne.DrawCards(playerOne.Deck.SuperStar.HandSize);
         // ------------------------------------------
         // Console.WriteLine("Jugador 1 ya robo las cartas iniciales, el jugador 2 no.");
         // Console.WriteLine($"Cartas jugador 1: {playerOne.GetHandLength()}");
         // Console.WriteLine($"Cartas jugador 2: {playerTwo.GetHandLength()}");
         // ------------------------------------------
-        playerTwo.DrawCards(playerTwo.Deck.SuperStar.HandSize, playerOne);
+        playerTwo.DrawCards(playerTwo.Deck.SuperStar.HandSize);
         
         // ------------------------------------------
         // Console.WriteLine($"La mano del jugador 1 despues de robar tiene: {playerOne.GetHandLength()}");
@@ -91,6 +91,8 @@ public class Controller
 
     private static List<object> ChargeDecks(string path)
     {
+        // Console.WriteLine("--------------------------");
+
         StreamReader r = new StreamReader($"decks/{path}.txt");
         int counter = 0;
         int numberOfCards = 60;
@@ -105,6 +107,7 @@ public class Controller
                 string cardNumber = line.Substring(0, 1);
                 int cardNumberRepeated = Int32.Parse(cardNumber);
                 string cardName = line.Substring(2, line.Length - 2);
+                // Console.WriteLine($"El nombre de la carta es: {cardName}");
                 for (int i = 0; i < cardNumberRepeated; i++)
                 {
                     List<object> cardAttributes = SearchCardName(cardName);
@@ -134,9 +137,12 @@ public class Controller
             }
         }
         r.Close();
+        // Console.WriteLine("--------------------------");
+
         // Necesito retornar el arr de cartas del mazo
         // Necesito retornar la SuperEstrella
-        cardsSuperstarList.Add(arr);
+        // Card[] arr = new Card[numberOfCards];
+        cardsSuperstarList.Add(Enumerable.Reverse(arr).ToArray());
         return cardsSuperstarList;
     }
     
@@ -331,7 +337,6 @@ public class Controller
 
     private static bool Turn(Player player, Player opponent)
     {
-        
         // Puede usar superstar. EN PROCESO.
         // Draw Segment. LISTO
         // Main Segment
@@ -344,16 +349,14 @@ public class Controller
         bool gameOn = true;
         // Si superstarSkill es de tipo before, tirar habilidad.
         
-        player.DrawCards(1, opponent);
+        player.DrawCards(1);
         bool play = true;
         // Aca tengo q volver en el ciclo
         do
         {
             int initialPlayerChoice = Vista.BeginingTurnOptions(player, opponent);
-            Console.WriteLine($"SE ELIGIO LA OPCION NUMERO {initialPlayerChoice}");
             if (initialPlayerChoice == 2)
             { 
-                Console.WriteLine("ENTRE EN LA OPCION 2");
                 List<Card> avaialableManeuvers = player.AvailableCardsToPlayInTurn();
                 int idCardToPlay = Vista.ChooseCardIDToPlay(avaialableManeuvers);
                 if (idCardToPlay == -1)
@@ -438,6 +441,7 @@ public class Controller
             }
             else // va a ser 3
             {
+                Console.WriteLine($"Entre en la opcion 3 pq puso el numero {initialPlayerChoice}");
                 play = true;
             }
             
