@@ -284,6 +284,11 @@ public class Vista
         Console.WriteLine($"Effect: {droppedCard.CardEffect}");
     }
 
+    public static void DeckIsInvalid(string superstarName)
+    {
+        Console.WriteLine($"I am sorry but the deck {superstarName} is invalid");
+    }
+
 
 
 }

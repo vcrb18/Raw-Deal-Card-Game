@@ -18,61 +18,65 @@ public class Controller
         SuperStar superStarDeckTwo = (SuperStar)deckTwoToCreate[0];
         Deck secondDeckToChoose = new Deck(deckCardsTwo, superStarDeckTwo);
         List<Player> players = ChooseDeck(firstDeckToChoose, secondDeckToChoose);
+        bool firstDeckIsValid = firstDeckToChoose.CheckIfDeckIsValid();
+        bool secondDeckIsValid = secondDeckToChoose.CheckIfDeckIsValid();
+        if (firstDeckIsValid && secondDeckIsValid)
+        {
+            // Luego a ChargeDecks se le entrega el nombre del mazo
+            // Entonces: ChargeDecks(mazo_1), ChargeDecks(mazo_2)
+            
+            
+            // List<object> StoneColdCards = ChargeDecks("STONE_COLD");
+            // Card[] DeckCardsSC = (Card[])StoneColdCards[1];
+            // SuperStar superStarSC = (SuperStar)StoneColdCards[0];
+            // Deck StoneColdDeck = new Deck(DeckCardsSC, superStarSC);
+            //
+            // List<object> TheRockCards = ChargeDecks("THE_ROCK");
+            // Card[] DeckCardsTR = (Card[])TheRockCards[1];
+            // SuperStar superStarTR = (SuperStar)TheRockCards[0];
+            // Deck TheRockDeck = new Deck(DeckCardsTR, superStarTR);
+            // List<Player> players = ChooseDeck(StoneColdDeck, TheRockDeck);
+
+            Player playerOne = players[0];
+            Player playerTwo = players[1];
+            // playerOne.ShuffleDeck();
+            // playerTwo.ShuffleDeck();
+            
+            
+            // ------------------------------------------
+            // Console.WriteLine($"Esta es la mano del jugador 1: {playerOne.MyHand}");
+            // Console.WriteLine($"Esta es la mano del jugador 1: {playerTwo.MyHand}");
+            // PrintEquals(playerOne.MyHand, playerTwo.MyHand);
+            // PrintEquals(playerOne, playerTwo);
+            
+            // Console.WriteLine($"Estos objetos son iguales?: {}");
+            
+            // Console.WriteLine($"La mano del jugador 1 antes de robar tiene: {playerOne.GetHandLength()}");
+            // Console.WriteLine($"La mano del jugador 2 antes de robar tiene: {playerTwo.GetHandLength()}");
+            // ------------------------------------------
+            
+            playerOne.DrawCards(playerOne.Deck.SuperStar.HandSize);
+            // ------------------------------------------
+            // Console.WriteLine("Jugador 1 ya robo las cartas iniciales, el jugador 2 no.");
+            // Console.WriteLine($"Cartas jugador 1: {playerOne.GetHandLength()}");
+            // Console.WriteLine($"Cartas jugador 2: {playerTwo.GetHandLength()}");
+            // ------------------------------------------
+            playerTwo.DrawCards(playerTwo.Deck.SuperStar.HandSize);
+            
+            // ------------------------------------------
+            // Console.WriteLine($"La mano del jugador 1 despues de robar tiene: {playerOne.GetHandLength()}");
+            // Console.WriteLine($"La mano del jugador 2 despues de robar tiene: {playerTwo.GetHandLength()}");
+            // ------------------------------------------
+            Vista.superStarsFaceEachOther(playerOne, playerTwo);
+            
+            List<Player> starterPlayers = WhoStarts(playerOne, playerTwo);
+            Player starter = starterPlayers[0];
+            Player notStarter = starterPlayers[1];
+            // Console.WriteLine($"Player {starter.Number + 1} starts");
+            StartGame(starter, notStarter);
+        }
 
 
-
-        // Luego a ChargeDecks se le entrega el nombre del mazo
-        // Entonces: ChargeDecks(mazo_1), ChargeDecks(mazo_2)
-        
-        
-        // List<object> StoneColdCards = ChargeDecks("STONE_COLD");
-        // Card[] DeckCardsSC = (Card[])StoneColdCards[1];
-        // SuperStar superStarSC = (SuperStar)StoneColdCards[0];
-        // Deck StoneColdDeck = new Deck(DeckCardsSC, superStarSC);
-        //
-        // List<object> TheRockCards = ChargeDecks("THE_ROCK");
-        // Card[] DeckCardsTR = (Card[])TheRockCards[1];
-        // SuperStar superStarTR = (SuperStar)TheRockCards[0];
-        // Deck TheRockDeck = new Deck(DeckCardsTR, superStarTR);
-        // List<Player> players = ChooseDeck(StoneColdDeck, TheRockDeck);
-
-        Player playerOne = players[0];
-        Player playerTwo = players[1];
-        // playerOne.ShuffleDeck();
-        // playerTwo.ShuffleDeck();
-        
-        
-        // ------------------------------------------
-        // Console.WriteLine($"Esta es la mano del jugador 1: {playerOne.MyHand}");
-        // Console.WriteLine($"Esta es la mano del jugador 1: {playerTwo.MyHand}");
-        // PrintEquals(playerOne.MyHand, playerTwo.MyHand);
-        // PrintEquals(playerOne, playerTwo);
-        
-        // Console.WriteLine($"Estos objetos son iguales?: {}");
-        
-        // Console.WriteLine($"La mano del jugador 1 antes de robar tiene: {playerOne.GetHandLength()}");
-        // Console.WriteLine($"La mano del jugador 2 antes de robar tiene: {playerTwo.GetHandLength()}");
-        // ------------------------------------------
-        
-        playerOne.DrawCards(playerOne.Deck.SuperStar.HandSize);
-        // ------------------------------------------
-        // Console.WriteLine("Jugador 1 ya robo las cartas iniciales, el jugador 2 no.");
-        // Console.WriteLine($"Cartas jugador 1: {playerOne.GetHandLength()}");
-        // Console.WriteLine($"Cartas jugador 2: {playerTwo.GetHandLength()}");
-        // ------------------------------------------
-        playerTwo.DrawCards(playerTwo.Deck.SuperStar.HandSize);
-        
-        // ------------------------------------------
-        // Console.WriteLine($"La mano del jugador 1 despues de robar tiene: {playerOne.GetHandLength()}");
-        // Console.WriteLine($"La mano del jugador 2 despues de robar tiene: {playerTwo.GetHandLength()}");
-        // ------------------------------------------
-        Vista.superStarsFaceEachOther(playerOne, playerTwo);
-        
-        List<Player> starterPlayers = WhoStarts(playerOne, playerTwo);
-        Player starter = starterPlayers[0];
-        Player notStarter = starterPlayers[1];
-        // Console.WriteLine($"Player {starter.Number + 1} starts");
-        StartGame(starter, notStarter);
     }
 
     private static Card[] ReadCardInfos()
