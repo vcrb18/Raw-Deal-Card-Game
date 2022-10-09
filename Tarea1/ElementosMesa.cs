@@ -1,7 +1,9 @@
 namespace Tarea1;
 
-public class DeckElement
+public abstract class DeckElement
 {
+    public abstract string GetDeckElementName();
+    
     public List<Card> Cards;
 
     public DeckElement(List<Card> cards)
@@ -31,6 +33,10 @@ public class RingArea : DeckElement
     {
     }
 
+    public override string GetDeckElementName()
+    {
+        return "RingArea";
+    }
     public void AddCard(Card card)
     {
         Cards.Add(card);
@@ -46,6 +52,10 @@ public class Arsenal : DeckElement
     {
     }
 
+    public override string GetDeckElementName()
+    {
+        return "Arsenal";
+    }
     public Card DropUpperCard()
     {
         Card droppedCard = Cards[0];
@@ -76,6 +86,10 @@ public class Ringside : DeckElement
     {
         
     }
+    public override string GetDeckElementName()
+    {
+        return "Ringside";
+    }
 
     public void AddCard(Card card)
     {
@@ -89,6 +103,10 @@ public class Hand : DeckElement
         : base(cards)
     {
         
+    }
+    public override string GetDeckElementName()
+    {
+        return "Hand";
     }
 
     public void AddCardToHand(Card card)

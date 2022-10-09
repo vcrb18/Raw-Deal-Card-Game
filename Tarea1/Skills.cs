@@ -4,13 +4,11 @@ namespace Tarea1;
 
 public abstract class Skill
 {
+    public abstract void UseAbility();
     public void GetProperties()
     {
         Console.WriteLine(this.GetType().GetProperties());
     }
-
-    public abstract void UseAbility();
-
 }
 
 public class Ignore : Skill
@@ -20,6 +18,56 @@ public class Ignore : Skill
         throw new NotImplementedException();
     }
 }
+
+public class SuperStarSkill : Skill
+{
+    public string UseCondition { get; set; }  // Metodo asociado
+    public override void UseAbility()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void IsAvailable()
+    {
+        
+    }
+}
+
+public class MoveTwiceSkill : SuperStarSkill
+{
+    public string MoveFrom { get; set; }
+    public string MoveTo { get; set; }
+    public string HowMany { get; set; }
+    public string MoveFromSecondTime { get; set; }
+    public string MoveToSecondTime { get; set; }
+    public string HowManySecondTime { get; set; }
+
+    public override void UseAbility()
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class MoveOnceSkill : SuperStarSkill
+{
+    public string MoveFrom { get; set; }
+    public string MoveTo { get; set; }
+    public string HowMany { get; set; }
+    public override void UseAbility()
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class NoSkill : SuperStarSkill
+{
+    public override void UseAbility()
+    {
+        Vista.HasNoAbility();
+    }
+}
+
+
 public abstract class ReverseSkill : Skill
 {
     abstract public bool fullfillConditionOne(Card opponentCard);

@@ -199,6 +199,24 @@ public class Player
     }
     
 
+    // Creo que mee tinca mas q reciba un skill
+    // y retorno el deckelement que tenga el mismo nombre de clase
+    // que el string
+    public DeckElement GetDeckElementDos(string deckElementName)
+    {
+        DeckElement r = null;
+        DeckElement[] propertiesArray = { this.Ringside, this.Arsenal, this.RingArea, this.MyHand };
+        for (int i = 0; i < propertiesArray.Length; i++)
+        {
+            DeckElement playerElement = propertiesArray[i];
+            if (playerElement.GetDeckElementName() == deckElementName)
+            {
+                r = playerElement;
+            }
+        }
+        return r;
+    }
+    
     public DeckElement GetDeckElement(DeckElement element)
     {
         DeckElement r = null;

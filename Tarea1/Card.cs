@@ -23,6 +23,7 @@ public class CardInfo
         foreach (PropertyInfo property in attributesList)
         {
             property.SetValue(claseCreada, attributesInStrings[counter]);
+            counter++;
         }
 
         return claseCreada;

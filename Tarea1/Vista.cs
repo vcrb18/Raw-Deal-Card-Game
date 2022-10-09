@@ -289,6 +289,8 @@ public class Vista
         Console.WriteLine($"I am sorry but the deck {superstarName} is invalid");
     }
 
-
-
+    public static void HasNoAbility()
+    {
+        Console.WriteLine("The ability has no ability");
+    }
 }

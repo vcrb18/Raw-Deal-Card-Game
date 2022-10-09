@@ -190,10 +190,12 @@ public class Controller
         {
             if (super.Type == SuperStarName)
             {
+                Skill poder = super.CardInfo.createEffect();
                 r.Add(super.Type);
                 r.Add(super.HandSize);
                 r.Add(super.StarValue);
                 r.Add(super.SuperStarAbility);
+                r.Add(super.Skill);
             }
         }
         return r;
@@ -360,6 +362,8 @@ public class Controller
         // Aca tengo q volver en el ciclo
         do
         {
+            // Beginning turn options deben ser dos
+            // dependiendo si puede o no usar la super habilidad
             int initialPlayerChoice = Vista.BeginingTurnOptions(player, opponent);
             if (initialPlayerChoice == 2)
             { 
