@@ -199,7 +199,10 @@ public class Player
         {
             if (Convert.ToInt32(handCard.Fortitude) <= Fortitude)
             {
-                availableCards.Add(handCard);
+                if (handCard.Types.Contains("Maneuver") == true || handCard.Types.Contains("Action") == true)
+                {
+                    availableCards.Add(handCard);
+                }
             }
         }
 
@@ -317,6 +320,12 @@ public class Player
         DiscardCard(cartToMove);
         // Agregarla al Ringside
         Ringside.AddCardAtTheEnd(cartToMove);
+    }
+
+    public void MoveCardToBottomArsenal(Card cardToMove)
+    {
+        Arsenal.Cards.Add(cardToMove);
+        
     }
 
     public void PlayerReversalsNotSpecial()

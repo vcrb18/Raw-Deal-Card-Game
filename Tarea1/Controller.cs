@@ -130,12 +130,30 @@ public class Controller
                 string superStarName = words[0];
                 // Console.WriteLine(superStarName);
                 List<object> superStarAttributes = SearchSuperStar(superStarName);
-                // Console.WriteLine(superStarAttributes);
-                // Console.WriteLine($"{superStarAttributes[0]}: Type");
-                // Console.WriteLine($"{superStarAttributes[1]}: handSize");
-                // Console.WriteLine($"{superStarAttributes[2]}: starValue");
-                // Console.WriteLine($"{superStarAttributes[3]}: superStarAbility");
 
+                
+                // if (super.Type == "KANE")
+                // {
+                //     KaneSkill kaneSkill = new KaneSkill("must", "beginning");
+                // }
+                // else if (super.Type == "HHH")
+                // {
+                //     HHHSkill hhhSkill = new HHHSkill("none", "none");
+                // }
+                // else if (super.Type == "CHRIS JERICHO")
+                // {
+                //     JerichoSkill jerichoSkill = new JerichoSkill("may","once");
+                //     r.Add(jerichoSkill);
+                // }
+                
+                
+                
+                // SuperStarSkill objeto = new JerichoSkill("may","once");
+                // objeto.GetType(); //Esta es la clase
+                //
+                // SuperStar super = new SuperStar((string)superStarAttributes[0], (int)superStarAttributes[1],
+                //     (int)superStarAttributes[2], (string)superStarAttributes[3], objeto);
+                
                 SuperStar super = new SuperStar((string)superStarAttributes[0], (int)superStarAttributes[1],
                     (int)superStarAttributes[2], (string)superStarAttributes[3], (SuperStarSkill)superStarAttributes[4]);
                 ///
@@ -213,6 +231,11 @@ public class Controller
                 {
                     JerichoSkill jerichoSkill = new JerichoSkill("may","once");
                     r.Add(jerichoSkill);
+                }
+                else if (super.Type == "STONE COLD STEVE AUSTIN")
+                {
+                    StoneColdSkill stoneColdSkill = new StoneColdSkill("may","once");
+                    r.Add(stoneColdSkill);
                 }
                 // Skill poder = super.CardInfo.CreateSkillInstance();
                 // r.Add((SuperStarSkill)poder);
@@ -407,6 +430,7 @@ public class Controller
         // Aca tengo q volver en el ciclo
         do
         {
+            // Console.WriteLine($"Principio del while (do). playerUsedSuperAbility: {playerUsedSuperAbility}");
             int initialPlayerChoice;
             if (player.Deck.SuperStar.Skill.WhenCondition == "once")
             {
@@ -414,6 +438,7 @@ public class Controller
                 if (playerUsedSuperAbility == false)
                 {
                     initialPlayerChoice = Vista.BeginingTurnOptionsWithSuperAbility(player, opponent);
+                    
                 }
                 else  // YA USO LA HABILIDAD
                 {
@@ -425,7 +450,6 @@ public class Controller
                 initialPlayerChoice = Vista.BeginingTurnOptions(player, opponent);
             }
 
-
             if (initialPlayerChoice == 0)
             {
                 // JERICHO / STONE COLD / UNDERTAKER
@@ -433,10 +457,16 @@ public class Controller
                 playerUsedSuperAbility = true;
                 Vista.PlayerUsesSuperstarAbility(player);
                 player.Deck.SuperStar.Skill.UseAbility(player, opponent);
-                
+                play = false;
             }
-            
-            if (initialPlayerChoice == 2)
+
+            else if (initialPlayerChoice == 1)
+            {
+                Vista.WhatCardsoSee(player, opponent);
+                play = false;
+            }
+
+            else if (initialPlayerChoice == 2)
             { 
                 List<Card> avaialableManeuvers = player.AvailableCardsToPlayInTurn();
                 int idCardToPlay = Vista.ChooseCardIDToPlay(avaialableManeuvers);
@@ -523,6 +553,7 @@ public class Controller
             else // va a ser 3
             {
                 // Console.WriteLine($"Entre en la opcion 3 pq puso el numero {initialPlayerChoice}");
+                Vista.TurnForPlayerEnds(player);
                 play = true;
             }
             

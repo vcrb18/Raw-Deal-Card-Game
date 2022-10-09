@@ -2,9 +2,9 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Tarea1;
 
-public class Skill
+public abstract class Skill
 {
-    // public void UseAbility(Player player, Player opponent);
+    public abstract void UseAbility(Player player, Player opponent);
     public void GetProperties()
     {
         Console.WriteLine(this.GetType().GetProperties());
@@ -13,7 +13,7 @@ public class Skill
 
 public class Ignore : Skill
 {
-    public void UseAbility(Player player, Player opponent)
+    public override void UseAbility(Player player, Player opponent)
     {
         throw new NotImplementedException();
     }
@@ -29,14 +29,9 @@ public class SuperStarSkill : Skill
         UseCondition = useCondition;
         WhenCondition = whenCondition;
     }
-    // public void UseAbility(Player player, Player opponent)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    public void IsAvailable()
+    public override void UseAbility(Player player, Player opponent)
     {
-        
+        throw new NotImplementedException();
     }
 }
 
@@ -47,7 +42,7 @@ public class HHHSkill : SuperStarSkill
     : base(useCondition, whenCondition)
     {
     }
-    public void UseAbility(Player player, Player opponent)
+    public override void UseAbility(Player player, Player opponent)
     {
         throw new NotImplementedException();
     }
@@ -71,7 +66,7 @@ public class KaneSkill : SuperStarSkill
         return false;
     }
 
-    public void UseAbility(Player player, Player opponent)
+    public override void UseAbility(Player player, Player opponent)
     {
         opponent.ReceiveDamage(1);
     }
@@ -84,14 +79,14 @@ public class JerichoSkill : SuperStarSkill
     {
     }
 
-    public void UseAbility(Player player, Player opponent)
+    public override void UseAbility(Player player, Player opponent)
     {
         // Player discard card
-        List<Card> playerHand = opponent.MyHand.Cards;
-        Vista.InformThatPlayerMustDiscard(opponent, 1);
+        List<Card> playerHand = player.MyHand.Cards;
+        Vista.InformThatPlayerMustDiscard(player, 1);
         int choosenIdPlayer = Vista.ChooseCardIDToDiscard(playerHand);
         Card playerChoosenCardToDiscard = playerHand[choosenIdPlayer];
-        opponent.DiscardCard(playerChoosenCardToDiscard);
+        player.DiscardCard(playerChoosenCardToDiscard);
         
         // Opponent discard card
         List<Card> opponentHand = opponent.MyHand.Cards;
@@ -99,6 +94,29 @@ public class JerichoSkill : SuperStarSkill
         int choosenIdOpponent = Vista.ChooseCardIDToDiscard(opponentHand);
         Card opponentChoosenCardToDiscard = opponentHand[choosenIdOpponent];
         opponent.DiscardCard(opponentChoosenCardToDiscard);
+    }
+}
+
+public class StoneColdSkill : SuperStarSkill
+{
+    public StoneColdSkill(string useCondition, string whenCondition)
+        : base(useCondition, whenCondition)
+    {
+    }
+
+    public override void UseAbility(Player player, Player opponent)
+    {
+        // Player draw a card
+        Vista.InformThatPlayerCanDrawCard(player, 1);
+        player.DrawCards(1);
+        
+        // Player discard card TO BOTTOM ARSENAL
+        List<Card> playerHand = player.MyHand.Cards;
+        Vista.InformThatPlayerMustDiscard(opponent, 1);
+        int choosenIdPlayer = Vista.ChooseCardIDToDiscard(playerHand);
+        Card playerChoosenCardToDiscard = playerHand[choosenIdPlayer];
+        player.DiscardCard(playerChoosenCardToDiscard);
+        player.MoveCardToBottomArsenal(playerChoosenCardToDiscard);
     }
 }
 
@@ -140,7 +158,7 @@ public class JerichoSkill : SuperStarSkill
 public abstract class ReverseSkill : Skill
 {
     abstract public bool fullfillConditionOne(Card opponentCard);
-    public void UseAbility(Player player, Player opponent)
+    public override void UseAbility(Player player, Player opponent)
     {
         throw new NotImplementedException();
     }
@@ -157,10 +175,10 @@ public class ReverseSpecificCard : ReverseSkill
 {
     public string CardTitle { get; set; }
 
-    public ReverseSpecificCard(string cardTitle)
-    {
-        CardTitle = cardTitle;
-    }
+    // public ReverseSpecificCard(string cardTitle)
+    // {
+    //     CardTitle = cardTitle;
+    // }
 
     public override bool fullfillConditionOne(Card cardToReverse)
     {
@@ -174,7 +192,7 @@ public class ReverseSpecificCard : ReverseSkill
         }
     }
 
-    public void UseAbility(Player player, Player opponent)
+    public override void UseAbility(Player player, Player opponent)
     {
         Vista.ThisCardHasNoExtraEffect();
     }

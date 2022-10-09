@@ -116,8 +116,8 @@ public class Vista
     {
         int choosenOption;
         bool incorrectOption = true;
-        do
-        {
+        // do
+        // {
             superStarsFaceEachOther(player, opponent);
             Console.WriteLine($"{player.Deck.SuperStar.Type} plays. What do you want to do?");
             // Console.WriteLine("     0. Use your super ability");
@@ -127,21 +127,21 @@ public class Vista
             Console.WriteLine("(Enter a number between 0 and 3)");
             // choosenOption = AskForNumber(0, 3);
             choosenOption = AskForNumber(1, 3);
-            if (choosenOption == 1)
-            {
-                WhatCardsoSee(player, opponent);
-                incorrectOption = true;                                  
-            }
-            else if (choosenOption == 2)
-            {
-                incorrectOption = false;
-            }
-            else
-            {
-                TurnForPlayerEnds(player);
-                incorrectOption = false;
-            }
-        } while (incorrectOption == true);
+        //     if (choosenOption == 1)
+        //     {
+        //         WhatCardsoSee(player, opponent);
+        //         incorrectOption = true;                                  
+        //     }
+        //     else if (choosenOption == 2)
+        //     {
+        //         incorrectOption = false;
+        //     }
+        //     else
+        //     {
+        //         // TurnForPlayerEnds(player);
+        //         incorrectOption = false;
+        //     }
+        // // } while (incorrectOption == true);
         return choosenOption;
     }
     
@@ -149,37 +149,31 @@ public class Vista
     {
         int choosenOption;
         bool incorrectOption = true;
-        do
-        {
-            superStarsFaceEachOther(player, opponent);
-            Console.WriteLine($"{player.Deck.SuperStar.Type} plays. What do you want to do?");
-            Console.WriteLine("     0. Use your super ability");
-            Console.WriteLine("     1. See your cards or the cards from the opponent");
-            Console.WriteLine("     2. Play a card");
-            Console.WriteLine("     3. End your turn");
-            Console.WriteLine("(Enter a number between 0 and 3)");
-            choosenOption = AskForNumber(0, 3);
-            if (choosenOption == 0)
-            {
-                player.Deck.SuperStar.Skill.UseAbility(player, opponent);
-                
-                incorrectOption = true;
-            }
-            else if (choosenOption == 1)
-            {
-                WhatCardsoSee(player, opponent);
-                incorrectOption = true;                                  
-            }
-            else if (choosenOption == 2)
-            {
-                incorrectOption = false;
-            }
-            else
-            {
-                TurnForPlayerEnds(player);
-                incorrectOption = false;
-            }
-        } while (incorrectOption == true);
+        // do
+        // {
+        superStarsFaceEachOther(player, opponent);
+        Console.WriteLine($"{player.Deck.SuperStar.Type} plays. What do you want to do?");
+        Console.WriteLine("     0. Use your super ability");
+        Console.WriteLine("     1. See your cards or the cards from the opponent");
+        Console.WriteLine("     2. Play a card");
+        Console.WriteLine("     3. End your turn");
+        Console.WriteLine("(Enter a number between 0 and 3)");
+        choosenOption = AskForNumber(0, 3);
+        //     if (choosenOption == 1)
+        //     {
+        //         WhatCardsoSee(player, opponent);
+        //         incorrectOption = true;                                  
+        //     }
+        //     else if (choosenOption == 2)
+        //     {
+        //         incorrectOption = false;
+        //     }
+        //     else
+        //     {
+        //         // TurnForPlayerEnds(player);
+        //         incorrectOption = false;
+        //     }
+        // // } while (incorrectOption == true);
         return choosenOption;
     }
 
@@ -280,9 +274,16 @@ public class Vista
     public static void InformThatPlayerMustDiscard(Player playerWhoDiscards, int numberOfCardsToDiscard)
     {
         Console.WriteLine("------------------------------------");
-        Console.WriteLine($"Player {playerWhoDiscards} must discard {numberOfCardsToDiscard} card (s)");
+        Console.WriteLine($"Player {playerWhoDiscards.Deck.SuperStar.Type} must discard {numberOfCardsToDiscard} card (s)");
         Console.WriteLine("What card do you want to discard?\n");
     }
+    
+    public static void InformThatPlayerCanDrawCard(Player playerWhoDraws, int numberOfCardsToDraw)
+    {
+        Console.WriteLine("------------------------------------");
+        Console.WriteLine($"Player {playerWhoDraws.Deck.SuperStar.Type} will draw {numberOfCardsToDraw} card (s)");
+    }
+    
     public static int ChooseCardIDToDiscard(List<Card> availableHandCardsofPlayer)
     {
         int counter = 0;
