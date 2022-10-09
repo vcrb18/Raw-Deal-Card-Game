@@ -99,8 +99,9 @@ public class Controller
 
         StreamReader r = new StreamReader($"decks/{path}.txt");
         int counter = 0;
-        int numberOfCards = 60;
-        Card[] arr = new Card[numberOfCards];
+        // int numberOfCards = 60;
+        // Card[] arr = new Card[numberOfCards];
+        List<Card> arr = new List<Card>();
         var cardsSuperstarList = new List<object>();
         while (!r.EndOfStream)
         {
@@ -118,7 +119,8 @@ public class Controller
                     Card cardsJson = new Card((string)cardAttributes[0], (List<string>)cardAttributes[1], (List<string>)cardAttributes[2],
                         ((string)cardAttributes[3]), (string)cardAttributes[4], (string)cardAttributes[5], (string)cardAttributes[6], (CardInfo)cardAttributes[7]);  //Aca debo ponerle (Skills)cardAttributes[6]
                     cardsJson.setSkill();
-                    arr[counter - 1] = cardsJson;
+                    // arr[counter - 1] = cardsJson;
+                    arr.Add(cardsJson);
                     counter += 1;
                 }
             }
