@@ -85,14 +85,22 @@ public class Vista
         Console.WriteLine("Choose any of the following decks");
         for (int i = 1; i < 25; i++)
         {
-            Console.WriteLine($"{i}- decks/{i}.txt");
+            if (i < 10)
+            {
+                Console.WriteLine($"{i}- decks/0{i}.txt");
+            }
+            else
+            {
+                Console.WriteLine($"{i}- decks/{i}.txt");
+            }
         }
         Console.WriteLine("(Enter a number between 1 and 24)");
         int choosenDeck = AskForNumber(1, 20);
+        string choosenDeckInString = choosenDeck.ToString().PadLeft(2, '0');
         // string deckStringName = decksDict[choosenDeck];
         // Otro modulo que se encargue de buscar el mazo.
         // return deckStringName;
-        return choosenDeck.ToString();
+        return choosenDeckInString.ToString();
     }
 
     public static void superStarsFaceEachOther(Player playerOne, Player playerTwo)
@@ -112,6 +120,39 @@ public class Vista
         {
             superStarsFaceEachOther(player, opponent);
             Console.WriteLine($"{player.Deck.SuperStar.Type} plays. What do you want to do?");
+            // Console.WriteLine("     0. Use your super ability");
+            Console.WriteLine("     1. See your cards or the cards from the opponent");
+            Console.WriteLine("     2. Play a card");
+            Console.WriteLine("     3. End your turn");
+            Console.WriteLine("(Enter a number between 0 and 3)");
+            // choosenOption = AskForNumber(0, 3);
+            choosenOption = AskForNumber(1, 3);
+            if (choosenOption == 1)
+            {
+                WhatCardsoSee(player, opponent);
+                incorrectOption = true;                                  
+            }
+            else if (choosenOption == 2)
+            {
+                incorrectOption = false;
+            }
+            else
+            {
+                TurnForPlayerEnds(player);
+                incorrectOption = false;
+            }
+        } while (incorrectOption == true);
+        return choosenOption;
+    }
+    
+    public static int BeginingTurnOptionsWithSuperAbility(Player player, Player opponent)
+    {
+        int choosenOption;
+        bool incorrectOption = true;
+        do
+        {
+            superStarsFaceEachOther(player, opponent);
+            Console.WriteLine($"{player.Deck.SuperStar.Type} plays. What do you want to do?");
             Console.WriteLine("     0. Use your super ability");
             Console.WriteLine("     1. See your cards or the cards from the opponent");
             Console.WriteLine("     2. Play a card");
@@ -120,7 +161,8 @@ public class Vista
             choosenOption = AskForNumber(0, 3);
             if (choosenOption == 0)
             {
-                Console.WriteLine("Not implemented");
+                player.Deck.SuperStar.Skill.UseAbility(player, opponent);
+                
                 incorrectOption = true;
             }
             else if (choosenOption == 1)
@@ -234,6 +276,31 @@ public class Vista
         int idCard = AskForNumber(-1, counter - 1);
         return idCard;
     }
+    
+    public static void InformThatPlayerMustDiscard(Player playerWhoDiscards, int numberOfCardsToDiscard)
+    {
+        Console.WriteLine("------------------------------------");
+        Console.WriteLine($"Player {playerWhoDiscards} must discard {numberOfCardsToDiscard} card (s)");
+        Console.WriteLine("What card do you want to discard?\n");
+    }
+    public static int ChooseCardIDToDiscard(List<Card> availableHandCardsofPlayer)
+    {
+        int counter = 0;
+        foreach (Card card in availableHandCardsofPlayer)
+        {
+            Console.WriteLine($"------------- Card #{counter}");
+            Console.WriteLine($"Title: {card.Title}");
+            Console.WriteLine($"Stats: [{card.Fortitude}F/{card.Damage}D/{card.StunValue}SV");
+            Console.WriteLine($"Types: {card.Types}");
+            Console.WriteLine($"Subtypes: {card.Subtypes}");
+            Console.WriteLine($"Effect: {card.CardEffect}");
+            counter++;
+        }
+        Console.WriteLine("-------------");
+        Console.WriteLine("Enter the ID of the card you want to discard.");
+        int idCard = AskForNumber(0, counter - 1);
+        return idCard;
+    }
 
     public static void PlayerTriesToPlayCard(Player player, Card cardToPlay)
     {
@@ -268,10 +335,10 @@ public class Vista
         Console.WriteLine($"Effect: {playedCard.CardEffect}");
     }
 
-    public static void HowMuchDamageIsReceived(Player opponent, Card succesfullyPlayedCard)
+    public static void HowMuchDamageIsReceived(Player opponent, int damage)
     {
         Console.WriteLine("------------------------------------");
-        Console.WriteLine($"{opponent.Deck.SuperStar.Type} receives {succesfullyPlayedCard.Damage} of damage\n.");
+        Console.WriteLine($"{opponent.Deck.SuperStar.Type} receives {damage} of damage.\n");
     }
 
     public static void ReceivingDamage(Card droppedCard, int actualDamage, int totalDamage)
@@ -289,8 +356,10 @@ public class Vista
         Console.WriteLine($"I am sorry but the deck {superstarName} is invalid");
     }
 
-    public static void HasNoAbility()
+    public static void PlayerUsesSuperstarAbility(Player player)
     {
-        Console.WriteLine("The ability has no ability");
+        Console.WriteLine($"------------------------------------");
+        Console.WriteLine($"Player {player.Deck.SuperStar.Type} uses the super ability: ");
+        Console.WriteLine($"{player.Deck.SuperStar.SuperStarAbility}");
     }
 }

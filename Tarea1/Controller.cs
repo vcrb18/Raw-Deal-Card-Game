@@ -137,7 +137,11 @@ public class Controller
                 // Console.WriteLine($"{superStarAttributes[3]}: superStarAbility");
 
                 SuperStar super = new SuperStar((string)superStarAttributes[0], (int)superStarAttributes[1],
-                    (int)superStarAttributes[2], (string)superStarAttributes[3]);
+                    (int)superStarAttributes[2], (string)superStarAttributes[3], (SuperStarSkill)superStarAttributes[4]);
+                ///
+                // Cambiar el SKill a la clase especifica
+                Console.WriteLine($"");
+                /// 
                 cardsSuperstarList.Add(super);                
                 counter += 1;
             }
@@ -190,13 +194,28 @@ public class Controller
         {
             if (super.Type == SuperStarName)
             {
-                Skill poder = super.CardInfo.CreateSkillInstance();
                 r.Add(super.Type);
                 r.Add(super.HandSize);
                 r.Add(super.StarValue);
                 r.Add(super.SuperStarAbility);
-                r.Add(super.CardInfo);
-                r.Add((SuperStarSkill)poder);
+                // r.Add(super.CardInfo);
+                if (super.Type == "KANE")
+                {
+                    KaneSkill kaneSkill = new KaneSkill("must", "beginning");
+                    r.Add(kaneSkill);
+                }
+                else if (super.Type == "HHH")
+                {
+                    HHHSkill hhhSkill = new HHHSkill("none", "none");
+                    r.Add(hhhSkill);
+                }
+                else if (super.Type == "CHRIS JERICHO")
+                {
+                    JerichoSkill jerichoSkill = new JerichoSkill("may","once");
+                    r.Add(jerichoSkill);
+                }
+                // Skill poder = super.CardInfo.CreateSkillInstance();
+                // r.Add((SuperStarSkill)poder);
             }
         }
         return r;
@@ -346,6 +365,7 @@ public class Controller
 
     private static bool Turn(Player player, Player opponent)
     {
+        bool playerUsedSuperAbility = false;
         // Puede usar superstar. EN PROCESO.
         
         // Draw Segment. LISTO
@@ -358,15 +378,64 @@ public class Controller
             // Oponente revierte alguna carta jugada en el Main. IGNORAR
         bool gameOn = true;
         // Si superstarSkill es de tipo before, tirar habilidad.
-        
+        // Console.WriteLine("Principio de Turn");
+        // Console.WriteLine($"SSuperstarSKill de {player.Deck.SuperStar.Type}: {player.Deck.SuperStar.Skill}");
+        // Console.WriteLine($"WhenCondition: {player.Deck.SuperStar.Skill.WhenCondition}. UseCondition: {player.Deck.SuperStar.Skill.UseCondition}");
+
+        if (player.Deck.SuperStar.Skill.WhenCondition == "beginning")
+        {
+            // Console.WriteLine("Entre al if beginning");
+            // Hay que usar la habilidad
+            if (player.Deck.SuperStar.Skill.UseCondition == "must")
+            {
+                // KaneSkill
+                // Console.WriteLine("Se usa la habilidad de KANE");
+                KaneSkill superstarSkill = player.Deck.SuperStar.Skill as KaneSkill;
+                Vista.PlayerUsesSuperstarAbility(player);
+                superstarSkill.UseAbility(player, opponent);
+                
+            }
+            else
+            {
+                // THE ROCK ABILITY
+            }
+                
+            
+        }
         player.DrawCards(1);
         bool play = true;
         // Aca tengo q volver en el ciclo
         do
         {
-            // Beginning turn options deben ser dos
-            // dependiendo si puede o no usar la super habilidad
-            int initialPlayerChoice = Vista.BeginingTurnOptions(player, opponent);
+            int initialPlayerChoice;
+            if (player.Deck.SuperStar.Skill.WhenCondition == "once")
+            {
+                // Siempre va a poder elegir. TODAS SON MAY
+                if (playerUsedSuperAbility == false)
+                {
+                    initialPlayerChoice = Vista.BeginingTurnOptionsWithSuperAbility(player, opponent);
+                }
+                else  // YA USO LA HABILIDAD
+                {
+                    initialPlayerChoice = Vista.BeginingTurnOptions(player, opponent);
+                }
+            }
+            else
+            {
+                initialPlayerChoice = Vista.BeginingTurnOptions(player, opponent);
+            }
+
+
+            if (initialPlayerChoice == 0)
+            {
+                // JERICHO / STONE COLD / UNDERTAKER
+                // IMPLEMENTADOS: JERICHO
+                playerUsedSuperAbility = true;
+                Vista.PlayerUsesSuperstarAbility(player);
+                player.Deck.SuperStar.Skill.UseAbility(player, opponent);
+                
+            }
+            
             if (initialPlayerChoice == 2)
             { 
                 List<Card> avaialableManeuvers = player.AvailableCardsToPlayInTurn();
@@ -386,7 +455,7 @@ public class Controller
                      ///////////////////////////////////////////
                      play = false;
                      Vista.cardFromPlayerPlayedSuccessfully(player, opponent, choosenCardToPlay);
-                     bool endGame = opponent.ReceiveDamage(opponent, choosenCardToPlay);
+                     bool endGame = opponent.ReceiveDamage(Convert.ToInt32(choosenCardToPlay.Damage));
                      if (endGame == true)
                      {
                          gameOn = false;
@@ -407,7 +476,7 @@ public class Controller
                          ///////////////////////////////////////////
                          play = false;
                          Vista.cardFromPlayerPlayedSuccessfully(player, opponent, choosenCardToPlay);
-                         bool endGame = opponent.ReceiveDamage(opponent, choosenCardToPlay);
+                         bool endGame = opponent.ReceiveDamage(Convert.ToInt32(choosenCardToPlay.Damage));
                          if (endGame == true)
                          {
                              gameOn = false;
@@ -435,10 +504,10 @@ public class Controller
                                         
                          // LUEGO:
                          // Se aplica el efecto del REVERSAL
-                         reversalSkill.UseAbility();
+                         reversalSkill.UseAbility(player, opponent);
                                         
                          // Se efectua el dano del reversal
-                         player.ReceiveDamage(opponent, choosenReversalToPlay);
+                         player.ReceiveDamage(Convert.ToInt32(choosenReversalToPlay.Damage));
 
                          // El reversal queda puesto en el ring area
                          opponent.PutDownReversalToRingArea(choosenReversalToPlay);
@@ -453,7 +522,7 @@ public class Controller
             }
             else // va a ser 3
             {
-                Console.WriteLine($"Entre en la opcion 3 pq puso el numero {initialPlayerChoice}");
+                // Console.WriteLine($"Entre en la opcion 3 pq puso el numero {initialPlayerChoice}");
                 play = true;
             }
             

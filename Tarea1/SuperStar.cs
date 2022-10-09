@@ -10,11 +10,12 @@ public class SuperStar
     public CardInfo CardInfo { get; set; }
     
     public SuperStarSkill Skill { get; set; }
-    public SuperStar(string type, int handSize, int starValue, string superStarAbility)
+    public SuperStar(string type, int handSize, int starValue, string superStarAbility, SuperStarSkill skill)
     {
         Type = type;
         HandSize = handSize;
         StarValue = starValue;
         SuperStarAbility = superStarAbility;
+        Skill = skill;
     }
 }

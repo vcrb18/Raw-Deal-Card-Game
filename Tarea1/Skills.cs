@@ -2,9 +2,9 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Tarea1;
 
-public abstract class Skill
+public class Skill
 {
-    public abstract void UseAbility();
+    // public void UseAbility(Player player, Player opponent);
     public void GetProperties()
     {
         Console.WriteLine(this.GetType().GetProperties());
@@ -13,7 +13,7 @@ public abstract class Skill
 
 public class Ignore : Skill
 {
-    public override void UseAbility()
+    public void UseAbility(Player player, Player opponent)
     {
         throw new NotImplementedException();
     }
@@ -21,11 +21,18 @@ public class Ignore : Skill
 
 public class SuperStarSkill : Skill
 {
-    public string UseCondition { get; set; }  // Metodo asociado
-    public override void UseAbility()
+    public string UseCondition; // Metodo asociado
+    public string WhenCondition;
+
+    public SuperStarSkill(string useCondition, string whenCondition)
     {
-        throw new NotImplementedException();
+        UseCondition = useCondition;
+        WhenCondition = whenCondition;
     }
+    // public void UseAbility(Player player, Player opponent)
+    // {
+    //     throw new NotImplementedException();
+    // }
 
     public void IsAvailable()
     {
@@ -33,11 +40,27 @@ public class SuperStarSkill : Skill
     }
 }
 
+public class HHHSkill : SuperStarSkill
+{
+
+    public HHHSkill(string useCondition, string whenCondition)
+    : base(useCondition, whenCondition)
+    {
+    }
+    public void UseAbility(Player player, Player opponent)
+    {
+        throw new NotImplementedException();
+    }
+}
+
 public class KaneSkill : SuperStarSkill
 {
     // UseCondition = beginning
-    public string UseCondition = "beginning";
 
+    public KaneSkill(string useCondition, string whenCondition)
+    : base(useCondition, whenCondition)
+    {
+    }
     public bool IsAvailableInDrawSegment()
     {
         return true;
@@ -48,61 +71,76 @@ public class KaneSkill : SuperStarSkill
         return false;
     }
 
-    public void UseAbility(Player opponent)
+    public void UseAbility(Player player, Player opponent)
     {
-        Arsenal arsenalFromOpponent = opponent.Arsenal;
-        Ringside ringsideFromOpponent = opponent.Ringside;
-        Card card = opponent.takeTopCardFromArsenal();
-        opponent.Ringside.AddCard(card);
-
-
-
-
-
-
-
+        opponent.ReceiveDamage(1);
     }
 }
 
-public class MoveTwiceSkill : SuperStarSkill
+public class JerichoSkill : SuperStarSkill
 {
-    public string MoveFrom { get; set; }
-    public string MoveTo { get; set; }
-    public string HowMany { get; set; }
-    public string MoveFromSecondTime { get; set; }
-    public string MoveToSecondTime { get; set; }
-    public string HowManySecondTime { get; set; }
-
-    public override void UseAbility()
+    public JerichoSkill(string useCondition, string whenCondition)
+        : base(useCondition, whenCondition)
     {
-        throw new NotImplementedException();
+    }
+
+    public void UseAbility(Player player, Player opponent)
+    {
+        // Player discard card
+        List<Card> playerHand = opponent.MyHand.Cards;
+        Vista.InformThatPlayerMustDiscard(opponent, 1);
+        int choosenIdPlayer = Vista.ChooseCardIDToDiscard(playerHand);
+        Card playerChoosenCardToDiscard = playerHand[choosenIdPlayer];
+        opponent.DiscardCard(playerChoosenCardToDiscard);
+        
+        // Opponent discard card
+        List<Card> opponentHand = opponent.MyHand.Cards;
+        Vista.InformThatPlayerMustDiscard(opponent, 1);
+        int choosenIdOpponent = Vista.ChooseCardIDToDiscard(opponentHand);
+        Card opponentChoosenCardToDiscard = opponentHand[choosenIdOpponent];
+        opponent.DiscardCard(opponentChoosenCardToDiscard);
     }
 }
 
-public class MoveOnceSkill : SuperStarSkill
-{
-    public string MoveFrom { get; set; }
-    public string MoveTo { get; set; }
-    public string HowMany { get; set; }
-    public override void UseAbility()
-    {
-        throw new NotImplementedException();
-    }
-}
-
-public class NoSkill : SuperStarSkill
-{
-    public override void UseAbility()
-    {
-        Vista.HasNoAbility();
-    }
-}
+// public class MoveTwiceSkill : SuperStarSkill
+// {
+//     public string MoveFrom { get; set; }
+//     public string MoveTo { get; set; }
+//     public string HowMany { get; set; }
+//     public string MoveFromSecondTime { get; set; }
+//     public string MoveToSecondTime { get; set; }
+//     public string HowManySecondTime { get; set; }
+//
+//     public override void UseAbility(Player opponent)
+//     {
+//         throw new NotImplementedException();
+//     }
+// }
+//
+// public class MoveOnceSkill : SuperStarSkill
+// {
+//     public string MoveFrom { get; set; }
+//     public string MoveTo { get; set; }
+//     public string HowMany { get; set; }
+//     public override void UseAbility(Player opponent)
+//     {
+//         throw new NotImplementedException();
+//     }
+// }
+//
+// public class NoSkill : SuperStarSkill
+// {
+//     public override void UseAbility(Player opponent)
+//     {
+//         Vista.HasNoAbility();
+//     }
+// }
 
 
 public abstract class ReverseSkill : Skill
 {
     abstract public bool fullfillConditionOne(Card opponentCard);
-    public override void UseAbility()
+    public void UseAbility(Player player, Player opponent)
     {
         throw new NotImplementedException();
     }
@@ -119,10 +157,10 @@ public class ReverseSpecificCard : ReverseSkill
 {
     public string CardTitle { get; set; }
 
-    // public ReverseSpecificCard(string cardTitle)
-    // {
-    //     CardTitle = cardTitle;
-    // }
+    public ReverseSpecificCard(string cardTitle)
+    {
+        CardTitle = cardTitle;
+    }
 
     public override bool fullfillConditionOne(Card cardToReverse)
     {
@@ -136,7 +174,7 @@ public class ReverseSpecificCard : ReverseSkill
         }
     }
 
-    public override void UseAbility()
+    public void UseAbility(Player player, Player opponent)
     {
         Vista.ThisCardHasNoExtraEffect();
     }
