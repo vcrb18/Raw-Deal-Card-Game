@@ -33,6 +33,37 @@ public class SuperStarSkill : Skill
     }
 }
 
+public class KaneSkill : SuperStarSkill
+{
+    // UseCondition = beginning
+    public string UseCondition = "beginning";
+
+    public bool IsAvailableInDrawSegment()
+    {
+        return true;
+    }
+
+    public bool IsAvailableInMainSegment()
+    {
+        return false;
+    }
+
+    public void UseAbility(Player opponent)
+    {
+        Arsenal arsenalFromOpponent = opponent.Arsenal;
+        Ringside ringsideFromOpponent = opponent.Ringside;
+        Card card = opponent.takeTopCardFromArsenal();
+        opponent.Ringside.AddCard(card);
+
+
+
+
+
+
+
+    }
+}
+
 public class MoveTwiceSkill : SuperStarSkill
 {
     public string MoveFrom { get; set; }

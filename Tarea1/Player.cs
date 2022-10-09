@@ -40,6 +40,14 @@ public class Player
                 Console.WriteLine("Both of the values are not equal");
             }
         }
+
+    public Card takeTopCardFromArsenal()
+    {
+        List<Card> arsenalCards = Arsenal.Cards;
+        Card newCard = arsenalCards[0];
+        Arsenal.Cards.RemoveAt(0);
+        return newCard;
+    }
     
     public void DrawCards(int draw)
     {

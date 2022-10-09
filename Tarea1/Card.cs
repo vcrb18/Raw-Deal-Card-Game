@@ -10,8 +10,14 @@ public class CardInfo
     
     // Atributos siempre en orden de la respectiva Clase
     public List<object> Attributes { get; set; }
-    
 
+    public Skill CreateSkillInstance()
+    {
+        ReadEffect leeEfecto = new ReadEffect();
+        Skill claseCreada = leeEfecto.ReturnEffectClass(ClassName);
+        return claseCreada;
+    }
+    
     public Skill createEffect()
     {
         // JsonSerializer.Deserialize<Object[]>(Attributes);

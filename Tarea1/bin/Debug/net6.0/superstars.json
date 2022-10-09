@@ -82,9 +82,9 @@
      "StarValue":2,
      "SuperStarAbility":"At the start of your turn, before your draw segment, opponent must take the top card from his Arsenal and place it into his Ringside pile.",
      "CardInfo":{
-        "ClassName":"Ignore",
+        "ClassName":"KaneSkill",
         "Attributes":[
-           "beginning"
+
         ]
      }
   }

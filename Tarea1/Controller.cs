@@ -190,12 +190,13 @@ public class Controller
         {
             if (super.Type == SuperStarName)
             {
-                Skill poder = super.CardInfo.createEffect();
+                Skill poder = super.CardInfo.CreateSkillInstance();
                 r.Add(super.Type);
                 r.Add(super.HandSize);
                 r.Add(super.StarValue);
                 r.Add(super.SuperStarAbility);
-                r.Add(super.Skill);
+                r.Add(super.CardInfo);
+                r.Add((SuperStarSkill)poder);
             }
         }
         return r;
@@ -346,6 +347,7 @@ public class Controller
     private static bool Turn(Player player, Player opponent)
     {
         // Puede usar superstar. EN PROCESO.
+        
         // Draw Segment. LISTO
         // Main Segment
             // Usar SuperStar ability. EN PROCESO.
