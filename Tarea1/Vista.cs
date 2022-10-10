@@ -234,7 +234,7 @@ public class Vista
 
     public static void SeePlayerRingArea(Player player)
     {
-        ListCardsOutput(player.Ringside.Cards);
+        ListCardsOutput(player.RingArea.Cards);
     }
 
     public static void SeeOpponentRingside(Player opponent)
@@ -353,7 +353,7 @@ public class Vista
 
     public static void HasOptionToReverseCard(Player player)
     {
-        Console.WriteLine($"But {player.Deck.SuperStar} has the option to reverse the card:");
+        Console.WriteLine($"But {player.Deck.SuperStar.Type} has the option to reverse the card:");
     }
 
     public static void NoAvailableReversalToPlay()
@@ -408,4 +408,28 @@ public class Vista
         Console.WriteLine($"Player {player.Deck.SuperStar.Type} uses the super ability: ");
         Console.WriteLine($"{player.Deck.SuperStar.SuperStarAbility}");
     }
+
+    public static void ReversalWithNoAdditionalEffect()
+    {
+        Console.WriteLine("------------------------------------");
+        Console.WriteLine("This Reversal has no additional effect.");
+    }
+    
+    // Ojo, podria ser para todo reversal jugado
+    public static void PlayAReversalFromHand(Player playerOfReversal, Card reversalCard)
+    {
+        Console.WriteLine("------------------------------------");
+        Console.WriteLine("Jugar esta carta como un [REVERSAL]");
+        CardDescription(reversalCard);
+    }
+
+    public static void CardDescription(Card card)
+    {
+        Console.WriteLine($"Title: {card.Title}");
+        Console.WriteLine($"Stats: [{card.Fortitude}F/{card.Damage}D/{card.StunValue}SV");
+        Console.WriteLine($"Types: {card.Types}");
+        Console.WriteLine($"Subtypes: {card.Subtypes}");
+        Console.WriteLine($"Effect: {card.CardEffect}");
+    }
+    
 }

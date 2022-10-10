@@ -176,45 +176,61 @@ public class MankindSkill : SuperStarSkill
     }
 }
 
-// public class MoveTwiceSkill : SuperStarSkill
-// {
-//     public string MoveFrom { get; set; }
-//     public string MoveTo { get; set; }
-//     public string HowMany { get; set; }
-//     public string MoveFromSecondTime { get; set; }
-//     public string MoveToSecondTime { get; set; }
-//     public string HowManySecondTime { get; set; }
-//
-//     public override void UseAbility(Player opponent)
-//     {
-//         throw new NotImplementedException();
-//     }
-// }
-//
-// public class MoveOnceSkill : SuperStarSkill
-// {
-//     public string MoveFrom { get; set; }
-//     public string MoveTo { get; set; }
-//     public string HowMany { get; set; }
-//     public override void UseAbility(Player opponent)
-//     {
-//         throw new NotImplementedException();
-//     }
-// }
-//
-// public class NoSkill : SuperStarSkill
-// {
-//     public override void UseAbility(Player opponent)
-//     {
-//         Vista.HasNoAbility();
-//     }
-// }
+public class ActionSKill : Skill
+{
+    public override void UseAbility(Player player, Player opponent)
+    {
+        throw new NotImplementedException();
+    }
+}
 
+public class HmmmSkill : Skill
+{
+    public override void UseAbility(Player player, Player opponent)
+    {
+        throw new NotImplementedException();
+    }
+}
 
 public abstract class ReverseSkill : Skill
 {
-    abstract public bool fullfillConditionOne(Card opponentCard);
+    public abstract bool fullfillConditionOne(Card opponentCard);
     public override void UseAbility(Player player, Player opponent)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class ReverseSubtypeManeuver : ReverseSkill
+{
+    public string SubtypeManeuver;
+
+    public ReverseSubtypeManeuver(string subtypeManeuver)
+    {
+        SubtypeManeuver = subtypeManeuver;
+    }
+
+    public override void UseAbility(Player player, Player opponent)
+    {
+        Vista.ReversalWithNoAdditionalEffect();
+    }
+
+    public override bool fullfillConditionOne(Card opponentCard)
+    {
+        if (opponentCard.Subtypes.Contains(SubtypeManeuver))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+
+public class ReverseAnyAction : ReverseSkill
+{
+    public override bool fullfillConditionOne(Card opponentCard)
     {
         throw new NotImplementedException();
     }

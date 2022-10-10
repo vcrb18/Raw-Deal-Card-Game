@@ -124,6 +124,8 @@ public class Player
         //      Sacar la carta de su mano
         UpdateFortitude(Convert.ToInt32(maneuver.Damage));
         RingArea.AddCard(maneuver);
+        Console.WriteLine($"Cartas en el RingArea de {Deck.SuperStar.Type} = {RingArea.Cards.Count}");
+        Console.WriteLine($"Esta es {RingArea.Cards[0].Title}");
         DiscardCard(maneuver);
     }
 

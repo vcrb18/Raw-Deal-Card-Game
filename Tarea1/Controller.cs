@@ -116,9 +116,12 @@ public class Controller
                 for (int i = 0; i < cardNumberRepeated; i++)
                 {
                     List<object> cardAttributes = SearchCardName(cardName);
-                    Card cardsJson = new Card((string)cardAttributes[0], (List<string>)cardAttributes[1], (List<string>)cardAttributes[2],
-                        ((string)cardAttributes[3]), (string)cardAttributes[4], (string)cardAttributes[5], (string)cardAttributes[6], (CardInfo)cardAttributes[7]);  //Aca debo ponerle (Skills)cardAttributes[6]
-                    cardsJson.setSkill();
+                    Card cardsJson = new Card((string)cardAttributes[0], (List<string>)cardAttributes[1],
+                        (List<string>)cardAttributes[2],
+                        ((string)cardAttributes[3]), (string)cardAttributes[4], (string)cardAttributes[5],
+                        (string)cardAttributes[6], (CardInfo)cardAttributes[7], (Skill)cardAttributes[8]);  //Aca debo ponerle (Skills)cardAttributes[6]
+                    // cardsJson.setSkill();
+                    // Console.WriteLine($"{cardsJson.CardSkill}");
                     // arr[counter - 1] = cardsJson;
                     arr.Add(cardsJson);
                     counter += 1;
@@ -193,8 +196,19 @@ public class Controller
                 r.Add(card.CardEffect);
                 r.Add(card.CardInfo);
                 // r.Add(poder);
+                CardInfo cardInfo = card.CardInfo;
+                Skill objetoSkill = cardInfo.CreateSkillInstance();
+                if (cardInfo.ClassName == "ReverseSubtypeManeuver")
+                {
+                    ReverseSubtypeManeuver skillImplementado = objetoSkill as ReverseSubtypeManeuver;
+                    r.Add(skillImplementado);
+                    // Console.WriteLine($"    Y su primer atributo: {objetoSkill}");
+                }
+                else
+                {
+                    r.Add(objetoSkill);
+                }
 
-                
                 // ReadEffect probandoClase = new ReadEffect();
                 // Object claseCreada = probandoClase.GiveEffect("ReverseSpecificCard");
                 // Instanciar efecto
@@ -513,7 +527,7 @@ public class Controller
                  Card choosenCardToPlay = avaialableManeuvers[idCardToPlay];
                  Vista.PlayerTriesToPlayCard(player, choosenCardToPlay);
                  Vista.HasOptionToReverseCard(opponent);
-                 if (player.PlayerHasAvailableReversals(choosenCardToPlay) != true)
+                 if (opponent.PlayerHasAvailableReversals(choosenCardToPlay) != true)
                  {
                      Vista.NoAvailableReversalToPlay();
                      ///////////////////////////////////////////
@@ -534,7 +548,7 @@ public class Controller
                      Vista.HasAvailableReversalToPlay();
                      // VA A SALIR QUE LO JUEGA COMO MANEUVER, CAMBIAR!
                      int idReversalToPlay = Vista.ChooseCardIDToPlay(availableReversals);
-                     if (idCardToPlay == -1)
+                     if (idReversalToPlay == -1)
                      {
                          // Se puede revertir la carta pero se elige no revertirla
                          ///////////////////////////////////////////
@@ -554,10 +568,12 @@ public class Controller
                          // Se elige revertir la carta
                          Card choosenReversalToPlay = availableReversals[idReversalToPlay];
                          // Card choosenReversalToPlay = Vista.chooseCard(availableReversals);
-                         ReverseSkill reversalSkill = choosenReversalToPlay.CardSkill as ReverseSkill;
+                         // ReverseSkill reversalSkill = choosenReversalToPlay.CardSkill as ReverseSkill;
                          // JUGAR EL REVERSAL. Esto implica:
+                         Vista.PlayAReversalFromHand(opponent, choosenCardToPlay);
                          // La carta jugada NO tiene ningun efecto.
                          // No se alcanzo a jugar la carta asiq ok.
+                         
                                         
                          // La carta jugada NO causa ningun dano
                          // No se alcanzo a jugar la carta asiq ok
@@ -568,17 +584,22 @@ public class Controller
                                         
                          // LUEGO:
                          // Se aplica el efecto del REVERSAL
-                         reversalSkill.UseAbility(player, opponent);
+                         choosenReversalToPlay.CardSkill.UseAbility(player, opponent);
                                         
                          // Se efectua el dano del reversal
                          player.ReceiveDamage(Convert.ToInt32(choosenReversalToPlay.Damage), false);
 
+                         // El reversal se saca de la mano
+                         opponent.DiscardCard(choosenReversalToPlay);
+                         // Y
                          // El reversal queda puesto en el ring area
                          opponent.PutDownReversalToRingArea(choosenReversalToPlay);
+                         
 
                          // Se actualiza el fortitude rating del jugador que jugo el reversal.
                          opponent.UpdateFortitude(Convert.ToInt32(choosenReversalToPlay.Fortitude));
 
+                         play = true;
                      }
                  }
                 }

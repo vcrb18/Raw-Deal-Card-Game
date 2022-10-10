@@ -1307,9 +1307,9 @@
        "StunValue":"0",
        "CardEffect":"Reverse any Strike maneuver and end your opponent's turn.",
        "CardInfo":{
-          "ClassName":"ReverseNotImplemented",
+          "ClassName":"ReverseSubtypeManeuver",
           "Attributes":[
-             
+             "Strike"
           ]
        }
     },
@@ -1326,9 +1326,9 @@
        "StunValue":"0",
        "CardEffect":"Reverse any Grapple maneuver and end your opponent's turn.",
        "CardInfo":{
-          "ClassName":"ReverseNotImplemented",
+          "ClassName":"ReverseSubtypeManeuver",
           "Attributes":[
-             
+             "Grapple"
           ]
        }
     },
@@ -1345,9 +1345,9 @@
        "StunValue":"0",
        "CardEffect":"Reverse any Submission maneuver and end your opponent's turn.",
        "CardInfo":{
-          "ClassName":"ReverseNotImplemented",
+          "ClassName":"ReverseSubtypeManeuver",
           "Attributes":[
-             
+             "Submission"
           ]
        }
     },
@@ -1481,7 +1481,7 @@
        "StunValue":"0",
        "CardEffect":"Reverse any ACTION card being played by your opponent from his hand. It is unsuccessful, goes to his Ringside pile, has no effect and ends his turn.",
        "CardInfo":{
-          "ClassName":"ReverseNotImplemented",
+          "ClassName":"ReverseAnyAction",
           "Attributes":[
              
           ]
@@ -1500,7 +1500,7 @@
        "StunValue":"0",
        "CardEffect":"Look at the top 5 cards of your Arsenal. You may either arrange them in any order or shuffle your Arsenal.",
        "CardInfo":{
-          "ClassName":"Ignore",
+          "ClassName":"HmmmSkill",
           "Attributes":[
              
           ]

@@ -7,10 +7,18 @@ public class ReadEffect
     {
         return GetType().Namespace;
     }
-    public Skill ReturnEffectClass(string effectClass)
+    public Skill ReturnEffectClass(string effectClass, List<string> attributes)
     {
         string namespaceDotClass = "Tarea1." + effectClass;
-        var myObj = Activator.CreateInstance(Type.GetType(namespaceDotClass));
+        object myObj;
+        if (effectClass == "ReverseSubtypeManeuver")
+        {
+            myObj = Activator.CreateInstance(Type.GetType(namespaceDotClass), attributes[0]);
+        }
+        else
+        {
+            myObj = Activator.CreateInstance(Type.GetType(namespaceDotClass));
+        }
         // Console.WriteLine(myObj.GetType().GetProperties());
         
         return (Skill)myObj;
