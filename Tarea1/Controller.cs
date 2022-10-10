@@ -449,6 +449,7 @@ public class Controller
                 // Console.WriteLine("Se usa la habilidad de KANE");
                 KaneSkill superstarSkill = player.Deck.SuperStar.Skill as KaneSkill;
                 Vista.PlayerUsesSuperstarAbility(player);
+                
                 superstarSkill.UseAbility(player, opponent);
                 
             }
@@ -538,8 +539,12 @@ public class Controller
                      ///////////////////////////////////////////
                      play = false;
                      Vista.cardFromPlayerPlayedSuccessfully(player, opponent, choosenCardToPlay);
-                     bool endGame = opponent.ReceiveDamage(Convert.ToInt32(choosenCardToPlay.Damage), false);
-                     if (endGame == true)
+                     List<bool> endGameAndPlayList = opponent.ReceiveDamage(Convert.ToInt32(choosenCardToPlay.Damage), false, player, choosenCardToPlay);
+                     if (endGameAndPlayList[1] == true)
+                     {
+                         play = true;
+                     }
+                     if (endGameAndPlayList[0] == true)
                      {
                          gameOn = false;
                          break;
@@ -559,8 +564,12 @@ public class Controller
                          ///////////////////////////////////////////
                          play = false;
                          Vista.cardFromPlayerPlayedSuccessfully(player, opponent, choosenCardToPlay);
-                         bool endGame = opponent.ReceiveDamage(Convert.ToInt32(choosenCardToPlay.Damage), false);
-                         if (endGame == true)
+                         List<bool> endGameAndPlayList = opponent.ReceiveDamage(Convert.ToInt32(choosenCardToPlay.Damage), false, player, choosenCardToPlay);
+                         if (endGameAndPlayList[1] == true)
+                         {
+                             play = true;
+                         }
+                         if (endGameAndPlayList[0] == true)
                          {
                              gameOn = false;
                              break;
@@ -575,7 +584,7 @@ public class Controller
                          // Card choosenReversalToPlay = Vista.chooseCard(availableReversals);
                          // ReverseSkill reversalSkill = choosenReversalToPlay.CardSkill as ReverseSkill;
                          // JUGAR EL REVERSAL. Esto implica:
-                         Vista.PlayAReversalFromHand(opponent, choosenCardToPlay);
+                         Vista.PlayAReversalFromHand(choosenCardToPlay);
                          // La carta jugada NO tiene ningun efecto.
                          // No se alcanzo a jugar la carta asiq ok.
                          
@@ -592,7 +601,7 @@ public class Controller
                          choosenReversalToPlay.CardSkill.UseAbility(player, opponent);
                                         
                          // Se efectua el dano del reversal
-                         player.ReceiveDamage(Convert.ToInt32(choosenReversalToPlay.Damage), false);
+                         player.ReceiveDamage(Convert.ToInt32(choosenReversalToPlay.Damage), false, player, choosenCardToPlay);
 
                          // El reversal se saca de la mano
                          opponent.DiscardCard(choosenReversalToPlay);

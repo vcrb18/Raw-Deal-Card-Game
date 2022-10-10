@@ -51,7 +51,7 @@ public class HHHSkill : SuperStarSkill
 public class KaneSkill : SuperStarSkill
 {
     // UseCondition = beginning
-
+    private Card auxiliar = new Card(null, null, null, null, null, null, null, null, null);
     public KaneSkill(string useCondition, string whenCondition)
     : base(useCondition, whenCondition)
     {
@@ -59,7 +59,7 @@ public class KaneSkill : SuperStarSkill
 
     public override void UseAbility(Player player, Player opponent)
     {
-        opponent.ReceiveDamage(1, true);
+        opponent.ReceiveDamage(1, true, player, auxiliar);
     }
 }
 

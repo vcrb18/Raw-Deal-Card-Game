@@ -1,3 +1,4 @@
+using System.Diagnostics.SymbolStore;
 using System.Reflection;
 
 namespace Tarea1;
@@ -124,8 +125,6 @@ public class Player
         //      Sacar la carta de su mano
         UpdateFortitude(Convert.ToInt32(maneuver.Damage));
         RingArea.AddCard(maneuver);
-        Console.WriteLine($"Cartas en el RingArea de {Deck.SuperStar.Type} = {RingArea.Cards.Count}");
-        Console.WriteLine($"Esta es {RingArea.Cards[0].Title}");
         DiscardCard(maneuver);
     }
 
@@ -137,11 +136,12 @@ public class Player
     public void UpdateFortitude(int fortitudeNumber)
     {
         Fortitude += fortitudeNumber;
-        Console.WriteLine($"$Your new fortitude is of {Fortitude}");
     }
 
-    public bool ReceiveDamage(int damage, bool edgeCase)
+    public List<bool> ReceiveDamage(int damage, bool edgeCase, Player playerWhoPlayedmaneuver, Card cardToReverse)
     {
+        bool play = false;
+        List<bool> endGameAndPlayList = new List<bool>();
         bool endGame = false;
         Vista.HowMuchDamageIsReceived(this, damage);
         if (Deck.SuperStar.Type == "MANKIND" && edgeCase == false)
@@ -155,6 +155,23 @@ public class Player
             Card droppedCard = Arsenal.DropUpperCard();
             Vista.ReceivingDamage(droppedCard, i, damage);
             /////////////////////////////
+            // Te estan metidno dañoR
+            // Si fuera true seria la  de KANE
+            if (edgeCase == false)
+            {
+                if (CheckDroppedReversal(droppedCard, cardToReverse) == true)
+                {
+                    Vista.ThisReversalWillReverseCard(playerWhoPlayedmaneuver);
+                    // ACA EL PLAY VA A SER TRUE
+                    play = true;
+                    if (i != damage - 1)
+                    {
+                        playerWhoPlayedmaneuver.DrawCards(Convert.ToInt32(cardToReverse.StunValue));
+                        Vista.PlayerDrawsStunValue(playerWhoPlayedmaneuver, Convert.ToInt32(cardToReverse.StunValue));
+                    }
+                    break;
+                }
+            }
             // Chequear si la carta droppeada es un Reversal
                 // Revisar si fullfillConditionOne es True. 
                 // Revisar si tiene suficiente fortitude para jugarla
@@ -163,7 +180,7 @@ public class Player
                     // el oponente si baja la carta jugada al ring area y aactualiza fortitude.
                     // No se aplica dano del reversal.
                     // No se aplica efecto del reversal
-                    
+                                 
                     // Revisar si no se alcanzo a hacer todo el dano
                     // El player roba cartas igual al stun val;ue de la carta que fue revertida.
             /////////////////////////////
@@ -180,8 +197,26 @@ public class Player
             // Actualizar su Ringside con cada carta que se va botando
             Ringside.AddCard(droppedCard);
         }
+        endGameAndPlayList.Add(endGame);
+        endGameAndPlayList.Add(play);
+        return endGameAndPlayList;
+    }
 
-        return endGame;
+    public bool CheckDroppedReversal(Card droppedCard, Card cardToReverse)
+    {
+        bool availableToPlay = false;
+        if (droppedCard.Types.Contains("Reversal"))
+        {
+            ReverseSkill droppedReversalSkill = droppedCard.CardSkill as ReverseSkill;
+            if (droppedReversalSkill.fullfillConditionOne(cardToReverse))
+            {
+                if (Convert.ToInt32(droppedCard.Fortitude) <= Fortitude)
+                {
+                    availableToPlay = true;
+                }
+            }
+        }
+        return availableToPlay;
     }
 
     public void TakeCardFromRingside(Card card)

@@ -416,11 +416,16 @@ public class Vista
     }
     
     // Ojo, podria ser para todo reversal jugado
-    public static void PlayAReversalFromHand(Player playerOfReversal, Card reversalCard)
+    public static void PlayAReversalFromHand(Card reversalCard)
     {
         Console.WriteLine("------------------------------------");
         Console.WriteLine("Jugar esta carta como un [REVERSAL]");
         CardDescription(reversalCard);
+    }
+
+    public static void ThisReversalWillReverseCard(Player playerWhoGotReversed)
+    {
+        Console.WriteLine($"This card reverses the card played from {playerWhoGotReversed.Deck.SuperStar.Type} and his turn ends.");
     }
 
     public static void CardDescription(Card card)
@@ -430,6 +435,12 @@ public class Vista
         Console.WriteLine($"Types: {card.Types}");
         Console.WriteLine($"Subtypes: {card.Subtypes}");
         Console.WriteLine($"Effect: {card.CardEffect}");
+    }
+
+    public static void PlayerDrawsStunValue(Player player, int stunValue)
+    {
+        Console.WriteLine("------------------------------------");
+        Console.WriteLine($"{player.Deck.SuperStar.Type} draws {stunValue} cards because of the Stun Value");
     }
     
 }
