@@ -112,6 +112,22 @@ public class Vista
         Console.WriteLine("------------------------------------");
     }
 
+    public static void TheROckCanNotUseAbility()
+    {
+        Console.WriteLine("THE ROCK has no cards in the Ringside, so he can not play his ability");
+    }
+
+    public static int AskToPlayRockAbility(Player player)
+    {
+        Console.WriteLine($"{player.Deck.SuperStar.Type} Can use the Superstar ability:");
+        Console.WriteLine($"{player.Deck.SuperStar.SuperStarAbility}");
+        Console.WriteLine(". What do you want to do?");
+        Console.WriteLine("     0. Do not use the ability");
+        Console.WriteLine("     1. Use the ability");
+        Console.WriteLine("(Enter a number between 0 and 1)");
+        int choosenOption = AskForNumber(0, 1);
+        return choosenOption;
+    }
     public static int BeginingTurnOptions(Player player, Player opponent)
     {
         int choosenOption;
@@ -283,6 +299,27 @@ public class Vista
         Console.WriteLine("------------------------------------");
         Console.WriteLine($"Player {playerWhoDraws.Deck.SuperStar.Type} will draw {numberOfCardsToDraw} card (s)");
     }
+
+    public static int PlayerCanTakeACard(Player player, List<Card> cardsToChooseFrom, int howManyCards)
+    {
+        Console.WriteLine("------------------------------------");
+        Console.WriteLine($"Player {player.Deck.SuperStar.Type} can choose {howManyCards} card(s) and put them in the hand.");
+        Console.WriteLine("What card do you want to get?");
+        int counter = 0;
+        foreach (Card card in cardsToChooseFrom)
+        {
+            Console.WriteLine($"------------- Card #{counter}");
+            Console.WriteLine($"Title: {card.Title}");
+            Console.WriteLine($"Stats: [{card.Fortitude}F/{card.Damage}D/{card.StunValue}SV");
+            Console.WriteLine($"Types: {card.Types}");
+            Console.WriteLine($"Subtypes: {card.Subtypes}");
+            Console.WriteLine($"Effect: {card.CardEffect}");
+            counter++;
+        }
+        Console.WriteLine($"(Enter a number between 0 and {counter - 1}");
+        int numberChoosen = AskForNumber(0, counter - 1);
+        return numberChoosen;
+    }
     
     public static int ChooseCardIDToDiscard(List<Card> availableHandCardsofPlayer)
     {
@@ -340,6 +377,14 @@ public class Vista
     {
         Console.WriteLine("------------------------------------");
         Console.WriteLine($"{opponent.Deck.SuperStar.Type} receives {damage} of damage.\n");
+    }
+
+    public static void NewDamageBecauseOfMankind(Player player, int newDamage)
+    {
+        Console.WriteLine("------------------------------------");
+        PlayerUsesSuperstarAbility(player);
+        Console.WriteLine($"The new damage is of {newDamage}");
+
     }
 
     public static void ReceivingDamage(Card droppedCard, int actualDamage, int totalDamage)

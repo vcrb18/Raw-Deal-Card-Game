@@ -237,6 +237,21 @@ public class Controller
                     StoneColdSkill stoneColdSkill = new StoneColdSkill("may","once");
                     r.Add(stoneColdSkill);
                 }
+                else if (super.Type == "THE UNDERTAKER")
+                {
+                    UndertakerSkill stoneColdSkill = new UndertakerSkill("may","once");
+                    r.Add(stoneColdSkill);
+                }
+                else if (super.Type == "THE ROCK")
+                {
+                    TheRockSkill stoneColdSkill = new TheRockSkill("may","beginning");
+                    r.Add(stoneColdSkill);
+                }
+                else
+                {
+                    MankindSkill stoneColdSkill = new MankindSkill("always","during");
+                    r.Add(stoneColdSkill);
+                }
                 // Skill poder = super.CardInfo.CreateSkillInstance();
                 // r.Add((SuperStarSkill)poder);
             }
@@ -421,11 +436,30 @@ public class Controller
             else
             {
                 // THE ROCK ABILITY
+                if (player.Ringside.Cards.Count > 0)
+                {
+                    int chooseToPlayTheRockAbility = Vista.AskToPlayRockAbility(player);
+                    if (chooseToPlayTheRockAbility == 1)
+                    {
+                        Vista.PlayerUsesSuperstarAbility(player);
+                        player.Deck.SuperStar.Skill.UseAbility(player, opponent);
+                    }
+                }
+                else
+                {
+                    Vista.TheROckCanNotUseAbility();
+                }
             }
-                
-            
         }
-        player.DrawCards(1);
+
+        if (player.Deck.SuperStar.Type == "MANKIND")
+        {
+            player.DrawCards(2);
+        }
+        else
+        {
+            player.DrawCards(1);
+        }
         bool play = true;
         // Aca tengo q volver en el ciclo
         do

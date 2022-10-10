@@ -141,9 +141,12 @@ public class Player
     public bool ReceiveDamage(int damage)
     {
         bool endGame = false;
-        // int totalDamage = Convert.ToInt32(card.Damage);
         Vista.HowMuchDamageIsReceived(this, damage);
-        // Descartar el dano respectivo de cartas del Arsenal
+        if (Deck.SuperStar.Type == "MANKIND")
+        {
+            damage = damage - 1;
+            Vista.NewDamageBecauseOfMankind(this, damage);
+        }
         for (int i = 1; i < damage + 1; i++)
         {
             
@@ -179,6 +182,24 @@ public class Player
         return endGame;
     }
 
+    public void TakeCardFromRingside(Card card)
+    {
+        foreach (var c in Ringside.Cards)
+        {
+            if (card.Title == c.Title)
+            {
+                Ringside.Cards.Remove(c);
+                break;
+            }
+        }
+    }
+
+    public void AddCardToHand(Card card)
+    {
+        MyHand.Cards.Add(card);
+    }
+    
+    
     public void DiscardCard(Card card)
     {
         foreach (var c in MyHand.Cards)

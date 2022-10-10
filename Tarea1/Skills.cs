@@ -120,6 +120,71 @@ public class StoneColdSkill : SuperStarSkill
     }
 }
 
+public class UndertakerSkill : SuperStarSkill
+{
+    public UndertakerSkill(string useCondition, string whenCondition)
+        : base(useCondition, whenCondition)
+    {
+    }
+
+    public override void UseAbility(Player player, Player opponent)
+    {
+        // Player discard TWO cards
+        List<Card> playerHand = player.MyHand.Cards;
+        for (int i = 2; i > 0; i--)
+        {
+            Vista.InformThatPlayerMustDiscard(player, i);
+            int choosenIdPlayer = Vista.ChooseCardIDToDiscard(playerHand);
+            Card playerChoosenCardToDiscard = playerHand[choosenIdPlayer];
+            player.DiscardCard(playerChoosenCardToDiscard);
+            
+            // TENGO QUE VOLVER A INFROMAR
+        }
+        
+        // Player choose 1 card from Ringside
+        // and put it on the hand
+        List<Card> playerRingsideCards = player.Ringside.Cards;
+        int choosenIdCard = Vista.PlayerCanTakeACard(player, playerRingsideCards, 1);
+        Card choosenCard = playerRingsideCards[choosenIdCard];
+        player.TakeCardFromRingside(choosenCard);
+        player.AddCardToHand(choosenCard);
+    }
+}
+
+public class TheRockSkill : SuperStarSkill
+{
+    public TheRockSkill(string useCondition, string whenCondition)
+        : base(useCondition, whenCondition)
+    {
+    }
+
+    public override void UseAbility(Player player, Player opponent)
+    {
+        // Player choose 1 card from Ringside
+        List<Card> playerRingsideCards = player.Ringside.Cards;
+        int choosenIdCard = Vista.PlayerCanTakeACard(player, playerRingsideCards, 1);
+        Card choosenCard = playerRingsideCards[choosenIdCard];
+        player.TakeCardFromRingside(choosenCard);
+        
+        // and put it on the BOTTOM of the arsenal
+        player.MoveCardToBottomArsenal(choosenCard);
+
+    }
+}
+
+public class MankindSkill : SuperStarSkill
+{
+    public MankindSkill(string useCondition, string whenCondition)
+        : base(useCondition, whenCondition)
+    {
+    }
+
+    public override void UseAbility(Player player, Player opponent)
+    {
+        Console.WriteLine("I am MANKIND, my ability is always active");
+    }
+}
+
 // public class MoveTwiceSkill : SuperStarSkill
 // {
 //     public string MoveFrom { get; set; }
