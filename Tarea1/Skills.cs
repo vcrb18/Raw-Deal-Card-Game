@@ -232,7 +232,18 @@ public class ReverseAnyAction : ReverseSkill
 {
     public override bool fullfillConditionOne(Card opponentCard)
     {
-        throw new NotImplementedException();
+        if (opponentCard.Types.Contains("Action"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public override void UseAbility(Player player, Player opponent)
+    {
+        Vista.ReversalWithNoAdditionalEffect();
     }
 }
 

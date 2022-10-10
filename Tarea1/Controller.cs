@@ -204,6 +204,11 @@ public class Controller
                     r.Add(skillImplementado);
                     // Console.WriteLine($"    Y su primer atributo: {objetoSkill}");
                 }
+                else if (cardInfo.ClassName == "ReversalAction")
+                {
+                    ReverseAnyAction skillImplementado = objetoSkill as ReverseAnyAction;
+                    r.Add(skillImplementado);
+                }
                 else
                 {
                     r.Add(objetoSkill);
