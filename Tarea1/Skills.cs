@@ -201,6 +201,84 @@ public abstract class ReverseSkill : Skill
     }
 }
 
+public class ReverseCalledCleanBreak : ReverseSkill
+{
+    public string TitleCardToReverse;
+    public ReverseCalledCleanBreak(string titleCardToReverse)
+    {
+        TitleCardToReverse = titleCardToReverse;
+    }
+    public override bool fullfillConditionOne(Card opponentCard)
+    {
+        if (opponentCard.Title == TitleCardToReverse)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public override void UseAbility(Player player, Player opponent)
+    {
+        // Opponent discards FOUR cards
+        List<Card> opponentHand = player.MyHand.Cards;
+        for (int i = 4; i > 0; i--)
+        {
+            Vista.InformThatPlayerMustDiscard(player, i);
+            int choosenIdPlayer = Vista.ChooseCardIDToDiscard(opponentHand);
+            Card playerChoosenCardToDiscard = opponentHand[choosenIdPlayer];
+            player.DiscardCard(playerChoosenCardToDiscard);
+        }
+        
+        Vista.InformThatPlayerCanDrawCard(opponent, 1);
+        opponent.DrawCards(1);
+    }
+}
+
+public class ReverseAnyManeuverPlusOneEffect : ReverseSkill
+{
+    public override void UseAbility(Player player, Player opponent)
+    {
+        opponent.DrawCards(1);
+    }
+
+    public override bool fullfillConditionOne(Card opponentCard)
+    {
+        if (opponentCard.Types.Contains("Maneuver"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+
+public class ReverseAnyManeuverSpecial : ReverseSkill
+{
+    public override void UseAbility(Player player, Player opponent)
+    {
+        Vista.ReversalWithNoAdditionalEffect();
+    }
+
+    public override bool fullfillConditionOne(Card opponentCard)
+    {
+        if (opponentCard.Types.Contains("Maneuver") && (Convert.ToInt32(opponentCard.Damage) <= 7))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+
+// Agregar clase que  hereda de esta y le mete la condicion del 7 daño, que sea parte de la condition one
+// o pa q se cumpla la condicion one agregarle otra.
 public class ReverseSubtypeManeuver : ReverseSkill
 {
     public string SubtypeManeuver;
@@ -225,6 +303,32 @@ public class ReverseSubtypeManeuver : ReverseSkill
         {
             return false;
         }
+    }
+}
+
+public class ReverseSubtypeManeuverSpecial : ReverseSubtypeManeuver
+{
+    public ReverseSubtypeManeuverSpecial(string subtypeManeuver)
+        : base(subtypeManeuver)
+    {
+        
+    }
+
+    public override bool fullfillConditionOne(Card opponentCard)
+    {
+        if (opponentCard.Subtypes.Contains(SubtypeManeuver) && (Convert.ToInt32(opponentCard.Damage) <= 7))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public override void UseAbility(Player player, Player opponent)
+    {
+        base.UseAbility(player, opponent);
     }
 }
 

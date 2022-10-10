@@ -161,15 +161,19 @@ public class Player
             {
                 if (CheckDroppedReversal(droppedCard, cardToReverse) == true)
                 {
-                    Vista.ThisReversalWillReverseCard(playerWhoPlayedmaneuver);
-                    // ACA EL PLAY VA A SER TRUE
-                    play = true;
-                    if (i != damage - 1)
+                    if (typeof(Tarea1.ReverseCalledCleanBreak).IsInstanceOfType(cardToReverse.CardSkill) == false)
                     {
-                        playerWhoPlayedmaneuver.DrawCards(Convert.ToInt32(cardToReverse.StunValue));
-                        Vista.PlayerDrawsStunValue(playerWhoPlayedmaneuver, Convert.ToInt32(cardToReverse.StunValue));
-                    }
-                    break;
+                        Vista.ThisReversalWillReverseCard(playerWhoPlayedmaneuver);
+                        // ACA EL PLAY VA A SER TRUE
+                        play = true;
+                        if (i != damage)
+                        {
+                            playerWhoPlayedmaneuver.DrawCards(Convert.ToInt32(cardToReverse.StunValue));
+                            Vista.PlayerDrawsStunValue(playerWhoPlayedmaneuver, Convert.ToInt32(cardToReverse.StunValue));
+                        }
+                        break;
+                    }                    
+                    
                 }
             }
             // Chequear si la carta droppeada es un Reversal

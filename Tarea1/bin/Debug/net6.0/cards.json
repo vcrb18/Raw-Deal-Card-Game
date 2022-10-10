@@ -1364,9 +1364,9 @@
        "StunValue":"0",
        "CardEffect":"Can only reverse a Grapple that does 7D or less. End your opponent's turn. # = D of maneuver card being reversed. Read as 0 when in your Ring area.",
        "CardInfo":{
-          "ClassName":"ReverseNotImplemented",
+          "ClassName":"ReverseSubtypeManeuverSpecial",
           "Attributes":[
-             
+             "Grapple"
           ]
        }
     },
@@ -1383,9 +1383,9 @@
        "StunValue":"0",
        "CardEffect":"Can only reverse a Strike that does 7D or less. End your opponent's turn. # = D of maneuver card being reversed. Read as 0 when in your Ring area.",
        "CardInfo":{
-          "ClassName":"ReverseNotImplemented",
+          "ClassName":"ReverseSubtypeManeuverSpecial",
           "Attributes":[
-             
+             "Strike"
           ]
        }
     },
@@ -1402,7 +1402,7 @@
        "StunValue":"0",
        "CardEffect":"May reverse any maneuver that does 7D or less. End your opponent's turn.",
        "CardInfo":{
-          "ClassName":"ReverseNotImplemented",
+          "ClassName":"ReverseAnyManeuverSpecial",
           "Attributes":[
              
           ]
@@ -1422,9 +1422,9 @@
        "StunValue":"0",
        "CardEffect":"If played from your hand, may reverse the card titled Jockeying for Position. Opponent must discard 4 cards. End your opponent's turn. Draw 1 card.",
        "CardInfo":{
-          "ClassName":"ReverseNotImplemented",
+          "ClassName":"ReverseCalledCleanBreak",
           "Attributes":[
-             
+             "Jockeying for Position"
           ]
        }
     },
@@ -1442,7 +1442,7 @@
        "StunValue":"0",
        "CardEffect":"Reverse any maneuver and end your opponent's turn. If played from your hand draw 1 card.",
        "CardInfo":{
-          "ClassName":"ReverseNotImplemented",
+          "ClassName":"ReverseAnyManeuverPlusOneEffect",
           "Attributes":[
              
           ]

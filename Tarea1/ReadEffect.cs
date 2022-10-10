@@ -11,7 +11,7 @@ public class ReadEffect
     {
         string namespaceDotClass = "Tarea1." + effectClass;
         object myObj;
-        if (effectClass == "ReverseSubtypeManeuver")
+        if (effectClass == "ReverseSubtypeManeuver" || effectClass == "ReverseSubtypeManeuverSpecial" || effectClass == "ReverseCalledCleanBreak")
         {
             myObj = Activator.CreateInstance(Type.GetType(namespaceDotClass), attributes[0]);
         }

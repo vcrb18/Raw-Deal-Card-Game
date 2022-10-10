@@ -209,6 +209,26 @@ public class Controller
                     ReverseAnyAction skillImplementado = objetoSkill as ReverseAnyAction;
                     r.Add(skillImplementado);
                 }
+                else if (cardInfo.ClassName == "ReverseSubtypeManeuverSpecial")
+                {
+                    ReverseSubtypeManeuverSpecial skillImplementado = objetoSkill as ReverseSubtypeManeuverSpecial;
+                    r.Add(skillImplementado);
+                }
+                else if (cardInfo.ClassName == "ReverseAnyManeuverSpecial")
+                {
+                    ReverseAnyManeuverSpecial skillImplementado = objetoSkill as ReverseAnyManeuverSpecial;
+                    r.Add(skillImplementado);
+                }
+                else if (cardInfo.ClassName == "ReverseAnyManeuverPlusOneEffect")
+                {
+                    ReverseAnyManeuverPlusOneEffect skillImplementado = objetoSkill as ReverseAnyManeuverPlusOneEffect;
+                    r.Add(skillImplementado);
+                }
+                else if (cardInfo.ClassName == "ReverseCalledCleanBreak")
+                {
+                    ReverseCalledCleanBreak skillImplementado = objetoSkill as ReverseCalledCleanBreak;
+                    r.Add(skillImplementado);
+                }
                 else
                 {
                     r.Add(objetoSkill);
@@ -584,7 +604,7 @@ public class Controller
                          // Card choosenReversalToPlay = Vista.chooseCard(availableReversals);
                          // ReverseSkill reversalSkill = choosenReversalToPlay.CardSkill as ReverseSkill;
                          // JUGAR EL REVERSAL. Esto implica:
-                         Vista.PlayAReversalFromHand(choosenCardToPlay);
+                         Vista.PlayAReversalFromHand(choosenReversalToPlay);
                          // La carta jugada NO tiene ningun efecto.
                          // No se alcanzo a jugar la carta asiq ok.
                          
@@ -601,17 +621,18 @@ public class Controller
                          choosenReversalToPlay.CardSkill.UseAbility(player, opponent);
                                         
                          // Se efectua el dano del reversal
-                         player.ReceiveDamage(Convert.ToInt32(choosenReversalToPlay.Damage), false, player, choosenCardToPlay);
+                         string checkedDamage = ChangeCatDamageToString(choosenReversalToPlay.Damage, choosenCardToPlay);
+                         player.ReceiveDamage(Convert.ToInt32(checkedDamage), false, player, choosenCardToPlay);
 
                          // El reversal se saca de la mano
                          opponent.DiscardCard(choosenReversalToPlay);
                          // Y
                          // El reversal queda puesto en el ring area
                          opponent.PutDownReversalToRingArea(choosenReversalToPlay);
-                         
 
+                         string checkedDamageForRingArea = ChangeCatDamageToZero(choosenReversalToPlay.Damage);
                          // Se actualiza el fortitude rating del jugador que jugo el reversal.
-                         opponent.UpdateFortitude(Convert.ToInt32(choosenReversalToPlay.Fortitude));
+                         opponent.UpdateFortitude(Convert.ToInt32(checkedDamageForRingArea));
 
                          play = true;
                      }
@@ -771,6 +792,36 @@ public class Controller
        } while (play == false);
 
         return gameOn;
+    }
+    
+    public static string ChangeCatDamageToString(string damage, Card cardToReverse)
+    {
+        string newDamage;
+        if (damage == "#")
+        {
+            newDamage = cardToReverse.Damage;
+        }
+        else
+        {
+            newDamage = damage;
+        }
+
+        return newDamage;
+    }
+
+    public static string ChangeCatDamageToZero(string damage)
+    {
+        string checkedDamage;
+        if (damage == "#")
+        {
+            checkedDamage = "0";
+        }
+        else
+        {
+            checkedDamage = damage;
+        }
+
+        return checkedDamage;
     }
 
 
