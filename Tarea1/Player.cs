@@ -138,11 +138,11 @@ public class Player
         Console.WriteLine($"$Your new fortitude is of {Fortitude}");
     }
 
-    public bool ReceiveDamage(int damage)
+    public bool ReceiveDamage(int damage, bool edgeCase)
     {
         bool endGame = false;
         Vista.HowMuchDamageIsReceived(this, damage);
-        if (Deck.SuperStar.Type == "MANKIND")
+        if (Deck.SuperStar.Type == "MANKIND" && edgeCase == false)
         {
             damage = damage - 1;
             Vista.NewDamageBecauseOfMankind(this, damage);

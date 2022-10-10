@@ -56,19 +56,10 @@ public class KaneSkill : SuperStarSkill
     : base(useCondition, whenCondition)
     {
     }
-    public bool IsAvailableInDrawSegment()
-    {
-        return true;
-    }
-
-    public bool IsAvailableInMainSegment()
-    {
-        return false;
-    }
 
     public override void UseAbility(Player player, Player opponent)
     {
-        opponent.ReceiveDamage(1);
+        opponent.ReceiveDamage(1, true);
     }
 }
 

@@ -519,7 +519,7 @@ public class Controller
                      ///////////////////////////////////////////
                      play = false;
                      Vista.cardFromPlayerPlayedSuccessfully(player, opponent, choosenCardToPlay);
-                     bool endGame = opponent.ReceiveDamage(Convert.ToInt32(choosenCardToPlay.Damage));
+                     bool endGame = opponent.ReceiveDamage(Convert.ToInt32(choosenCardToPlay.Damage), false);
                      if (endGame == true)
                      {
                          gameOn = false;
@@ -540,7 +540,7 @@ public class Controller
                          ///////////////////////////////////////////
                          play = false;
                          Vista.cardFromPlayerPlayedSuccessfully(player, opponent, choosenCardToPlay);
-                         bool endGame = opponent.ReceiveDamage(Convert.ToInt32(choosenCardToPlay.Damage));
+                         bool endGame = opponent.ReceiveDamage(Convert.ToInt32(choosenCardToPlay.Damage), false);
                          if (endGame == true)
                          {
                              gameOn = false;
@@ -571,7 +571,7 @@ public class Controller
                          reversalSkill.UseAbility(player, opponent);
                                         
                          // Se efectua el dano del reversal
-                         player.ReceiveDamage(Convert.ToInt32(choosenReversalToPlay.Damage));
+                         player.ReceiveDamage(Convert.ToInt32(choosenReversalToPlay.Damage), false);
 
                          // El reversal queda puesto en el ring area
                          opponent.PutDownReversalToRingArea(choosenReversalToPlay);

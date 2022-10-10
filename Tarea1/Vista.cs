@@ -107,8 +107,8 @@ public class Vista
     {
         Console.WriteLine("------------------------------------");
         Console.WriteLine($"Face each other: {playerOne.Deck.SuperStar.Type} and {playerTwo.Deck.SuperStar.Type}");
-        Console.WriteLine($"{playerOne.Deck.SuperStar.Type} has {playerOne.Fortitude}F, {playerOne.MyHand.Cards.Count}cards in his hand and has {playerOne.Arsenal.Cards.Count} cards in the Arsenal  ");
-        Console.WriteLine($"{playerTwo.Deck.SuperStar.Type} has {playerTwo.Fortitude}F, {playerTwo.MyHand.Cards.Count}cards in his hand and has {playerTwo.Arsenal.Cards.Count} cards in the Arsenal  ");
+        Console.WriteLine($"{playerOne.Deck.SuperStar.Type} has {playerOne.Fortitude}F, {playerOne.MyHand.Cards.Count} cards in his hand and has {playerOne.Arsenal.Cards.Count} cards in the Arsenal  ");
+        Console.WriteLine($"{playerTwo.Deck.SuperStar.Type} has {playerTwo.Fortitude}F, {playerTwo.MyHand.Cards.Count} cards in his hand and has {playerTwo.Arsenal.Cards.Count} cards in the Arsenal  ");
         Console.WriteLine("------------------------------------");
     }
 
