@@ -21,11 +21,6 @@ public abstract class DeckElement
         
     }
 }
-
-// El orden aqui en realidad da lo mismo
-// Estan puestos en la mesa nomas.
-// Los del final de la lista seran los ultimos en bajarse.
-// Por lo tanto los primeros de la lista son los que primero se bajaron.
 public class RingArea : DeckElement
 {
     public RingArea(List<Card> cards)
@@ -43,8 +38,6 @@ public class RingArea : DeckElement
         Console.WriteLine($"{card.Title} goes to the Ring Area");  
     }
 }
-// Carta boca abajo
-// La carta de mas arriba es la primera de la lista
 public class Arsenal : DeckElement
 {
     public Arsenal(List<Card> cards)
@@ -76,9 +69,6 @@ public class Arsenal : DeckElement
     }
 }
 
-// Cartas boca arriba
-// La ultima carta de la lista es la que esta mas arriba,
-// a diferencia del Arsenal
 public class Ringside : DeckElement
 {
     public Ringside(List<Card> cards)

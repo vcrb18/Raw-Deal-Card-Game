@@ -17,32 +17,12 @@ public class CardInfo
         Skill claseCreada = leeEfecto.ReturnEffectClass(ClassName, Attributes);
         return claseCreada;
     }
-    
-    // De baja
-    // public Skill createEffect()
-    // {
-    //     // JsonSerializer.Deserialize<Object[]>(Attributes);
-    //     int counter = 0;
-    //     ReadEffect leeEfecto = new ReadEffect();
-    //     Skill claseCreada = leeEfecto.ReturnEffectClass(ClassName);
-    //     PropertyInfo[] attributesList = claseCreada.GetType().GetProperties();
-    //     List<string> attributesInStrings = setAttributesToString();
-    //     foreach (PropertyInfo property in attributesList)
-    //     {
-    //         property.SetValue(claseCreada, attributesInStrings[counter]);
-    //         counter++;
-    //     }
-    //
-    //     return claseCreada;
-    // }
-
     public List<string> setAttributesToString()
     {
         List<string> attributesInStrings = Attributes.Select(s => s.ToString()).ToList();
         return attributesInStrings;
     }
 }
-
 
 public class Card
 {
@@ -73,10 +53,4 @@ public class Card
         CardInfo = cardInfo;
         CardSkill = cardSkill;
     }
-
-    // public void setSkill()
-    // {
-    //     Skill cardSkillToSet = CardInfo.createEffect();
-    //     CardSkill = cardSkillToSet;
-    // }
 }

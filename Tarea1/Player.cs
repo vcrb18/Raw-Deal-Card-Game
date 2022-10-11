@@ -25,7 +25,6 @@ public class Player
     public void Describe()
     {
         Console.WriteLine($"I am Player number {Number + 1}.");
-        // Console.WriteLine("My Deck is: {Deck.Describe()}. I also have the following cards in my Deck: \n {Deck.GetCards()}");
     }
 
     public void ShuffleDeck()
@@ -52,46 +51,15 @@ public class Player
     
     public void DrawCards(int draw)
     {
-        // Console.WriteLine($"Entre a la draw phase");
         int counter = 0;
         for (int i = 0; i < draw; i++)
         {
             counter++;
-            // Console.WriteLine($"Es la vez numero {counter} que entro al for");
             List<Card> arsenalCards = Arsenal.Cards;
-            
-            // Console.WriteLine($"Esta es la primera carta del arsenal del player: {arsenalCards[i].Title}");
-            // Console.WriteLine($"{arsenalCards[i].CardSkill}");
-            // Console.WriteLine($"Esta es la primera carta del arsenal del opponent: {opponentPlayer.Arsenal.Cards[i].Title}");
-            // Console.WriteLine($"{opponentPlayer.Arsenal.Cards[i].CardSkill}");
-            
-            // Meter la carta del Arsenal a mi mano
             Card newCard = arsenalCards[0];
-            // Console.WriteLine($"La carta a robar numero {i} es {newCard.Title}");
-            
-            // Console.WriteLine($"Cartas en la mano justo antes de robar del jugador {Number} = {GetHandLength()}");
-            // Console.WriteLine($"Cartas en la mano justo antes de robar del jugador {opponentPlayer.Number} = {GetHandLength()}");
-            
-            ///////////////////////////////
-            // MyHand.AddCardToHand(newCard); // Accede a ambas manos por alguna razon
             MyHand.Cards.Add(newCard);
-            // opponentPlayer.MyHand.RemoveCardFromHand(newCard);
-            // Console.WriteLine($"PrintEquals(MyHand, opponentPlayer.MyHand)");
-            // PrintEquals(MyHand, opponentPlayer.MyHand);
-            
-            ///////////////////////////////
-
-            // Console.WriteLine($"Cartas en la mano justo despeus de robar del jugador {Number} = {GetHandLength()}");
-            // Console.WriteLine($"Cartas en la mano justo despeus de robar del jugador {opponentPlayer.Number} = {GetHandLength()}");
-            
-            // Console.WriteLine($"Player {Number} last hand card: {MyHand.Cards[MyHand.Cards.Count - 1].Title}");
-
-            // Eliminar la carta del Arsenal
             Arsenal.Cards.RemoveAt(0);
         }
-        // Console.WriteLine("The cards now in the hand are the following:");
-        // GetHandCards();
-
     }
 
     public void GetHandCards()
@@ -118,11 +86,6 @@ public class Player
 
     public void PlayManeuver(Card maneuver)
     {
-        // Bajar la carta su Ring Area
-        // Esto implica:
-        //      actualizar su Fortitude
-        //      Actualizar las cartas del Ring area
-        //      Sacar la carta de su mano
         UpdateFortitude(Convert.ToInt32(maneuver.Damage));
         RingArea.AddCard(maneuver);
         DiscardCard(maneuver);
@@ -151,12 +114,8 @@ public class Player
         }
         for (int i = 1; i < damage + 1; i++)
         {
-            
             Card droppedCard = Arsenal.DropUpperCard();
             Vista.ReceivingDamage(droppedCard, i, damage);
-            /////////////////////////////
-            // Te estan metidno dañoR
-            // Si fuera true seria la  de KANE
             if (edgeCase == false)
             {
                 if (CheckDroppedReversal(droppedCard, cardToReverse) == true)
@@ -173,32 +132,15 @@ public class Player
                         }
                         break;
                     }                    
-                    
                 }
             }
-            // Chequear si la carta droppeada es un Reversal
-                // Revisar si fullfillConditionOne es True. 
-                // Revisar si tiene suficiente fortitude para jugarla
-                    // Se detiene el dano. BREAK
-                    // Avisar que se termino el turno. NO ES LO MISMO QUE GAMEON
-                    // el oponente si baja la carta jugada al ring area y aactualiza fortitude.
-                    // No se aplica dano del reversal.
-                    // No se aplica efecto del reversal
-                                 
-                    // Revisar si no se alcanzo a hacer todo el dano
-                    // El player roba cartas igual al stun val;ue de la carta que fue revertida.
-            /////////////////////////////
-            // Console.WriteLine($"Arsenal cards: ${Arsenal.Cards.Count}");
-            // Chequear si quedan cartas. Si no quedan, se acaba el juego.
             bool arsenalCards = Arsenal.HaveCards();
             if (arsenalCards == false)
             {
                 endGame = true;
-                Ringside.AddCard(droppedCard);  // Agregi la carta al Ringside pq voy a salir del for.
+                Ringside.AddCard(droppedCard);
                 break;
             }
-            
-            // Actualizar su Ringside con cada carta que se va botando
             Ringside.AddCard(droppedCard);
         }
         endGameAndPlayList.Add(endGame);
@@ -253,7 +195,6 @@ public class Player
         }
     }
 
-    // Actualmente solo para maneuvers.
     public List<Card> AvailableCardsToPlayInTurn()
     {
         List<Card> availableCards = new List<Card>(); 
@@ -270,11 +211,6 @@ public class Player
 
         return availableCards;
     }
-    
-
-    // Creo que mee tinca mas q reciba un skill
-    // y retorno el deckelement que tenga el mismo nombre de clase
-    // que el string
     public DeckElement GetDeckElementDos(string deckElementName)
     {
         DeckElement r = null;
@@ -338,8 +274,7 @@ public class Player
     public List<Card> GetAvailableReversals(Card cardToReverse)
     {
         List<Card> availableReversals = new List<Card>();
-        List<Card> myReversals = PlayerReversals();  // puede ser vacio
-        // Console.WriteLine($"myReversals: {myReversals.Count}");
+        List<Card> myReversals = PlayerReversals();
         if (myReversals.Count > 0)
         {
             foreach (var reversalCard in myReversals)
@@ -349,7 +284,6 @@ public class Player
                 }
                 else
                 {
-                    // ReverseSKill reversalCardSkill = reversalCard.CardSkill as ReverseSKill;
                     ReverseSkill reversalCardSkill = (ReverseSkill)reversalCard.CardSkill;
                     if (reversalCardSkill.fullfillConditionOne(cardToReverse) == true)
                     {
@@ -378,9 +312,7 @@ public class Player
 
     public void MoveCardToRingside(Card cartToMove)
     {
-        // Quitarla de la mano
         DiscardCard(cartToMove);
-        // Agregarla al Ringside
         Ringside.AddCardAtTheEnd(cartToMove);
     }
 
@@ -424,9 +356,4 @@ public class Player
             }
         }
     }
-
-
-
-    // Se asume que la carta de mas arriba es la PRIMERA. Asi al sacar la primera es la de mas arriba
-    // Roban mano inicial
 }

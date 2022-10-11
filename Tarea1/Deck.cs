@@ -25,7 +25,6 @@ public class Deck
         return Cards;
     }
     
-    // No Funciona xD    
     public void ShuffleCards()
     {
         Random rnd = new Random();
@@ -69,43 +68,32 @@ public class Deck
         bool deckIsCorrect = true;
         for (int firstCardPosition = 0; firstCardPosition < Cards.Length; firstCardPosition++)
         {   
-            // Console.WriteLine("Principio del for grande, antes del segundo for");
             int firstCardCounter = 1;
             Card firstCard = Cards[firstCardPosition];
             string firstCardname = firstCard.Title;
             for (int secondCardPosition = 0; secondCardPosition < Cards.Length; secondCardPosition++)
             {
                 string secondCardName = Cards[secondCardPosition].Title;
-                // Reviso posicion contraria a la mia
                 if (firstCardPosition != secondCardPosition)
                 {
-                    // Si tienen nombres iguales
                     if (secondCardName == firstCardname)
                     {
                         firstCardCounter++;
-                        // Console.WriteLine($"REPEATED CARD: {secondCardName} from deck {SuperStar.Type} ");
                     }
                 }
             }
-            // Console.WriteLine("Dp de que termino el segundo for, ya se reviso todo el mazo para una carta");
-            // Console.WriteLine($"Contador: {firstCardCounter}");
             if (firstCard.Subtypes.Contains("Unique"))
             {
                 if (firstCardCounter > 1)
                 {
-                    // Console.WriteLine($"{SuperStar.Type} falla en cartas repetidas");
-
                     deckIsCorrect = false;
                     break;
                 }
             }
             else if (firstCard.Subtypes.Contains("SetUp") == false)
             {
-                // Console.WriteLine($"BOOLEANO !IF: ({firstCard.Subtypes.Contains("SetUp")})");
                 if (firstCardCounter > 3)
                 {
-                    // Console.WriteLine($"{SuperStar.Type} falla en cartas repetidas");
-
                     deckIsCorrect = false;
                     break;
                 }
@@ -120,8 +108,6 @@ public class Deck
         bool faceExits = checkIfFaceExists();
         if (heelExists && faceExits)
         {
-            // Console.WriteLine($"{SuperStar.Type} falla en que tiene heel y face");
-
             return false;
         }
         else
@@ -166,8 +152,6 @@ public class Deck
         {
             if (logoName != superstarName)
             {
-                // Console.WriteLine($"{SuperStar.Type} falla en tener logo incorrecto");
-
                 logoIsCorrect = false;
             }
         }
@@ -206,10 +190,6 @@ public class Deck
         {
             return "Kane";
         }
-        // else if (notFilteredSuperstarName == "KANE")
-        // {
-        //     return "Kane";
-        // }
     }
 
     public List<string> allLogosFoundInDeck()
@@ -224,7 +204,6 @@ public class Deck
             {
                 logosFoundInDeck.Add(superstarName);
             }
-            // Si carta.subtypes contiene cualquier
         }
 
         return logosFoundInDeck;

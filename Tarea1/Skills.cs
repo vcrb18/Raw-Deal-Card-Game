@@ -21,7 +21,7 @@ public class Ignore : Skill
 
 public class SuperStarSkill : Skill
 {
-    public string UseCondition; // Metodo asociado
+    public string UseCondition;
     public string WhenCondition;
 
     public SuperStarSkill(string useCondition, string whenCondition)
@@ -50,7 +50,6 @@ public class HHHSkill : SuperStarSkill
 
 public class KaneSkill : SuperStarSkill
 {
-    // UseCondition = beginning
     private Card auxiliar = new Card(null, null, null, null, null, null, null, null, null);
     public KaneSkill(string useCondition, string whenCondition)
     : base(useCondition, whenCondition)
@@ -72,14 +71,12 @@ public class JerichoSkill : SuperStarSkill
 
     public override void UseAbility(Player player, Player opponent)
     {
-        // Player discard card
         List<Card> playerHand = player.MyHand.Cards;
         Vista.InformThatPlayerMustDiscard(player, 1);
         int choosenIdPlayer = Vista.ChooseCardIDToDiscard(playerHand);
         Card playerChoosenCardToDiscard = playerHand[choosenIdPlayer];
         player.DiscardCard(playerChoosenCardToDiscard);
         
-        // Opponent discard card
         List<Card> opponentHand = opponent.MyHand.Cards;
         Vista.InformThatPlayerMustDiscard(opponent, 1);
         int choosenIdOpponent = Vista.ChooseCardIDToDiscard(opponentHand);
@@ -97,11 +94,9 @@ public class StoneColdSkill : SuperStarSkill
 
     public override void UseAbility(Player player, Player opponent)
     {
-        // Player draw a card
         Vista.InformThatPlayerCanDrawCard(player, 1);
         player.DrawCards(1);
         
-        // Player discard card TO BOTTOM ARSENAL
         List<Card> playerHand = player.MyHand.Cards;
         Vista.InformThatPlayerMustDiscard(opponent, 1);
         int choosenIdPlayer = Vista.ChooseCardIDToDiscard(playerHand);
@@ -120,7 +115,6 @@ public class UndertakerSkill : SuperStarSkill
 
     public override void UseAbility(Player player, Player opponent)
     {
-        // Player discard TWO cards
         List<Card> playerHand = player.MyHand.Cards;
         for (int i = 2; i > 0; i--)
         {
@@ -128,12 +122,7 @@ public class UndertakerSkill : SuperStarSkill
             int choosenIdPlayer = Vista.ChooseCardIDToDiscard(playerHand);
             Card playerChoosenCardToDiscard = playerHand[choosenIdPlayer];
             player.DiscardCard(playerChoosenCardToDiscard);
-            
-            // TENGO QUE VOLVER A INFROMAR
         }
-        
-        // Player choose 1 card from Ringside
-        // and put it on the hand
         List<Card> playerRingsideCards = player.Ringside.Cards;
         int choosenIdCard = Vista.PlayerCanTakeACard(player, playerRingsideCards, 1);
         Card choosenCard = playerRingsideCards[choosenIdCard];
@@ -151,13 +140,10 @@ public class TheRockSkill : SuperStarSkill
 
     public override void UseAbility(Player player, Player opponent)
     {
-        // Player choose 1 card from Ringside
         List<Card> playerRingsideCards = player.Ringside.Cards;
         int choosenIdCard = Vista.PlayerCanTakeACard(player, playerRingsideCards, 1);
         Card choosenCard = playerRingsideCards[choosenIdCard];
         player.TakeCardFromRingside(choosenCard);
-        
-        // and put it on the BOTTOM of the arsenal
         player.MoveCardToBottomArsenal(choosenCard);
 
     }
@@ -222,7 +208,6 @@ public class ReverseCalledCleanBreak : ReverseSkill
 
     public override void UseAbility(Player player, Player opponent)
     {
-        // Opponent discards FOUR cards
         List<Card> opponentHand = player.MyHand.Cards;
         for (int i = 4; i > 0; i--)
         {
@@ -277,8 +262,6 @@ public class ReverseAnyManeuverSpecial : ReverseSkill
     }
 }
 
-// Agregar clase que  hereda de esta y le mete la condicion del 7 daño, que sea parte de la condition one
-// o pa q se cumpla la condicion one agregarle otra.
 public class ReverseSubtypeManeuver : ReverseSkill
 {
     public string SubtypeManeuver;
@@ -361,11 +344,6 @@ public class ReverseNotImplemented : ReverseSkill
 public class ReverseSpecificCard : ReverseSkill
 {
     public string CardTitle { get; set; }
-
-    // public ReverseSpecificCard(string cardTitle)
-    // {
-    //     CardTitle = cardTitle;
-    // }
 
     public override bool fullfillConditionOne(Card cardToReverse)
     {

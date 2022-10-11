@@ -97,9 +97,6 @@ public class Vista
         Console.WriteLine("(Enter a number between 1 and 24)");
         int choosenDeck = AskForNumber(1, 20);
         string choosenDeckInString = choosenDeck.ToString().PadLeft(2, '0');
-        // string deckStringName = decksDict[choosenDeck];
-        // Otro modulo que se encargue de buscar el mazo.
-        // return deckStringName;
         return choosenDeckInString.ToString();
     }
 
@@ -121,7 +118,7 @@ public class Vista
     {
         Console.WriteLine($"{player.Deck.SuperStar.Type} Can use the Superstar ability:");
         Console.WriteLine($"{player.Deck.SuperStar.SuperStarAbility}");
-        Console.WriteLine(". What do you want to do?");
+        Console.WriteLine("What do you want to do?");
         Console.WriteLine("     0. Do not use the ability");
         Console.WriteLine("     1. Use the ability");
         Console.WriteLine("(Enter a number between 0 and 1)");
@@ -132,32 +129,13 @@ public class Vista
     {
         int choosenOption;
         bool incorrectOption = true;
-        // do
-        // {
             superStarsFaceEachOther(player, opponent);
             Console.WriteLine($"{player.Deck.SuperStar.Type} plays. What do you want to do?");
-            // Console.WriteLine("     0. Use your super ability");
             Console.WriteLine("     1. See your cards or the cards from the opponent");
             Console.WriteLine("     2. Play a card");
             Console.WriteLine("     3. End your turn");
             Console.WriteLine("(Enter a number between 0 and 3)");
-            // choosenOption = AskForNumber(0, 3);
             choosenOption = AskForNumber(1, 3);
-        //     if (choosenOption == 1)
-        //     {
-        //         WhatCardsoSee(player, opponent);
-        //         incorrectOption = true;                                  
-        //     }
-        //     else if (choosenOption == 2)
-        //     {
-        //         incorrectOption = false;
-        //     }
-        //     else
-        //     {
-        //         // TurnForPlayerEnds(player);
-        //         incorrectOption = false;
-        //     }
-        // // } while (incorrectOption == true);
         return choosenOption;
     }
     
@@ -165,8 +143,6 @@ public class Vista
     {
         int choosenOption;
         bool incorrectOption = true;
-        // do
-        // {
         superStarsFaceEachOther(player, opponent);
         Console.WriteLine($"{player.Deck.SuperStar.Type} plays. What do you want to do?");
         Console.WriteLine("     0. Use your super ability");
@@ -175,21 +151,6 @@ public class Vista
         Console.WriteLine("     3. End your turn");
         Console.WriteLine("(Enter a number between 0 and 3)");
         choosenOption = AskForNumber(0, 3);
-        //     if (choosenOption == 1)
-        //     {
-        //         WhatCardsoSee(player, opponent);
-        //         incorrectOption = true;                                  
-        //     }
-        //     else if (choosenOption == 2)
-        //     {
-        //         incorrectOption = false;
-        //     }
-        //     else
-        //     {
-        //         // TurnForPlayerEnds(player);
-        //         incorrectOption = false;
-        //     }
-        // // } while (incorrectOption == true);
         return choosenOption;
     }
 
@@ -253,9 +214,9 @@ public class Vista
         {
             Console.WriteLine($"------------- Card #{counter}");
             Console.WriteLine($"Title: {card.Title}");
-            Console.WriteLine($"Stats: [{card.Fortitude}F/{card.Damage}D/{card.StunValue}SV");
-            Console.WriteLine($"Types: {card.Types}");
-            Console.WriteLine($"Subtypes: {card.Subtypes}");
+            Console.WriteLine($"Stats: [{card.Fortitude}F/{card.Damage}D/{card.StunValue}SV]");
+            Console.WriteLine($"Types: {string.Join(", ", card.Types)}");
+            Console.WriteLine($"Subtypes: {string.Join(", ", card.Subtypes)}");
             Console.WriteLine($"Effect: {card.CardEffect}");
             counter++;
         }
@@ -275,9 +236,9 @@ public class Vista
             Console.WriteLine($"------------- Card #{counter}");
             Console.WriteLine($"Play this card as a [MANEUVER]");
             Console.WriteLine($"Title: {card.Title}");
-            Console.WriteLine($"Stats: [{card.Fortitude}F/{card.Damage}D/{card.StunValue}SV");
-            Console.WriteLine($"Types: {card.Types}");
-            Console.WriteLine($"Subtypes: {card.Subtypes}");
+            Console.WriteLine($"Stats: [{card.Fortitude}F/{card.Damage}D/{card.StunValue}SV]");
+            Console.WriteLine($"Types: {string.Join(", ", card.Types)}");
+            Console.WriteLine($"Subtypes: {string.Join(", ", card.Subtypes)}");
             Console.WriteLine($"Effect: {card.CardEffect}");
             counter++;
         }
@@ -310,9 +271,9 @@ public class Vista
         {
             Console.WriteLine($"------------- Card #{counter}");
             Console.WriteLine($"Title: {card.Title}");
-            Console.WriteLine($"Stats: [{card.Fortitude}F/{card.Damage}D/{card.StunValue}SV");
-            Console.WriteLine($"Types: {card.Types}");
-            Console.WriteLine($"Subtypes: {card.Subtypes}");
+            Console.WriteLine($"Stats: [{card.Fortitude}F/{card.Damage}D/{card.StunValue}SV]");
+            Console.WriteLine($"Types: {string.Join(", ", card.Types)}");
+            Console.WriteLine($"Subtypes: {string.Join(", ", card.Subtypes)}");
             Console.WriteLine($"Effect: {card.CardEffect}");
             counter++;
         }
@@ -328,9 +289,9 @@ public class Vista
         {
             Console.WriteLine($"------------- Card #{counter}");
             Console.WriteLine($"Title: {card.Title}");
-            Console.WriteLine($"Stats: [{card.Fortitude}F/{card.Damage}D/{card.StunValue}SV");
-            Console.WriteLine($"Types: {card.Types}");
-            Console.WriteLine($"Subtypes: {card.Subtypes}");
+            Console.WriteLine($"Stats: [{card.Fortitude}F/{card.Damage}D/{card.StunValue}SV]");
+            Console.WriteLine($"Types: {string.Join(", ", card.Types)}");
+            Console.WriteLine($"Subtypes: {string.Join(", ", card.Subtypes)}");
             Console.WriteLine($"Effect: {card.CardEffect}");
             counter++;
         }
@@ -346,8 +307,8 @@ public class Vista
         Console.WriteLine($"{player.Deck.SuperStar} tries to play the following card as [MANEUVER]");
         Console.WriteLine($"Title: {cardToPlay.Title}");
         Console.WriteLine($"Stats: [{cardToPlay.Fortitude}F/{cardToPlay.Damage}D/{cardToPlay.StunValue}SV");
-        Console.WriteLine($"Types: {cardToPlay.Types}");
-        Console.WriteLine($"Subtypes: {cardToPlay.Subtypes}");
+        Console.WriteLine($"Types: {string.Join(", ", cardToPlay.Types)}");
+        Console.WriteLine($"Subtypes: {string.Join(", ", cardToPlay.Subtypes)}");
         Console.WriteLine($"Effect: {cardToPlay.CardEffect}");
     }
 
@@ -358,7 +319,7 @@ public class Vista
 
     public static void NoAvailableReversalToPlay()
     {
-        Console.WriteLine("I am sorry, but there is notghing you can play");
+        Console.WriteLine("I am sorry, but there is nothing you can play");
     }
     
 
@@ -367,9 +328,9 @@ public class Vista
         Console.WriteLine("------------------------------------");
         Console.WriteLine($"{opponent.Deck.SuperStar.Type} does not reverse the card from {player.Deck.SuperStar.Type}. The card {playedCard.Title} [MANEUVER] is succesfully played.");
         Console.WriteLine($"Title: {playedCard.Title}");
-        Console.WriteLine($"Stats: [{playedCard.Fortitude}F/{playedCard.Damage}D/{playedCard.StunValue}SV");
-        Console.WriteLine($"Types: {playedCard.Types}");
-        Console.WriteLine($"Subtypes: {playedCard.Subtypes}");
+        Console.WriteLine($"Stats: [{playedCard.Fortitude}F/{playedCard.Damage}D/{playedCard.StunValue}SV]");
+        Console.WriteLine($"Types: {string.Join(", ", playedCard.Types)}");
+        Console.WriteLine($"Subtypes: {string.Join(", ", playedCard.Subtypes)}");
         Console.WriteLine($"Effect: {playedCard.CardEffect}");
     }
 
@@ -391,9 +352,9 @@ public class Vista
     {
         Console.WriteLine($"------------------------------------ {actualDamage}/{totalDamage} damage");
         Console.WriteLine($"Title: {droppedCard.Title}");
-        Console.WriteLine($"Stats: [{droppedCard.Fortitude}F/{droppedCard.Damage}D/{droppedCard.StunValue}SV");
-        Console.WriteLine($"Types: {droppedCard.Types}");
-        Console.WriteLine($"Subtypes: {droppedCard.Subtypes}");
+        Console.WriteLine($"Stats: [{droppedCard.Fortitude}F/{droppedCard.Damage}D/{droppedCard.StunValue}SV]");
+        Console.WriteLine($"Types: {string.Join(", ", droppedCard.Types)}");
+        Console.WriteLine($"Subtypes: {string.Join(", ", droppedCard.Subtypes)}");
         Console.WriteLine($"Effect: {droppedCard.CardEffect}");
     }
 
@@ -419,7 +380,7 @@ public class Vista
     public static void PlayAReversalFromHand(Card reversalCard)
     {
         Console.WriteLine("------------------------------------");
-        Console.WriteLine("Jugar esta carta como un [REVERSAL]");
+        Console.WriteLine("Play this card as a[REVERSAL]");
         CardDescription(reversalCard);
     }
 
@@ -431,9 +392,9 @@ public class Vista
     public static void CardDescription(Card card)
     {
         Console.WriteLine($"Title: {card.Title}");
-        Console.WriteLine($"Stats: [{card.Fortitude}F/{card.Damage}D/{card.StunValue}SV");
-        Console.WriteLine($"Types: {card.Types}");
-        Console.WriteLine($"Subtypes: {card.Subtypes}");
+        Console.WriteLine($"Stats: [{card.Fortitude}F/{card.Damage}D/{card.StunValue}SV]");
+        Console.WriteLine($"Types: {string.Join(", ", card.Types)}");
+        Console.WriteLine($"Subtypes: {string.Join(", ", card.Subtypes)}");
         Console.WriteLine($"Effect: {card.CardEffect}");
     }
 
