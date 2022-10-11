@@ -56,7 +56,6 @@ public class Deck
     {
         if (Cards.Length != 60)
         {
-            Console.WriteLine($"{SuperStar.Type} falla en 60 cartas");
             return false;
         }
         else
