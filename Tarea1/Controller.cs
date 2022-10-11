@@ -837,6 +837,14 @@ public class Controller
                 if (gameOn == false)
                 {
                     Console.WriteLine("A player died. GAME OVER");
+                    if (starter.Arsenal.Cards.Count == 0)
+                    {
+                        Vista.PlayerWins(notStarter);
+                    }
+                    else
+                    {
+                        Vista.PlayerWins(starter);
+                    }
                     break;
                 }
                 caseOne = false;
@@ -853,6 +861,14 @@ public class Controller
                 if (gameOn == false)
                 {
                     Console.WriteLine("A player died. GAME OVER");
+                    if (starter.Arsenal.Cards.Count == 0)
+                    {
+                        Vista.PlayerWins(notStarter);
+                    }
+                    else
+                    {
+                        Vista.PlayerWins(starter);
+                    }
                     break;
                 }
                 caseOne = true;

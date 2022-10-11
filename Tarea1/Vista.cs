@@ -442,5 +442,11 @@ public class Vista
         Console.WriteLine("------------------------------------");
         Console.WriteLine($"{player.Deck.SuperStar.Type} draws {stunValue} cards because of the Stun Value");
     }
+
+    public static void PlayerWins(Player winner)
+    {
+        Console.WriteLine("------------------------------------");
+        Console.WriteLine($"The player {winner.Deck.SuperStar.Type} WINS!");
+    }
     
 }
